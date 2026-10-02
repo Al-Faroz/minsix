@@ -182,17 +182,31 @@ class Home extends SiteController
 
         $rows = $builder->limit($limit)->get()->getResultArray();
 
-        return array_values(array_filter($rows, static function (array $row): bool {
-            if (! empty($row['relative_path'])) {
-                return true;
+        foreach ($rows as &$row) {
+            $children = [];
+            if (! empty($row['children_json'])) {
+                $decoded = json_decode((string) $row['children_json'], true);
+                $children = is_array($decoded) ? array_values(array_filter($decoded, 'is_array')) : [];
             }
 
-            if (! empty($row['thumbnail_url'])) {
-                return true;
-            }
+            $row['carousel_children'] = $children;
+            $row['carousel_count'] = count($children);
+            $row['display_media_url'] = $row['relative_path']
+                ?: ($row['thumbnail_url'] ?: $row['media_url']);
 
-            return ! empty($row['media_url']);
-        }));
+            if (empty($row['display_media_url']) && $children !== []) {
+                foreach ($children as $child) {
+                    $candidate = trim((string) (($child['thumbnail_url'] ?? '') ?: ($child['media_url'] ?? '')));
+                    if ($candidate !== '') {
+                        $row['display_media_url'] = $candidate;
+                        break;
+                    }
+                }
+            }
+        }
+        unset($row);
+
+        return array_values(array_filter($rows, static fn (array $row): bool => ! empty($row['display_media_url'])));
     }
 
     private function sectionMedia(array $sections): array
