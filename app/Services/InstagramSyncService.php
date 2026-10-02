@@ -19,13 +19,18 @@ class InstagramSyncService
 
         if ($configService->state()['connection_present']) {
             $refresh = $oauth->ensureFreshToken();
-            if (! ($refresh['ok'] ?? false) && $mode !== 'MANUAL') {
-                return [
-                    'ok' => false,
-                    'skipped' => false,
-                    'count' => 0,
-                    'message' => (string) ($refresh['message'] ?? 'Token Instagram perlu dihubungkan ulang.'),
-                ];
+            if (! ($refresh['ok'] ?? false)) {
+                if ($mode !== 'MANUAL' && ! $configService->isConnected()) {
+                    return [
+                        'ok' => false,
+                        'skipped' => false,
+                        'count' => 0,
+                        'message' => (string) ($refresh['message'] ?? 'Token Instagram perlu dihubungkan ulang.'),
+                    ];
+                }
+                log_message('warning', 'Refresh token Instagram dilewati/gagal tetapi token saat ini masih valid: {message}', [
+                    'message' => (string) ($refresh['message'] ?? 'unknown'),
+                ]);
             }
         }
 
@@ -180,7 +185,7 @@ class InstagramSyncService
         }
 
         $refresh = (new InstagramOAuthService())->ensureFreshToken();
-        if (! ($refresh['ok'] ?? false)) {
+        if (! ($refresh['ok'] ?? false) && ! $configService->isConnected()) {
             return ['ok' => false, 'rows' => [], 'message' => (string) ($refresh['message'] ?? 'Token Instagram tidak valid.')];
         }
 
