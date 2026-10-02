@@ -95,7 +95,7 @@ class AchievementController extends BaseController
             ? ($achievement['published_at'] ?: date('Y-m-d H:i:s'))
             : null;
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title'), $id),
             'title' => trim((string) $this->request->getPost('title')),
             'participant_name' => trim((string) $this->request->getPost('participant_name')),
@@ -115,6 +115,10 @@ class AchievementController extends BaseController
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
 
+        if ($updated === false) {
+            return redirect()->back()->withInput()->with('error', 'Prestasi gagal diperbarui.');
+        }
+
         $this->audit($id, 'ACHIEVEMENT_UPDATED', 'Prestasi diperbarui.');
         return redirect()->to(site_url('manager/achievements'))->with('success', 'Prestasi berhasil diperbarui.');
     }
@@ -128,7 +132,10 @@ class AchievementController extends BaseController
             return redirect()->to(site_url('manager/achievements'))->with('error', 'Prestasi tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/achievements'))->with('error', 'Prestasi gagal dihapus.');
+        }
+
         $this->audit($id, 'ACHIEVEMENT_DELETED', 'Prestasi dihapus: ' . $achievement['title']);
         return redirect()->to(site_url('manager/achievements'))->with('success', 'Prestasi berhasil dihapus.');
     }

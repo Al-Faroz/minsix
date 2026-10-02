@@ -96,7 +96,7 @@ class EventController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Waktu selesai tidak boleh lebih awal dari waktu mulai.');
         }
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title'), $id),
             'title' => trim((string) $this->request->getPost('title')),
             'summary' => trim((string) $this->request->getPost('summary')),
@@ -108,6 +108,10 @@ class EventController extends BaseController
             'status' => (string) $this->request->getPost('status'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->withInput()->with('error', 'Agenda gagal diperbarui.');
+        }
 
         $this->audit($id, 'EVENT_UPDATED', 'Agenda diperbarui.');
         return redirect()->to(site_url('manager/events'))->with('success', 'Agenda berhasil diperbarui.');
@@ -122,7 +126,10 @@ class EventController extends BaseController
             return redirect()->to(site_url('manager/events'))->with('error', 'Agenda tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/events'))->with('error', 'Agenda gagal dihapus.');
+        }
+
         $this->audit($id, 'EVENT_DELETED', 'Agenda dihapus: ' . $event['title']);
         return redirect()->to(site_url('manager/events'))->with('success', 'Agenda berhasil dihapus.');
     }

@@ -90,7 +90,7 @@ class NewsController extends BaseController
             $publishedAt = $this->dateTimeOrNow($this->request->getPost('published_at'), $news['published_at']);
         }
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title'), $id),
             'title' => trim((string) $this->request->getPost('title')),
             'summary' => trim((string) $this->request->getPost('summary')),
@@ -103,6 +103,10 @@ class NewsController extends BaseController
             'og_media_id' => $this->validImageId($this->request->getPost('og_media_id')),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->withInput()->with('error', 'Berita gagal diperbarui.');
+        }
 
         $this->audit($id, 'NEWS_UPDATED', 'Berita diperbarui.');
         return redirect()->to(site_url('manager/news'))->with('success', 'Berita berhasil diperbarui.');
@@ -117,7 +121,10 @@ class NewsController extends BaseController
             return redirect()->to(site_url('manager/news'))->with('error', 'Berita tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/news'))->with('error', 'Berita gagal dihapus.');
+        }
+
         $this->audit($id, 'NEWS_DELETED', 'Berita dihapus: ' . $news['title']);
         return redirect()->to(site_url('manager/news'))->with('success', 'Berita berhasil dihapus.');
     }

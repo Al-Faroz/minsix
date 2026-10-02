@@ -43,6 +43,10 @@ class GtkRoleController extends BaseController
             'is_active' => 1,
         ]);
 
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Jabatan gagal disimpan.');
+        }
+
         $this->audit((int) $id, 'GTK_ROLE_CREATED', 'Jabatan GTK dibuat: ' . $name);
 
         return redirect()->to(site_url('manager/gtk-roles'))->with('success', 'Jabatan berhasil ditambahkan.');
@@ -67,12 +71,16 @@ class GtkRoleController extends BaseController
             return redirect()->back()->with('error', 'Nama jabatan sudah digunakan.');
         }
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'role_name' => $name,
             'category' => (string) $this->request->getPost('category'),
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
             'is_active' => $this->request->getPost('is_active') ? 1 : 0,
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Jabatan gagal diperbarui.');
+        }
 
         $this->audit($id, 'GTK_ROLE_UPDATED', 'Jabatan GTK diperbarui: ' . $name);
 
@@ -93,7 +101,10 @@ class GtkRoleController extends BaseController
             return redirect()->to(site_url('manager/gtk-roles'))->with('error', 'Jabatan masih digunakan oleh GTK dan tidak dapat dihapus.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/gtk-roles'))->with('error', 'Jabatan gagal dihapus.');
+        }
+
         $this->audit($id, 'GTK_ROLE_DELETED', 'Jabatan GTK dihapus: ' . $role['role_name']);
 
         return redirect()->to(site_url('manager/gtk-roles'))->with('success', 'Jabatan berhasil dihapus.');

@@ -104,7 +104,7 @@ class GalleryController extends BaseController
             ? ($gallery['published_at'] ?: date('Y-m-d H:i:s'))
             : null;
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title'), $id),
             'title' => trim((string) $this->request->getPost('title')),
             'gallery_date' => $this->request->getPost('gallery_date') ?: null,
@@ -114,6 +114,10 @@ class GalleryController extends BaseController
             'published_at' => $publishedAt,
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->withInput()->with('error', 'Galeri gagal diperbarui.');
+        }
 
         $this->audit($id, 'GALLERY_UPDATED', 'Album galeri diperbarui.');
         return redirect()->to(site_url('manager/galleries/' . $id . '/edit'))->with('success', 'Galeri berhasil diperbarui.');
@@ -128,7 +132,10 @@ class GalleryController extends BaseController
             return redirect()->to(site_url('manager/galleries'))->with('error', 'Galeri tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/galleries'))->with('error', 'Galeri gagal dihapus.');
+        }
+
         $this->audit($id, 'GALLERY_DELETED', 'Album galeri dihapus: ' . $gallery['title']);
 
         return redirect()->to(site_url('manager/galleries'))->with('success', 'Album galeri berhasil dihapus. File media tetap tersimpan.');
@@ -197,11 +204,16 @@ class GalleryController extends BaseController
             return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
-        $model->update($itemId, [
+        $updated = $model->update($itemId, [
             'caption' => trim((string) $this->request->getPost('caption')),
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
         ]);
 
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Item galeri gagal diperbarui.');
+        }
+
+        $this->audit($galleryId, 'GALLERY_ITEM_UPDATED', 'Item galeri diperbarui.');
         return redirect()->to(site_url('manager/galleries/' . $galleryId . '/edit'))->with('success', 'Item galeri diperbarui.');
     }
 
@@ -214,7 +226,10 @@ class GalleryController extends BaseController
             return redirect()->back()->with('error', 'Item galeri tidak ditemukan.');
         }
 
-        $model->delete($itemId);
+        if ($model->delete($itemId) === false) {
+            return redirect()->back()->with('error', 'Foto gagal dilepas dari album.');
+        }
+
         $this->audit($galleryId, 'GALLERY_ITEM_REMOVED', 'Foto dilepas dari album. File media tidak dihapus.');
 
         return redirect()->to(site_url('manager/galleries/' . $galleryId . '/edit'))->with('success', 'Foto dilepas dari album.');

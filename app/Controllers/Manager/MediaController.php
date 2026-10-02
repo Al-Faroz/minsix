@@ -139,10 +139,14 @@ class MediaController extends BaseController
             return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'alt_text' => trim((string) $this->request->getPost('alt_text')),
             'caption' => trim((string) $this->request->getPost('caption')),
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Metadata media gagal diperbarui.');
+        }
 
         $this->audit('MEDIA_UPDATED', $id, 'Metadata media diperbarui.');
         return redirect()->to(site_url('manager/media'))->with('success', 'Metadata media berhasil diperbarui.');
@@ -165,11 +169,14 @@ class MediaController extends BaseController
         $uploadBase = realpath(FCPATH . 'uploads');
         $fullPath = realpath(FCPATH . str_replace('/', DIRECTORY_SEPARATOR, $media['relative_path']));
 
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/media'))->with('error', 'Media gagal dihapus.');
+        }
+
         if ($uploadBase && $fullPath && str_starts_with($fullPath, $uploadBase . DIRECTORY_SEPARATOR) && is_file($fullPath)) {
             @unlink($fullPath);
         }
 
-        $model->delete($id);
         $this->audit('MEDIA_DELETED', $id, 'Media dihapus: ' . $media['original_name']);
 
         return redirect()->to(site_url('manager/media'))->with('success', 'Media berhasil dihapus.');

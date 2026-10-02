@@ -58,6 +58,10 @@ class ProgramController extends BaseController
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
 
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Program gagal disimpan.');
+        }
+
         $this->audit((int) $id, 'PROGRAM_CREATED', 'Program dibuat.');
 
         return redirect()->to(site_url('manager/programs'))->with('success', 'Program berhasil ditambahkan.');
@@ -95,7 +99,7 @@ class ProgramController extends BaseController
             $publishedAt = null;
         }
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('name'), $id),
             'name' => trim((string) $this->request->getPost('name')),
             'category' => (string) $this->request->getPost('category'),
@@ -107,6 +111,10 @@ class ProgramController extends BaseController
             'published_at' => $publishedAt,
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($updated === false) {
+            return redirect()->back()->withInput()->with('error', 'Program gagal diperbarui.');
+        }
 
         $this->audit($id, 'PROGRAM_UPDATED', 'Program diperbarui.');
 
@@ -122,7 +130,10 @@ class ProgramController extends BaseController
             return redirect()->to(site_url('manager/programs'))->with('error', 'Program tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/programs'))->with('error', 'Program gagal dihapus.');
+        }
+
         $this->audit($id, 'PROGRAM_DELETED', 'Program dihapus: ' . $program['name']);
 
         return redirect()->to(site_url('manager/programs'))->with('success', 'Program berhasil dihapus.');

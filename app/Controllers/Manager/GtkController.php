@@ -64,6 +64,11 @@ class GtkController extends BaseController
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
 
+        if ($id === false) {
+            $db->transComplete();
+            return redirect()->back()->withInput()->with('error', 'Data GTK gagal disimpan.');
+        }
+
         $this->syncRoles((int) $id, $this->request->getPost('role_ids') ?? []);
         $db->transComplete();
 
@@ -112,7 +117,7 @@ class GtkController extends BaseController
         $db = db_connect();
         $db->transStart();
 
-        $model->update($id, [
+        $updated = $model->update($id, [
             'name' => $name,
             'front_title' => trim((string) $this->request->getPost('front_title')),
             'back_title' => trim((string) $this->request->getPost('back_title')),
@@ -122,6 +127,11 @@ class GtkController extends BaseController
             'is_active' => $this->request->getPost('is_active') ? 1 : 0,
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($updated === false) {
+            $db->transComplete();
+            return redirect()->back()->withInput()->with('error', 'Data GTK gagal diperbarui.');
+        }
 
         $this->syncRoles($id, $this->request->getPost('role_ids') ?? []);
         $db->transComplete();
@@ -144,7 +154,10 @@ class GtkController extends BaseController
             return redirect()->to(site_url('manager/gtk'))->with('error', 'GTK tidak ditemukan.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/gtk'))->with('error', 'GTK gagal dihapus.');
+        }
+
         $this->audit($id, 'GTK_DELETED', 'GTK dihapus: ' . $gtk['name']);
 
         return redirect()->to(site_url('manager/gtk'))->with('success', 'GTK berhasil dihapus.');
