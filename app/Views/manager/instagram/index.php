@@ -71,10 +71,12 @@
     <?php if ($apiPosts === []): ?>
         <div class="empty-state">Belum ada cache Instagram API.</div>
     <?php else: ?>
-        <div class="table-wrap"><table class="cms-table"><thead><tr><th>Media ID</th><th>Type</th><th>Terbit</th><th>Fetch</th><th>Permalink</th></tr></thead><tbody>
+        <div class="table-wrap"><table class="cms-table"><thead><tr><th>Media ID</th><th>Type</th><th>Items</th><th>Terbit</th><th>Fetch</th><th>Permalink</th></tr></thead><tbody>
         <?php foreach ($apiPosts as $post): ?><tr>
             <td><?= esc($post['instagram_media_id'] ?: '—') ?></td>
             <td><?= esc($post['media_type'] ?: '—') ?></td>
+            <?php $children = ! empty($post['children_json']) ? json_decode((string) $post['children_json'], true) : []; ?>
+            <td><?= is_array($children) && $children !== [] ? count($children) : 1 ?></td>
             <td><?= $post['published_at'] ? esc(date('d-m-Y H:i', strtotime($post['published_at']))) : '—' ?></td>
             <td><?= $post['fetched_at'] ? esc(date('d-m-Y H:i', strtotime($post['fetched_at']))) : '—' ?></td>
             <td><?php if ($post['permalink']): ?><a class="text-link" href="<?= esc($post['permalink']) ?>" target="_blank" rel="noopener">Buka ↗</a><?php else: ?>—<?php endif ?></td>
