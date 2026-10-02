@@ -30,9 +30,11 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $navActive('manager/profile') ?>" href="<?= site_url('manager/profile') ?>">Profil</a>
             <a class="nav-item<?= $navActive('manager/programs') ?>" href="<?= site_url('manager/programs') ?>">Program</a>
             <a class="nav-item<?= $navActive('manager/gtk') . $navActive('manager/gtk-roles') ?>" href="<?= site_url('manager/gtk') ?>">GTK</a>
-            <?php foreach (['Berita','Agenda','Prestasi','Galeri','SPMB'] as $item): ?>
-                <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
-            <?php endforeach ?>
+            <a class="nav-item<?= $navActive('manager/news') ?>" href="<?= site_url('manager/news') ?>">Berita</a>
+            <a class="nav-item<?= $navActive('manager/events') ?>" href="<?= site_url('manager/events') ?>">Agenda</a>
+            <a class="nav-item<?= $navActive('manager/achievements') ?>" href="<?= site_url('manager/achievements') ?>">Prestasi</a>
+            <button class="nav-item disabled" type="button" disabled><span>Galeri</span><small>4B</small></button>
+            <button class="nav-item disabled" type="button" disabled><span>SPMB</span><small>Segera</small></button>
             <a class="nav-item<?= $navActive('manager/media') ?>" href="<?= site_url('manager/media') ?>">Media</a>
             <button class="nav-item disabled" type="button" disabled><span>Instagram Content</span><small>Segera</small></button>
 
@@ -46,7 +48,7 @@ $navActive = static fn (string $prefix): string =>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 3</span><strong>Profil · Program · GTK</strong></div>
+        <div class="sidebar-foot"><span>PHASE 4A</span><strong>Berita · Agenda · Prestasi</strong></div>
     </aside>
 
     <div class="content-wrap">

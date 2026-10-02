@@ -37,6 +37,28 @@ $routes->post('manager/gtk-roles', 'Manager\GtkRoleController::create', ['filter
 $routes->post('manager/gtk-roles/(:num)', 'Manager\GtkRoleController::update/$1', ['filter' => 'auth']);
 $routes->post('manager/gtk-roles/(:num)/delete', 'Manager\GtkRoleController::delete/$1', ['filter' => 'auth']);
 
+// Kabar Madrasah: content remains manageable even when public feature is OFF.
+$routes->get('manager/news', 'Manager\\NewsController::index', ['filter' => 'auth']);
+$routes->get('manager/news/new', 'Manager\\NewsController::new', ['filter' => 'auth']);
+$routes->post('manager/news', 'Manager\\NewsController::create', ['filter' => 'auth']);
+$routes->get('manager/news/(:num)/edit', 'Manager\\NewsController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/news/(:num)', 'Manager\\NewsController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/news/(:num)/delete', 'Manager\\NewsController::delete/$1', ['filter' => 'auth']);
+
+$routes->get('manager/events', 'Manager\\EventController::index', ['filter' => 'auth']);
+$routes->get('manager/events/new', 'Manager\\EventController::new', ['filter' => 'auth']);
+$routes->post('manager/events', 'Manager\\EventController::create', ['filter' => 'auth']);
+$routes->get('manager/events/(:num)/edit', 'Manager\\EventController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/events/(:num)', 'Manager\\EventController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/events/(:num)/delete', 'Manager\\EventController::delete/$1', ['filter' => 'auth']);
+
+$routes->get('manager/achievements', 'Manager\\AchievementController::index', ['filter' => 'auth']);
+$routes->get('manager/achievements/new', 'Manager\\AchievementController::new', ['filter' => 'auth']);
+$routes->post('manager/achievements', 'Manager\\AchievementController::create', ['filter' => 'auth']);
+$routes->get('manager/achievements/(:num)/edit', 'Manager\\AchievementController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/achievements/(:num)', 'Manager\\AchievementController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/achievements/(:num)/delete', 'Manager\\AchievementController::delete/$1', ['filter' => 'auth']);
+
 // Media is content.
 $routes->get('manager/media', 'Manager\MediaController::index', ['filter' => 'auth']);
 $routes->post('manager/media/upload', 'Manager\MediaController::upload', ['filter' => 'auth']);
