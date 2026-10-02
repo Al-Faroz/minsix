@@ -261,14 +261,16 @@ $habitItems = $habits['content_data']['items'] ?? [
             <div class="instagram-carousel" data-instagram-carousel tabindex="0" aria-label="Posting Instagram MIN 6 JEMBER">
                 <?php foreach ($instagramPosts as $post): ?>
                     <?php
-                    $imageSrc = $post['relative_path'] ?: ($post['thumbnail_url'] ?: $post['media_url']);
+                    $imageSrc = $post['display_media_url'] ?? ($post['relative_path'] ?: ($post['thumbnail_url'] ?: $post['media_url']));
                     $imageUrl = preg_match('~^https?://~i', (string) $imageSrc) ? $imageSrc : base_url($imageSrc);
                     $targetUrl = $post['permalink'] ?: ($site['instagram_url'] ?? 'https://www.instagram.com/min6jember');
+                    $carouselCount = (int) ($post['carousel_count'] ?? 0);
                     ?>
                     <a class="instagram-card" href="<?= esc($targetUrl) ?>" target="_blank" rel="noopener">
                         <div class="instagram-card-media">
                             <img loading="lazy" src="<?= esc($imageUrl) ?>" alt="<?= esc($post['alt_text'] ?: 'Posting Instagram MIN 6 JEMBER') ?>">
                             <span class="instagram-mark" aria-hidden="true">IG</span>
+                            <?php if ($carouselCount > 1): ?><span class="instagram-album-badge" aria-label="<?= $carouselCount ?> media dalam post carousel">▱ <?= $carouselCount ?></span><?php endif ?>
                         </div>
                         <?php if ($post['caption']): ?><p><?= esc($post['caption']) ?></p><?php endif ?>
                     </a>
