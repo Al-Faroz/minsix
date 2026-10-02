@@ -107,7 +107,7 @@
             </div>
             <div class="field">
                 <label>CTA Utama — URL</label>
-                <input type="text" name="cta_url" maxlength="500" placeholder="/profil atau https://..." value="<?= esc($section['cta_url']) ?>">
+                <input type="text" name="cta_url" maxlength="255" placeholder="/profil atau https://..." value="<?= esc($section['cta_url']) ?>">
             </div>
             <div class="field">
                 <label>CTA Kedua — Label</label>
@@ -115,7 +115,7 @@
             </div>
             <div class="field">
                 <label>CTA Kedua — URL</label>
-                <input type="text" name="secondary_cta_url" maxlength="500" value="<?= esc($section['secondary_cta_url']) ?>">
+                <input type="text" name="secondary_cta_url" maxlength="255" value="<?= esc($section['secondary_cta_url']) ?>">
             </div>
 
             <div class="form-actions span-2"><button class="btn primary" type="submit">Simpan Section</button></div>

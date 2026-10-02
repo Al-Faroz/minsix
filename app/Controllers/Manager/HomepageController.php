@@ -48,9 +48,9 @@ class HomepageController extends BaseController
             'body' => 'permit_empty|max_length[30000]',
             'primary_media_id' => 'permit_empty|is_natural_no_zero',
             'cta_label' => 'permit_empty|max_length[120]',
-            'cta_url' => 'permit_empty|max_length[500]',
+            'cta_url' => 'permit_empty|max_length[255]',
             'secondary_cta_label' => 'permit_empty|max_length[120]',
-            'secondary_cta_url' => 'permit_empty|max_length[500]',
+            'secondary_cta_url' => 'permit_empty|max_length[255]',
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
