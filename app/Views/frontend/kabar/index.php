@@ -33,7 +33,7 @@
         <?php foreach ($events as $item): ?>
         <a class="event-row" href="<?= site_url('kabar/agenda/' . $item['slug']) ?>">
             <time><strong><?= esc(date('d', strtotime($item['start_at']))) ?></strong><span><?= esc(strtoupper(date('M Y', strtotime($item['start_at'])))) ?></span></time>
-            <div><h3><?= esc($item['title']) ?></h3><p><?= esc($item['location'] ?: 'MIN 6 Jember') ?></p></div>
+            <div><h3><?= esc($item['title']) ?></h3><p><?= esc($item['location'] ?: 'MIN 6 JEMBER') ?></p></div>
             <span>→</span>
         </a>
         <?php endforeach ?>

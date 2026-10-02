@@ -22,7 +22,7 @@
             </div>
             <div class="field">
                 <label>Judul *</label>
-                <input type="text" name="title" maxlength="255" required placeholder="Contoh: SPMB MIN 6 Jember 2026/2027" value="<?= esc(old('title', $period['title'] ?? '')) ?>">
+                <input type="text" name="title" maxlength="255" required placeholder="Contoh: SPMB MIN 6 JEMBER 2026/2027" value="<?= esc(old('title', $period['title'] ?? '')) ?>">
             </div>
 
             <div class="field">

@@ -77,12 +77,12 @@ $habitItems = $habits['content_data']['items'] ?? [
             <?php if (! empty($hero['body'])): ?><p class="hero-body"><?= nl2br(esc($hero['body'])) ?></p><?php endif ?>
             <div class="hero-actions">
                 <a class="button primary" href="<?= esc($link($hero['cta_url'], '#mengenal')) ?>"><?= esc($hero['cta_label'] ?: 'Jelajahi Madrasah') ?></a>
-                <a class="button text" href="<?= esc($link($hero['secondary_cta_url'], 'profil')) ?>"><?= esc($hero['secondary_cta_label'] ?: 'Kenali MIN 6 Jember') ?> <span aria-hidden="true">→</span></a>
+                <a class="button text" href="<?= esc($link($hero['secondary_cta_url'], 'profil')) ?>"><?= esc($hero['secondary_cta_label'] ?: 'Kenali MIN 6 JEMBER') ?> <span aria-hidden="true">→</span></a>
             </div>
         </div>
         <div class="hero-visual<?= $heroMedia ? '' : ' placeholder' ?>">
             <?php if ($heroMedia): ?>
-                <img src="<?= base_url($heroMedia['relative_path']) ?>" alt="<?= esc($heroMedia['alt_text'] ?: 'Aktivitas MIN 6 Jember') ?>">
+                <img src="<?= base_url($heroMedia['relative_path']) ?>" alt="<?= esc($heroMedia['alt_text'] ?: 'Aktivitas MIN 6 JEMBER') ?>">
             <?php else: ?>
                 <div class="visual-placeholder"><span>MIN 6</span><small>Tambahkan foto hero melalui CMS Beranda.</small></div>
             <?php endif ?>
@@ -108,10 +108,10 @@ $habitItems = $habits['content_data']['items'] ?? [
         </div>
         <div class="section-body">
             <?php $aboutBody = trim((string) ($about['body'] ?? '')) ?: trim((string) ($profileAbout['body'] ?? '')); ?>
-            <?php if ($aboutBody !== ''): ?><p><?= nl2br(esc($aboutBody)) ?></p><?php else: ?><p>MIN 6 Jember tumbuh sebagai ruang belajar yang memadukan pembelajaran, pembiasaan, nilai keislaman, kreativitas, dan prestasi.</p><?php endif ?>
+            <?php if ($aboutBody !== ''): ?><p><?= nl2br(esc($aboutBody)) ?></p><?php else: ?><p>MIN 6 JEMBER tumbuh sebagai ruang belajar yang memadukan pembelajaran, pembiasaan, nilai keislaman, kreativitas, dan prestasi.</p><?php endif ?>
             <a class="arrow-link" href="<?= esc($link($about['cta_url'], 'profil')) ?>"><?= esc($about['cta_label'] ?: 'Selengkapnya') ?> →</a>
         </div>
-        <?php if ($aboutMedia): ?><figure class="wide-photo"><img loading="lazy" src="<?= base_url($aboutMedia['relative_path']) ?>" alt="<?= esc($aboutMedia['alt_text'] ?: 'MIN 6 Jember') ?>"></figure><?php endif ?>
+        <?php if ($aboutMedia): ?><figure class="wide-photo"><img loading="lazy" src="<?= base_url($aboutMedia['relative_path']) ?>" alt="<?= esc($aboutMedia['alt_text'] ?: 'MIN 6 JEMBER') ?>"></figure><?php endif ?>
     </div>
 </section>
 
@@ -129,7 +129,7 @@ $habitItems = $habits['content_data']['items'] ?? [
                 <?php endforeach ?>
             </div>
             <div class="habit-photo<?= $habitMedia ? '' : ' placeholder' ?>">
-                <?php if ($habitMedia): ?><img loading="lazy" src="<?= base_url($habitMedia['relative_path']) ?>" alt="<?= esc($habitMedia['alt_text'] ?: 'Keseharian MIN 6 Jember') ?>"><?php else: ?><div class="visual-placeholder"><span>01–07</span><small>Foto pembiasaan dapat dipilih dari CMS.</small></div><?php endif ?>
+                <?php if ($habitMedia): ?><img loading="lazy" src="<?= base_url($habitMedia['relative_path']) ?>" alt="<?= esc($habitMedia['alt_text'] ?: 'Keseharian MIN 6 JEMBER') ?>"><?php else: ?><div class="visual-placeholder"><span>01–07</span><small>Foto pembiasaan dapat dipilih dari CMS.</small></div><?php endif ?>
             </div>
         </div>
     </div>
@@ -187,7 +187,7 @@ $habitItems = $habits['content_data']['items'] ?? [
     <div class="site-container">
         <div class="section-heading wide">
             <p class="section-eyebrow"><?= esc($storyIntro['eyebrow'] ?: 'CERITA DARI MADRASAH') ?></p>
-            <h2><?= esc($storyIntro['title'] ?: 'Potret keseharian MIN 6 Jember.') ?></h2>
+            <h2><?= esc($storyIntro['title'] ?: 'Potret keseharian MIN 6 JEMBER.') ?></h2>
         </div>
         <div class="story-grid">
             <?php foreach ($galleries as $index => $gallery): ?>
@@ -227,7 +227,7 @@ $habitItems = $habits['content_data']['items'] ?? [
                 <?php foreach ($events as $event): ?>
                     <a href="<?= site_url('kabar/agenda/' . $event['slug']) ?>" class="agenda-item">
                         <time datetime="<?= esc(date('Y-m-d', strtotime($event['start_at']))) ?>"><strong><?= esc(date('d', strtotime($event['start_at']))) ?></strong><span><?= esc(strtoupper(date('M', strtotime($event['start_at'])))) ?></span></time>
-                        <div><h3><?= esc($event['title']) ?></h3><small><?= esc($event['location'] ?: 'MIN 6 Jember') ?></small></div>
+                        <div><h3><?= esc($event['title']) ?></h3><small><?= esc($event['location'] ?: 'MIN 6 JEMBER') ?></small></div>
                     </a>
                 <?php endforeach ?>
             </aside>
@@ -258,7 +258,7 @@ $habitItems = $habits['content_data']['items'] ?? [
         </div>
 
         <?php if ($instagramPosts !== []): ?>
-            <div class="instagram-carousel" data-instagram-carousel tabindex="0" aria-label="Posting Instagram MIN 6 Jember">
+            <div class="instagram-carousel" data-instagram-carousel tabindex="0" aria-label="Posting Instagram MIN 6 JEMBER">
                 <?php foreach ($instagramPosts as $post): ?>
                     <?php
                     $imageSrc = $post['relative_path'] ?: ($post['thumbnail_url'] ?: $post['media_url']);
@@ -267,7 +267,7 @@ $habitItems = $habits['content_data']['items'] ?? [
                     ?>
                     <a class="instagram-card" href="<?= esc($targetUrl) ?>" target="_blank" rel="noopener">
                         <div class="instagram-card-media">
-                            <img loading="lazy" src="<?= esc($imageUrl) ?>" alt="<?= esc($post['alt_text'] ?: 'Posting Instagram MIN 6 Jember') ?>">
+                            <img loading="lazy" src="<?= esc($imageUrl) ?>" alt="<?= esc($post['alt_text'] ?: 'Posting Instagram MIN 6 JEMBER') ?>">
                             <span class="instagram-mark" aria-hidden="true">IG</span>
                         </div>
                         <?php if ($post['caption']): ?><p><?= esc($post['caption']) ?></p><?php endif ?>
@@ -289,11 +289,11 @@ $habitItems = $habits['content_data']['items'] ?? [
     <div class="site-container headmaster-grid">
         <div class="headmaster-photo<?= ($headmaster && $headmaster['relative_path']) || $headmasterMedia ? '' : ' placeholder' ?>">
             <?php $hmPhoto = ($headmaster['relative_path'] ?? null) ?: ($headmasterMedia['relative_path'] ?? null); ?>
-            <?php if ($hmPhoto): ?><img loading="lazy" src="<?= base_url($hmPhoto) ?>" alt="<?= esc($headmaster['alt_text'] ?? 'Kepala MIN 6 Jember') ?>"><?php else: ?><div class="visual-placeholder"><span>GTK</span><small>Tambahkan foto Kepala Madrasah.</small></div><?php endif ?>
+            <?php if ($hmPhoto): ?><img loading="lazy" src="<?= base_url($hmPhoto) ?>" alt="<?= esc($headmaster['alt_text'] ?? 'Kepala MIN 6 JEMBER') ?>"><?php else: ?><div class="visual-placeholder"><span>GTK</span><small>Tambahkan foto Kepala Madrasah.</small></div><?php endif ?>
         </div>
         <div>
             <p class="section-eyebrow"><?= esc($headmasterSection['eyebrow'] ?: 'SAMBUTAN KEPALA MADRASAH') ?></p>
-            <h2><?= esc($headmasterSection['title'] ?: 'Menyambut setiap langkah tumbuh bersama MIN 6 Jember.') ?></h2>
+            <h2><?= esc($headmasterSection['title'] ?: 'Menyambut setiap langkah tumbuh bersama MIN 6 JEMBER.') ?></h2>
             <?php $hmBody = trim((string) ($headmasterSection['body'] ?? '')) ?: trim((string) ($headmasterProfile['body'] ?? '')); ?>
             <?php if ($hmBody): ?><p><?= nl2br(esc($hmBody)) ?></p><?php endif ?>
             <?php if ($headmaster): ?><strong class="signature"><?= esc(trim(($headmaster['front_title'] ? $headmaster['front_title'] . ' ' : '') . $headmaster['name'] . ($headmaster['back_title'] ? ', ' . $headmaster['back_title'] : ''))) ?></strong><?php endif ?>
@@ -305,7 +305,7 @@ $habitItems = $habits['content_data']['items'] ?? [
 <?php if ($spmb): ?>
 <section class="spmb-band">
     <div class="site-container spmb-grid">
-        <div><p class="section-eyebrow"><?= esc($spmbSection['eyebrow'] ?: 'SPMB') ?></p><h2><?= esc($spmbSection['title'] ?: 'Mari tumbuh bersama MIN 6 Jember.') ?></h2><p><?= esc($spmb['title']) ?> · Tahun Ajaran <?= esc($spmb['academic_year']) ?></p></div>
+        <div><p class="section-eyebrow"><?= esc($spmbSection['eyebrow'] ?: 'SPMB') ?></p><h2><?= esc($spmbSection['title'] ?: 'Mari tumbuh bersama MIN 6 JEMBER.') ?></h2><p><?= esc($spmb['title']) ?> · Tahun Ajaran <?= esc($spmb['academic_year']) ?></p></div>
         <div class="spmb-actions"><a class="button lime" href="<?= site_url('spmb') ?>"><?= esc($spmbSection['cta_label'] ?: 'Informasi SPMB') ?></a><?php if ($spmb['registration_url']): ?><a class="button dark-outline" href="<?= esc($spmb['registration_url']) ?>" target="_blank" rel="noopener">Daftar →</a><?php endif ?></div>
     </div>
 </section>
@@ -313,7 +313,7 @@ $habitItems = $habits['content_data']['items'] ?? [
 
 <section class="section contact-section">
     <div class="site-container contact-grid">
-        <div><p class="section-eyebrow"><?= esc($contact['eyebrow'] ?: 'KONTAK') ?></p><h2><?= esc($contact['title'] ?: 'Terhubung dengan MIN 6 Jember') ?></h2><?php if (! empty($contact['body'])): ?><p><?= nl2br(esc($contact['body'])) ?></p><?php endif ?></div>
+        <div><p class="section-eyebrow"><?= esc($contact['eyebrow'] ?: 'KONTAK') ?></p><h2><?= esc($contact['title'] ?: 'Terhubung dengan MIN 6 JEMBER') ?></h2><?php if (! empty($contact['body'])): ?><p><?= nl2br(esc($contact['body'])) ?></p><?php endif ?></div>
         <div class="contact-list">
             <?php if (! empty($site['address'])): ?><div><span>Alamat</span><p><?= nl2br(esc($site['address'])) ?></p></div><?php endif ?>
             <?php if (! empty($site['phone'])): ?><div><span>Telepon</span><a href="tel:<?= esc(preg_replace('/[^0-9+]/', '', $site['phone'])) ?>"><?= esc($site['phone']) ?></a></div><?php endif ?>

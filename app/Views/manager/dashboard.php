@@ -4,7 +4,7 @@
 <section class="hero-panel">
     <div>
         <p class="eyebrow">CMS WEBSITE</p>
-        <h2>Kelola website MIN 6 Jember dari satu tempat.</h2>
+        <h2>Kelola website MIN 6 JEMBER dari satu tempat.</h2>
         <p>Perbarui profil, program, GTK, kabar madrasah, SPMB, media, dan konten Instagram tanpa mengubah struktur desain website.</p>
     </div>
     <span class="phase-badge">SIAP</span>
@@ -64,7 +64,7 @@
 <section class="next-panel">
     <p class="eyebrow">WEBSITE PUBLIK</p>
     <h2>Konten berubah, tampilan tetap konsisten.</h2>
-    <p>CMS mengatur isi website; layout, tipografi, warna, dan pola responsive tetap dijaga oleh sistem desain MIN 6 Jember.</p>
+    <p>CMS mengatur isi website; layout, tipografi, warna, dan pola responsive tetap dijaga oleh sistem desain MIN 6 JEMBER.</p>
 </section>
 
 <?= $this->endSection() ?>

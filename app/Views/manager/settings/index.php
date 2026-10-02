@@ -15,7 +15,7 @@
 
         <div class="field span-2">
             <label for="site_name">Nama website</label>
-            <input id="site_name" name="site_name" type="text" maxlength="180" required value="<?= esc(old('site_name', $settings['site_name'] ?? 'MIN 6 Jember')) ?>">
+            <input id="site_name" name="site_name" type="text" maxlength="180" required value="<?= esc(old('site_name', $settings['site_name'] ?? 'MIN 6 JEMBER')) ?>">
         </div>
 
         <div class="field span-2">

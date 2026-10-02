@@ -13,7 +13,7 @@ $navActive = static fn (string $prefix): string =>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= esc($title ?? 'CMS MIN 6 Jember') ?></title>
+    <title><?= esc($title ?? 'CMS MIN 6 JEMBER') ?></title>
     <meta name="robots" content="noindex,nofollow">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/brand/favicon-32x32.png') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/manager/css/manager.css') ?>">
@@ -23,7 +23,7 @@ $navActive = static fn (string $prefix): string =>
     <aside class="sidebar" id="managerSidebar">
         <div class="sidebar-brand">
             <img class="manager-brand-logo" src="<?= base_url('assets/brand/min6-logo.png') ?>" alt="" width="38" height="38">
-            <div><strong>MIN 6 Jember</strong><span>Content Manager</span></div>
+            <div><strong>MIN 6 JEMBER</strong><span>Content Manager</span></div>
         </div>
 
         <nav>
@@ -78,7 +78,7 @@ $navActive = static fn (string $prefix): string =>
             <?= $this->renderSection('content') ?>
         </main>
 
-        <footer class="footer"><span>MIN 6 Jember</span><span>CMS berbasis CodeIgniter 4</span></footer>
+        <footer class="footer"><span>MIN 6 JEMBER</span><span>CMS berbasis CodeIgniter 4</span></footer>
     </div>
 </div>
 

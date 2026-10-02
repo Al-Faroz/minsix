@@ -15,8 +15,8 @@
 
         <div class="field span-2">
             <label>Default Site Title</label>
-            <input type="text" name="seo_default_title" maxlength="255" value="<?= esc(old('seo_default_title', $settings['seo_default_title'] ?? 'MIN 6 Jember')) ?>">
-            <small>Homepage menggunakan nilai ini. Halaman lain mengikuti pola: Nama Halaman | MIN 6 Jember.</small>
+            <input type="text" name="seo_default_title" maxlength="255" value="<?= esc(old('seo_default_title', $settings['seo_default_title'] ?? 'MIN 6 JEMBER')) ?>">
+            <small>Homepage menggunakan nilai ini. Halaman lain mengikuti pola: Nama Halaman | MIN 6 JEMBER.</small>
         </div>
 
         <div class="field span-2">

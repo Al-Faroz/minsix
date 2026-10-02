@@ -1,5 +1,5 @@
 <?php
-$siteName = $site['site_name'] ?? 'MIN 6 Jember';
+$siteName = $site['site_name'] ?? 'MIN 6 JEMBER';
 $tagline = $site['site_tagline'] ?? 'Berakhlaqul Karimah dan Berprestasi';
 $kabarVisible = isset($features['kabar']) && (int) $features['kabar']['is_enabled'] === 1 && (int) $features['kabar']['show_in_nav'] === 1;
 $spmbVisible = isset($features['spmb']) && (int) $features['spmb']['is_enabled'] === 1 && (int) $features['spmb']['show_in_nav'] === 1;

@@ -4,7 +4,7 @@
 <div class="section-head">
     <div>
         <p class="eyebrow">KONTEN PROFIL</p>
-        <h2>Profil MIN 6 Jember</h2>
+        <h2>Profil MIN 6 JEMBER</h2>
         <p class="muted">Struktur section dikunci. Admin/Operator hanya mengubah isi dan foto.</p>
     </div>
 </div>

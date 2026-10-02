@@ -29,7 +29,7 @@ if ($mapRaw !== '') {
 <header class="page-hero">
     <div class="site-container">
         <p class="section-eyebrow">PROFIL</p>
-        <h1>Mengenal MIN 6 Jember</h1>
+        <h1>Mengenal MIN 6 JEMBER</h1>
         <p>Satu halaman untuk mengenal identitas, visi, perjalanan, sambutan, dan lokasi madrasah.</p>
     </div>
 </header>
@@ -47,10 +47,10 @@ if ($mapRaw !== '') {
         <?php endif ?>
     </section>
     <?php if (($item['section_key'] ?? '') === 'location' && $mapUrl): ?>
-        <div class="profile-map" aria-label="Peta lokasi MIN 6 Jember">
+        <div class="profile-map" aria-label="Peta lokasi MIN 6 JEMBER">
             <iframe
                 src="<?= esc($mapUrl) ?>"
-                title="Lokasi MIN 6 Jember"
+                title="Lokasi MIN 6 JEMBER"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
                 allowfullscreen></iframe>

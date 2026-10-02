@@ -5,7 +5,7 @@
     <div>
         <p class="eyebrow">KABAR MADRASAH</p>
         <h2 style="margin:.1rem 0">Berita</h2>
-        <p class="muted" style="margin:.35rem 0 0">Kelola berita dan informasi terbaru MIN 6 Jember.</p>
+        <p class="muted" style="margin:.35rem 0 0">Kelola berita dan informasi terbaru MIN 6 JEMBER.</p>
     </div>
     <div class="toolbar-actions"><a class="btn primary" href="<?= site_url('manager/news/new') ?>">+ Tambah Berita</a></div>
 </div>
