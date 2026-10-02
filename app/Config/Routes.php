@@ -122,3 +122,12 @@ $routes->get('manager/features', 'Manager\FeatureController::index', ['filter' =
 $routes->post('manager/features', 'Manager\FeatureController::update', ['filter' => 'admin']);
 $routes->get('manager/seo', 'Manager\SeoController::index', ['filter' => 'admin']);
 $routes->post('manager/seo', 'Manager\SeoController::update', ['filter' => 'admin']);
+
+// User management: ADMIN-only.
+$routes->get('manager/users', 'Manager\UserController::index', ['filter' => 'admin']);
+$routes->get('manager/users/new', 'Manager\UserController::new', ['filter' => 'admin']);
+$routes->post('manager/users', 'Manager\UserController::create', ['filter' => 'admin']);
+$routes->get('manager/users/(:num)/edit', 'Manager\UserController::edit/$1', ['filter' => 'admin']);
+$routes->post('manager/users/(:num)', 'Manager\UserController::update/$1', ['filter' => 'admin']);
+$routes->post('manager/users/(:num)/toggle', 'Manager\UserController::toggle/$1', ['filter' => 'admin']);
+$routes->post('manager/users/(:num)/reset-password', 'Manager\UserController::resetPassword/$1', ['filter' => 'admin']);

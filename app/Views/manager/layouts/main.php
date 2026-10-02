@@ -50,7 +50,7 @@ $navActive = static fn (string $prefix): string =>
                 <a class="nav-item<?= $navActive('manager/features') ?>" href="<?= site_url('manager/features') ?>">Fitur</a>
                 <a class="nav-item<?= $navActive('manager/instagram-settings') ?>" href="<?= site_url('manager/instagram-settings') ?>">Instagram</a>
                 <a class="nav-item<?= $navActive('manager/seo') ?>" href="<?= site_url('manager/seo') ?>">SEO</a>
-                <button class="nav-item disabled" type="button" disabled><span>Pengguna</span><small>Segera</small></button>
+                <a class="nav-item<?= $navActive('manager/users') ?>" href="<?= site_url('manager/users') ?>">Pengguna</a>
             <?php endif ?>
         </nav>
 
