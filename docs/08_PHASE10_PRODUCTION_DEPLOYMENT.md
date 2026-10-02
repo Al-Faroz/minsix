@@ -97,7 +97,7 @@ Untuk server yang sudah memiliki data: backup dulu, jalankan hanya SQL upgrade y
 
 ## 8. CMS setelah deploy
 
-Login sebagai Admin lalu isi Pengaturan Website, Fitur, SEO, canonical base URL HTTPS final, Instagram mode MANUAL/HYBRID, dan SPMB current yang benar.
+Login sebagai Admin lalu isi Pengaturan Website, Fitur, SEO, canonical base URL HTTPS final, Instagram mode MANUAL/HYBRID, dan SPMB current yang benar. Untuk Instagram: siapkan encryption.key, simpan Meta App ID/App Secret, daftarkan OAuth Redirect URI yang ditampilkan CMS pada Meta Developer, lalu klik Hubungkan Instagram.
 
 ## 9. Security smoke test
 
@@ -125,7 +125,7 @@ Periksa response HTTPS:
 
 ## 10. Functional smoke test
 
-Uji homepage, Profil + Google Maps, Program, GTK, Kabar/detail Berita, Agenda, Prestasi, Galeri/lightbox, SPMB, Instagram fallback MANUAL, login Admin/Operator, User Management Admin-only, CRUD konten, upload image/PDF, serta feature OFF.
+Uji homepage, Profil + Google Maps, Program, GTK, Kabar/detail Berita, Agenda, Prestasi, Galeri/lightbox, SPMB, Instagram fallback MANUAL, Instagram Login callback, Tes Koneksi, Sync Sekarang, refresh token, post CAROUSEL_ALBUM, login Admin/Operator, User Management Admin-only, CRUD konten, upload image/PDF, serta feature OFF.
 
 ## 11. Cache dan browser
 
