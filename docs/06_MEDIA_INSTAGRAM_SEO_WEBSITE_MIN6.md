@@ -106,17 +106,23 @@ Akun resmi:
 https://www.instagram.com/min6jember
 ```
 
-Integrasi menggunakan pola **Hybrid**.
+Integrasi publik tetap memakai pola **Hybrid Cache**, tetapi autentikasi API dikunci menjadi **Instagram Login only**.
 
 ---
 
 ## 8. Instagram Hybrid Flow
 
 ```text
-Source Instagram/API
+Instagram Login (Admin)
         │
         ▼
-Fetch via scheduled process
+Long-lived token terenkripsi
+        │
+        ▼
+Scheduled sync + token lifecycle
+        │
+        ▼
+Fetch media + carousel children
         │
         ▼
 Store/update instagram_posts
@@ -125,29 +131,32 @@ Store/update instagram_posts
 Homepage membaca LOCAL CACHE
         │
         ├── jika cache tersedia -> tampilkan
-        │
         └── jika tidak -> fallback manual
 ```
 
-Homepage tidak melakukan fetch langsung ke Instagram pada setiap request visitor.
+Homepage tidak melakukan request langsung ke Instagram pada setiap kunjungan visitor.
 
 ---
 
-## 9. Fetch Frequency
+## 9. Fetch Frequency & Token Lifecycle
 
-Rekomendasi:
-- 1–6 jam sekali;
-- tidak perlu real-time.
+Rekomendasi sync:
+- setiap 1–6 jam melalui cron/scheduler hosting;
+- command: `php spark instagram:sync`.
 
-Dapat dijalankan melalui:
-- cron hosting;
-- CLI command CI4;
-- scheduler hosting jika tersedia.
+Setiap sync:
+1. memeriksa status koneksi;
+2. mencoba refresh token bila sudah memenuhi syarat refresh dan mendekati expiry;
+3. mengambil media terbaru;
+4. menyimpan/update cache tanpa menghapus cache lama jika API gagal.
 
-Jika fetch gagal:
-- jangan kosongkan carousel;
-- gunakan cache terakhir;
-- jika cache tidak ada gunakan fallback manual.
+Long-lived token disimpan dengan metadata:
+- `token_issued_at`;
+- `token_expires_at`;
+- `last_refreshed_at`;
+- `connection_status`.
+
+Jika token benar-benar expired atau tidak dapat dipakai lagi, Admin harus menjalankan **Hubungkan Instagram** ulang.
 
 ---
 
@@ -156,45 +165,62 @@ Jika fetch gagal:
 Admin dapat mengatur:
 
 ```text
-AUTO/HYBRID
+HYBRID
 MANUAL
 ```
 
-AUTO/HYBRID:
-- coba source Instagram;
-- fallback cache/manual.
+HYBRID:
+- homepage memakai cache hasil Instagram API;
+- jika cache API tidak tersedia, fallback ke konten manual.
 
 MANUAL:
-- hanya data manual.
+- homepage hanya memakai konten manual;
+- bila akun Instagram masih terhubung, scheduled sync tetap boleh memeriksa lifecycle token tetapi tidak mengambil media baru.
 
 ---
 
-## 11. Credential Instagram
+## 11. Instagram Login & Credential
 
-Token/credential:
-- tidak boleh masuk repository;
-- hanya Admin yang dapat membuka konfigurasi API;
-- Base URL, API Version, dan User ID dapat diisi dari CMS;
-- Access Token dapat diisi dari CMS tetapi disimpan sebagai ciphertext Base64 di `integration_settings`;
-- encryption/decryption menggunakan Encryption Service CodeIgniter dan `encryption.key` dari `.env`;
-- token tersimpan tidak pernah ditampilkan kembali ke browser;
-- token `.env` lama tetap didukung sebagai fallback;
-- Base URL dibatasi ke `graph.instagram.com` dan `graph.facebook.com` agar token tidak dikirim ke host sembarangan;
-- tersedia Tes Koneksi tanpa menulis cache dan Sinkronkan Sekarang untuk memperbarui cache.
+Aturan final PHASE 10C:
+- tidak ada input manual Instagram User ID;
+- tidak ada input/paste Access Token;
+- autentikasi dilakukan melalui tombol **Hubungkan Instagram**;
+- scope minimum integrasi feed: `instagram_business_basic`;
+- App ID dan App Secret berasal dari Meta Developer;
+- App Secret dapat disimpan melalui CMS dan dienkripsi di `integration_settings`;
+- Access Token hanya dibuat dari OAuth callback lalu ditukar menjadi long-lived token;
+- Access Token disimpan terenkripsi dan tidak pernah dikirim kembali ke browser;
+- `encryption.key` wajib tersedia sebelum App Secret/token disimpan;
+- legacy `instagram.userId` dan `instagram.accessToken` tidak lagi dipakai;
+- cache lama tidak dihapus saat akun diputus atau re-auth dibutuhkan.
 
-Generate encryption key dengan:
+Generate encryption key:
 
 ```bash
 php spark minsix:key:generate
 ```
 
-Salin hasilnya ke `.env`. Jangan commit key tersebut.
+Daftarkan **OAuth Redirect URI** yang ditampilkan CMS secara persis pada konfigurasi Instagram API di Meta Developer.
 
 ---
 
-## 12. Instagram Fallback
+## 12. Carousel Album Support
 
-Operator dapat mengelola:
+Untuk post bertipe `CAROUSEL_ALBUM`:
+- sync meminta field `children`;
+- child media dinormalisasi dan disimpan ke `instagram_posts.children_json`;
+- bila nested field expansion tidak tersedia pada versi API tertentu, aplikasi mencoba endpoint `/{media-id}/children`;
+- cover homepage memakai URL parent bila tersedia, atau child pertama yang memiliki media/thumbnail;
+- kartu homepage menampilkan badge jumlah media;
+- klik kartu tetap menuju permalink post Instagram.
+
+Cache children disimpan agar homepage tidak perlu meminta detail carousel ke Instagram pada request visitor.
+
+---
+
+## 13. Instagram Fallback & Homepage
+
+Operator tetap dapat mengelola fallback manual:
 - gambar;
 - permalink;
 - caption pendek;
@@ -202,20 +228,15 @@ Operator dapat mengelola:
 - urutan;
 - visible.
 
-Fallback harus tetap terlihat seperti bagian website, bukan embed mentah.
-
----
-
-## 13. Homepage Carousel
-
-Baseline:
-- 6–8 item;
+Baseline carousel homepage:
+- 6–8 post;
 - desktop 4 visible;
 - tablet 2–3;
 - mobile 1–2;
-- Swiper atau library ringan;
 - lazy load;
 - klik menuju Instagram.
+
+Fallback harus tetap terlihat sebagai bagian website, bukan embed mentah.
 
 ---
 
