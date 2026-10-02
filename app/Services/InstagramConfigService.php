@@ -30,7 +30,14 @@ class InstagramConfigService
             'app_secret',
             'instagram.appSecret'
         );
-        [$accessToken, $tokenSource, $tokenError] = $this->resolvedSecret($rows, 'access_token', null);
+
+        $connectionStatus = strtoupper(trim((string) ($rows['connection_status']['setting_value'] ?? '')));
+        $hasOAuthLifecycle = $connectionStatus === 'CONNECTED'
+            && $this->nullableValue($rows, 'token_issued_at') !== null
+            && $this->nullableValue($rows, 'token_expires_at') !== null;
+        [$accessToken, $tokenSource, $tokenError] = $hasOAuthLifecycle
+            ? $this->resolvedSecret($rows, 'access_token', null)
+            : ['', 'NONE', false];
 
         return [
             'app_id' => trim($appId),
@@ -46,7 +53,7 @@ class InstagramConfigService
             'token_issued_at' => $this->nullableValue($rows, 'token_issued_at'),
             'token_expires_at' => $this->nullableValue($rows, 'token_expires_at'),
             'last_refreshed_at' => $this->nullableValue($rows, 'last_refreshed_at'),
-            'connection_status' => strtoupper(trim((string) ($rows['connection_status']['setting_value'] ?? ''))),
+            'connection_status' => $connectionStatus,
             'granted_scopes' => trim((string) ($rows['granted_scopes']['setting_value'] ?? '')),
             'has_database_app_secret' => isset($rows['app_secret']) && trim((string) $rows['app_secret']['setting_value']) !== '',
             'has_database_token' => isset($rows['access_token']) && trim((string) $rows['access_token']['setting_value']) !== '',
