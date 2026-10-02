@@ -28,7 +28,7 @@ MySQL/MariaDB
 
 ## 2. Struktur CI4
 
-Gunakan struktur CI4 standar.
+MIN SIX menggunakan CI4 standar untuk `app/`, tetapi **isi folder bawaan `public/` ditempatkan di root proyek** sesuai pola localhost/hosting yang dipilih.
 
 ```text
 app/
@@ -44,9 +44,10 @@ app/
 │   └── manager/
 └── ...
 
-public/
-├── assets/
-└── uploads/
+assets/
+uploads/
+index.php
+.htaccess
 
 database/
 └── minsix.sql
@@ -59,12 +60,14 @@ Tidak perlu HMVC untuk versi awal.
 
 ---
 
-## 3. Public Directory
+## 3. Web Root
 
-Untuk production, target ideal:
-- web root mengarah ke `public/`.
+Web root proyek adalah root repository/folder `minsix`, bukan `public/`.
 
-Jika hosting tidak mendukung document root ke `public/`, gunakan strategi deployment CI4 yang aman dan terdokumentasi; jangan memindahkan file sensitif ke public tanpa proteksi.
+Konsekuensi keamanan:
+- root `.htaccess` wajib memblokir akses HTTP langsung ke `app/`, `vendor/`, `writable/`, `tests/`, `docs/`, `database/`, `.env`, Composer files, dan file internal lain;
+- `uploads/.htaccess` wajib mencegah eksekusi script;
+- perubahan struktur deployment tidak boleh dilakukan tanpa audit ulang rule proteksi.
 
 ---
 

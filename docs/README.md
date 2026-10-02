@@ -27,3 +27,9 @@ Urutan baca:
 - SPMB halaman khusus
 - Instagram `@min6jember` dengan pola hybrid
 - Gaya publik: modern-humanis
+
+
+## Status Implementasi
+- PHASE 0: Dokumen Acuan — selesai
+- PHASE 1: Auth + Manager Skeleton — selesai
+- PHASE 2: Settings + Feature Toggle + Media — selesai di kode, menunggu cek lokal

@@ -19,11 +19,9 @@ Tujuan:
 Direkomendasikan:
 
 ```text
-public/uploads/
-├── images/
-│   └── YYYY/MM/
-└── documents/
-    └── YYYY/MM/
+uploads/
+└── YYYY/MM/
+    └── file-acak.ext
 ```
 
 Gunakan random/stored filename, bukan nama asli sebagai filename final.
@@ -46,7 +44,7 @@ Tolak:
 - file dengan double extension berbahaya;
 - SVG sampai ada sanitization policy yang jelas.
 
-Tambahkan proteksi server pada `public/uploads` agar script tidak dieksekusi.
+Tambahkan proteksi server pada `uploads/` agar script tidak dieksekusi. Pada struktur MIN SIX, isi folder bawaan `public/` telah dipindahkan ke root.
 
 ---
 
@@ -353,6 +351,6 @@ Jika media diganti:
 
 Backup harus mencakup:
 - database;
-- `public/uploads`.
+- `uploads/`.
 
 Database tanpa uploads tidak cukup untuk memulihkan website visual.
