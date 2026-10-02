@@ -50,3 +50,112 @@
 .instagram-manager-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.instagram-manager-card{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff}.instagram-manager-preview{display:grid;place-items:center;aspect-ratio:1/1;background:#eef1ee;color:var(--muted);font-size:.8rem}.instagram-manager-preview img{width:100%;height:100%;object-fit:cover}.instagram-manager-card>.mini-form{padding:14px}.instagram-manager-card>form:last-child{padding:0 14px 14px}.instagram-state-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.credential-list{display:grid;border-top:1px solid var(--line)}.credential-list>div{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:13px 0;border-bottom:1px solid var(--line)}.credential-list code{font-size:.78rem}
 @media(max-width:1000px){.instagram-manager-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.instagram-state-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:620px){.instagram-manager-grid,.instagram-state-grid{grid-template-columns:1fr}}
+
+
+/* ========================================================================
+   PHASE 9D — compact CMS typography
+   ======================================================================== */
+html{font-size:14px}
+body{font-size:.94rem}
+
+.btn{
+  min-height:36px;
+  padding:.56rem .78rem;
+  border-radius:9px;
+  font-size:.82rem;
+}
+.eyebrow{font-size:.62rem;letter-spacing:.12em}
+.muted{font-size:.88rem}
+
+.sidebar{width:258px;padding:18px 15px}
+:root{--sidebar:258px}
+.sidebar-brand{padding-bottom:16px}
+.sidebar-brand strong{font-size:.92rem}
+.sidebar-brand span{font-size:.68rem}
+.brand-mark.small{width:38px;height:38px;font-size:.82rem}
+.nav-label{margin:15px 8px 7px;font-size:.6rem}
+.nav-item{
+  min-height:38px;
+  padding:.58rem .72rem;
+  font-size:.8rem;
+}
+.nav-item small{font-size:.6rem}
+.sidebar-foot span{font-size:.62rem}
+.sidebar-foot strong{font-size:.7rem}
+
+.topbar{min-height:72px;padding:12px 24px}
+.topbar h1{font-size:1.08rem}
+.user-copy strong{font-size:.86rem}
+.user-copy span{font-size:.62rem}
+.main{padding:24px}
+
+.hero-panel{padding:clamp(22px,3.5vw,38px)}
+.hero-panel h2{font-size:clamp(1.65rem,2.7vw,2.45rem)}
+.hero-panel p:last-child{font-size:.88rem}
+.phase-badge{font-size:.64rem;padding:.5rem .7rem}
+
+.section-head{margin-bottom:18px}
+.section-head h2{font-size:1.35rem}
+.content-card{padding:20px}
+.content-card h3{font-size:1rem}
+.content-card__meta{font-size:.68rem}
+.section-key{font-size:.61rem}
+
+.field label{font-size:.78rem}
+.field small{font-size:.72rem}
+.field input,
+.field textarea,
+.field select,
+.mini-form input,
+.mini-form textarea,
+.mini-form select{
+  font-size:.82rem;
+}
+.field input,.field select,.mini-form select{min-height:40px}
+.field input,.field textarea,.field select,.mini-form input,.mini-form textarea,.mini-form select{
+  padding:.62rem .72rem;
+}
+
+.cms-table th{font-size:.65rem}
+.cms-table td{font-size:.78rem}
+.table-title strong{font-size:.82rem}
+.table-title small{font-size:.72rem}
+.status-chip{font-size:.61rem;min-height:23px}
+.text-link,.text-danger{font-size:.72rem}
+
+.metric-card{padding:16px}
+.metric-card span{font-size:.66rem}
+.metric-card strong{font-size:1.42rem}
+.metric-card small{font-size:.64rem}
+
+.quick-card{padding:18px}
+.quick-card>span{font-size:.64rem}
+.quick-card strong{font-size:.9rem}
+.quick-card small{font-size:.72rem}
+
+.status-card{min-height:190px;padding:20px}
+.status-card>span,.status-card>strong{font-size:.68rem}
+.status-card h3{margin:2rem 0 .4rem;font-size:1rem}
+.status-card p{font-size:.8rem}
+
+.feature-copy span{font-size:.76rem}
+.feature-note p{font-size:.78rem}
+.role-group h4{font-size:.74rem}
+.role-badge{font-size:.61rem}
+.media-card-body>span{font-size:.68rem}
+.media-card summary{font-size:.72rem}
+
+.login-brand h1{font-size:clamp(2.2rem,4.5vw,4rem)}
+.login-card h2{font-size:1.6rem}
+.login-help{font-size:.76rem}
+
+@media(max-width:620px){
+  html{font-size:13.5px}
+  .topbar{min-height:64px}
+  .topbar h1{font-size:.95rem}
+  .main{padding:16px 14px}
+  .hero-panel h2{font-size:1.65rem}
+  .section-head h2{font-size:1.22rem}
+  .content-card{padding:16px}
+  .login-brand h1{font-size:2.35rem}
+}

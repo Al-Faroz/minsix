@@ -631,3 +631,131 @@ html,body{max-width:100%;overflow-x:clip}
 @media(max-width:520px){
   .gtk-grid{grid-template-columns:1fr}
 }
+
+
+/* ========================================================================
+   PHASE 9D — requested palette + compact typography
+   ======================================================================== */
+:root{
+  --public-dark-green:#032100;
+  --public-warm-black:#614A27;
+  --public-dark-gradient:linear-gradient(135deg,#032100 0%,#071205 42%,#2a2517 72%,#614A27 100%);
+  --public-dark-gradient-soft:linear-gradient(145deg,#032100 0%,#10170b 50%,#614A27 100%);
+}
+
+/* Public dark surfaces */
+.site-header,
+.hero-section,
+.section-dark,
+.section-accent,
+.spmb-band,
+.site-footer,
+.page-hero.dark,
+.spmb-page-hero,
+.agenda-panel,
+.spmb-contact-card{
+  background:var(--public-dark-gradient);
+}
+.hero-section{
+  background:
+    radial-gradient(circle at 82% 22%,rgba(184,242,15,.08),transparent 26%),
+    radial-gradient(circle at 15% 80%,rgba(97,74,39,.25),transparent 30%),
+    var(--public-dark-gradient);
+}
+.page-hero.dark,
+.spmb-page-hero{
+  background:
+    radial-gradient(circle at 82% 18%,rgba(184,242,15,.07),transparent 24%),
+    var(--public-dark-gradient-soft);
+}
+
+/* Compact public typography */
+body{font-size:.94rem}
+.site-nav{font-size:.74rem;gap:26px}
+.brand-copy strong{font-size:.92rem}
+.brand-copy small{font-size:.63rem}
+
+.hero-copy h1{
+  font-size:clamp(2.85rem,5vw,5rem);
+  line-height:.96;
+  letter-spacing:-.045em;
+}
+.hero-lead{
+  font-size:clamp(.92rem,1.15vw,1.04rem);
+  line-height:1.68;
+}
+.hero-body{font-size:.9rem;line-height:1.65}
+.section-eyebrow{font-size:.64rem;letter-spacing:.11em}
+
+.stat-item strong{font-size:clamp(1.8rem,2.8vw,2.75rem)}
+.stat-item span{font-size:.66rem}
+
+.section-heading h2,
+.section-copy h2,
+.headmaster-grid h2,
+.contact-grid h2,
+.instagram-heading h2,
+.spmb-grid h2{
+  font-size:clamp(2rem,3.35vw,3.35rem);
+  line-height:1.03;
+}
+.section-heading>p:last-child,
+.section-body p,
+.headmaster-grid p,
+.contact-grid p,
+.instagram-heading p{
+  font-size:.9rem;
+  line-height:1.7;
+}
+
+.program-row h3{font-size:clamp(1.25rem,1.55vw,1.7rem)}
+.program-row p{font-size:.82rem}
+.numbered-row strong{font-size:clamp(.96rem,1.25vw,1.12rem)}
+.achievement-card .card-copy h3{font-size:1.05rem}
+.news-card h3,.public-card h3,.gallery-public-card h3{font-size:1rem}
+.news-card p,.public-card p{font-size:.78rem}
+.story-card h3{font-size:clamp(1.05rem,1.85vw,1.8rem)}
+.gtk-copy h3{font-size:.95rem}
+
+.page-hero h1,
+.article-header h1{
+  font-size:clamp(2.75rem,5vw,4.8rem);
+  line-height:.97;
+}
+.page-hero p:last-child,
+.article-header>p:last-child{
+  font-size:.94rem;
+  line-height:1.7;
+}
+.profile-copy h2,
+.program-group-head h2,
+.gtk-section .section-heading h2{
+  font-size:clamp(1.9rem,3.1vw,3rem);
+}
+.prose{font-size:.92rem;line-height:1.78}
+.event-row h3{font-size:1rem}
+.lead-copy{font-size:1.08rem}
+.faq-public summary{font-size:.95rem}
+
+@media(max-width:980px){
+  .hero-copy h1{font-size:clamp(2.7rem,8vw,4.6rem)}
+  .section-heading h2,
+  .section-copy h2,
+  .headmaster-grid h2,
+  .contact-grid h2,
+  .instagram-heading h2,
+  .spmb-grid h2{font-size:clamp(1.95rem,6vw,3rem)}
+}
+
+@media(max-width:620px){
+  body{font-size:.9rem}
+  .hero-copy h1{font-size:clamp(2.35rem,11vw,3.55rem)}
+  .hero-lead{font-size:.9rem}
+  .section-heading h2,
+  .section-copy h2,
+  .headmaster-grid h2,
+  .contact-grid h2,
+  .instagram-heading h2,
+  .spmb-grid h2{font-size:clamp(1.85rem,8.8vw,2.7rem)}
+  .page-hero h1,.article-header h1{font-size:clamp(2.35rem,10.5vw,3.55rem)}
+}

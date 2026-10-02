@@ -42,3 +42,4 @@ Urutan baca:
 - PHASE 9A: Rival Visual Conformity — implementasi source selesai
 - PHASE 9B: Responsive Structural Audit — source fixes selesai
 - PHASE 9C: Functional Source Audit — PASS; menunggu runtime/browser audit lokal
+- PHASE 9D: Palette + Typography Revision — gradient #032100 → #614A27 dan font public/CMS diperkecil
