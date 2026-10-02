@@ -70,18 +70,17 @@
 
 
 #--------------------------------------------------------------------
-# INSTAGRAM HYBRID
+# INSTAGRAM LOGIN
 #--------------------------------------------------------------------
-# API configuration can be entered from CMS > Pengaturan > Instagram.
-# Values below are supported as fallback for existing deployments.
-# A token saved from CMS is encrypted in the database using encryption.key.
+# Preferred setup: enter Meta App ID/App Secret from CMS > Pengaturan > Instagram.
+# The values below are optional server-side fallbacks for Meta App credentials only.
+# User ID and Access Token are NEVER configured manually; they are created by Instagram Login.
 #
-# instagram.apiBaseUrl = 'https://graph.instagram.com'
+# instagram.appId =
+# instagram.appSecret =
 # instagram.apiVersion = 'vXX.X'   # optional; leave blank if endpoint is unversioned
-# instagram.userId =
-# instagram.accessToken =
 #
-# Before saving a new Access Token from CMS, generate an encryption key once:
+# Before storing App Secret / OAuth token, generate an encryption key once:
 # php spark minsix:key:generate
 # Then copy the generated line into your real .env file.
 
