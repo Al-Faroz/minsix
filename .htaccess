@@ -6,16 +6,12 @@ Options -Indexes
 
     # Project root is the web root. Protect CI4 internals.
     RewriteRule ^(?:app|vendor|writable|tests|docs|database|public)(?:/|$) - [F,L,NC]
-    RewriteRule ^\.git(?:/|$) - [F,L,NC]
-    RewriteRule ^(?:\.env|env|composer\.(?:json|lock)|spark|phpunit(?:\.dist)?\.xml|preload\.php|builds|README\.md|LICENSE)$ - [F,L,NC]
+    RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L,NC]
+    RewriteRule ^(?:\.env(?:\..*)?|env(?:\..*)?|composer\.(?:json|lock)|spark|phpunit(?:\.dist)?\.xml|preload\.php|builds|README\.md|LICENSE)$ - [F,L,NC]
 
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_URI} (.+)/$
     RewriteRule ^ %1 [L,R=301]
-
-    RewriteCond %{HTTPS} !=on
-    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-    RewriteRule ^ http://%1%{REQUEST_URI} [R=301,L]
 
     # Preserve Authorization before the front-controller rewrite.
     RewriteCond %{HTTP:Authorization} .
@@ -35,6 +31,7 @@ Options -Indexes
     Header always set Referrer-Policy "strict-origin-when-cross-origin"
     Header always set X-Frame-Options "SAMEORIGIN"
     Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+    Header always unset X-Powered-By
 
     <FilesMatch "\.(?:css|js|jpg|jpeg|png|webp|gif|ico|svg|woff|woff2)$">
         Header set Cache-Control "public, max-age=2592000"

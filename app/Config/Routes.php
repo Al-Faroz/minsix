@@ -14,6 +14,7 @@ $routes->get('kabar/agenda/(:segment)', 'KabarController::eventDetail/$1');
 $routes->get('kabar/galeri/(:segment)', 'KabarController::galleryDetail/$1');
 $routes->get('spmb', 'PageController::spmb');
 $routes->get('sitemap.xml', 'SitemapController::index');
+$routes->get('robots.txt', 'RobotsController::index');
 
 $routes->get('manager/login', 'Manager\AuthController::login');
 $routes->post('manager/login', 'Manager\AuthController::attempt');

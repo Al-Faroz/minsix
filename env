@@ -87,7 +87,18 @@
 # Enable these only on the final HTTPS production host.
 #
 # CI_ENVIRONMENT = production
+# app.baseURL = 'https://DOMAIN-FINAL/'
 # app.forceGlobalSecureRequests = true
+# Optional host allowlist after the final domain is confirmed:
+# app.allowedHostnames.0 = 'DOMAIN-FINAL'
 # cookie.secure = true
 # cookie.httponly = true
 # cookie.samesite = Lax
+# logger.threshold = 4
+#
+# Keep session files outside public access under writable/session:
+# session.driver = 'CodeIgniter\\Session\\Handlers\\FileHandler'
+# session.savePath = null
+#
+# If the hosting uses a trusted reverse proxy/CDN, configure proxy IPs
+# only after the real proxy addresses are known. Do not use a wildcard.

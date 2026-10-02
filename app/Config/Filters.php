@@ -5,6 +5,7 @@ namespace Config;
 use App\Filters\AdminFilter;
 use App\Filters\AuthFilter;
 use App\Filters\ManagerHeadersFilter;
+use App\Filters\SecurityHeadersFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -31,6 +32,7 @@ class Filters extends BaseFilters
         'auth' => AuthFilter::class,
         'admin' => AdminFilter::class,
         'managerheaders' => ManagerHeadersFilter::class,
+        'securityheaders' => SecurityHeadersFilter::class,
     ];
 
     public array $required = [
@@ -40,7 +42,7 @@ class Filters extends BaseFilters
 
     public array $globals = [
         'before' => ['csrf'],
-        'after' => [],
+        'after' => ['securityheaders'],
     ];
 
     public array $methods = [];

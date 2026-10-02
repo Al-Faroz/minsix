@@ -366,6 +366,9 @@ Status source setelah PHASE 8:
 [x] SEO global/API config admin-only
 [x] manager no-store + noindex
 [x] security headers dasar di Apache
+[x] application security headers + CSP production
+[x] robots.txt dinamis + sitemap sesuai baseURL
+[x] branded production 400/404/500 tanpa debug detail
 [ ] CI_ENVIRONMENT=production          -> saat deploy
 [ ] HTTPS aktif                        -> saat deploy
 [ ] cookie.secure=true                 -> saat deploy HTTPS

@@ -1,84 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="id">
 <head>
     <meta charset="utf-8">
-    <title><?= lang('Errors.badRequest') ?></title>
-
-    <style>
-        div.logo {
-            height: 200px;
-            width: 155px;
-            display: inline-block;
-            opacity: 0.08;
-            position: absolute;
-            top: 2rem;
-            left: 50%;
-            margin-left: -73px;
-        }
-        body {
-            height: 100%;
-            background: #fafafa;
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            color: #777;
-            font-weight: 300;
-        }
-        h1 {
-            font-weight: lighter;
-            letter-spacing: normal;
-            font-size: 3rem;
-            margin-top: 0;
-            margin-bottom: 0;
-            color: #222;
-        }
-        .wrap {
-            max-width: 1024px;
-            margin: 5rem auto;
-            padding: 2rem;
-            background: #fff;
-            text-align: center;
-            border: 1px solid #efefef;
-            border-radius: 0.5rem;
-            position: relative;
-        }
-        pre {
-            white-space: normal;
-            margin-top: 1.5rem;
-        }
-        code {
-            background: #fafafa;
-            border: 1px solid #efefef;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            display: block;
-        }
-        p {
-            margin-top: 1.5rem;
-        }
-        .footer {
-            margin-top: 2rem;
-            border-top: 1px solid #efefef;
-            padding: 1em 2em 0 2em;
-            font-size: 85%;
-            color: #999;
-        }
-        a:active,
-        a:link,
-        a:visited {
-            color: #dd4814;
-        }
-    </style>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>Permintaan Tidak Valid | MIN 6 JEMBER</title>
+    <style>body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:linear-gradient(135deg,#032100 0%,#071205 42%,#2a2517 72%,#614A27 100%);color:#fff;font-family:Arial,sans-serif}.box{width:min(660px,100%);padding:42px;border:1px solid rgba(255,255,255,.14);border-radius:24px;background:rgba(0,0,0,.18)}.eyebrow{margin:0 0 10px;color:#b8f20f;font-size:12px;font-weight:700;letter-spacing:.14em}.code{margin:0 0 8px;font-size:clamp(54px,11vw,96px);line-height:.9}.box h1{margin:0 0 14px;font-size:28px}.box p{margin:0;color:#c9cec9;line-height:1.7}.box a{display:inline-block;margin-top:24px;padding:11px 16px;border-radius:999px;background:#b8f20f;color:#132000;text-decoration:none;font-weight:700}</style>
 </head>
 <body>
-<div class="wrap">
-    <h1>400</h1>
-
-    <p>
-        <?php if (ENVIRONMENT !== 'production') : ?>
-            <?= nl2br(esc($message)) ?>
-        <?php else : ?>
-            <?= lang('Errors.sorryBadRequest') ?>
-        <?php endif; ?>
-    </p>
-</div>
+    <main class="box">
+        <p class="eyebrow">MIN 6 JEMBER</p>
+        <p class="code">400</p>
+        <h1>Permintaan tidak dapat diproses.</h1>
+        <p>Periksa kembali halaman atau data yang dikirim, lalu coba lagi.</p>
+        <a href="<?= esc(site_url('/')) ?>">Kembali ke Beranda</a>
+    </main>
 </body>
 </html>
