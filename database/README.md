@@ -6,7 +6,7 @@ Canonical schema:
 
 `database/minsix.sql`
 
-## PHASE 2
+## PHASE 3
 
 Tabel aktif:
 - `app_users`
@@ -14,11 +14,18 @@ Tabel aktif:
 - `site_settings`
 - `site_features`
 - `media`
+- `profile_sections`
+- `programs`
+- `gtk`
+- `gtk_roles`
+- `gtk_role_assignments`
 
-Karena database lokal PHASE 1 sudah berisi akun Admin, **jangan import ulang canonical dump** jika ingin mempertahankan akun/data. Jalankan upgrade:
+Database lokal yang sudah lulus PHASE 2 **jangan di-reset**. Jalankan:
 
-`database/upgrades/20261002_phase2_settings_features_media.sql`
+`database/upgrades/20261002_phase3_profile_program_gtk.sql`
 
-Untuk instalasi baru dari database kosong, cukup import `database/minsix.sql`.
+Untuk instalasi baru dari database kosong, import `database/minsix.sql`.
+
+Setelah upgrade, menu Profil, Program, GTK, dan Jabatan GTK dapat digunakan.
 
 Jangan commit credential, plaintext password, token, atau dump production yang berisi data sensitif.

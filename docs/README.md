@@ -31,5 +31,6 @@ Urutan baca:
 
 ## Status Implementasi
 - PHASE 0: Dokumen Acuan — selesai
-- PHASE 1: Auth + Manager Skeleton — selesai
-- PHASE 2: Settings + Feature Toggle + Media — selesai di kode, menunggu cek lokal
+- PHASE 1: Auth + Manager Skeleton — PASS
+- PHASE 2: Settings + Feature Toggle + Media — PASS
+- PHASE 3: Profil + Program + GTK — selesai di kode, menunggu cek lokal
