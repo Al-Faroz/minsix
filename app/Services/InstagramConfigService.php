@@ -74,6 +74,7 @@ class InstagramConfigService
             'app_secret_source' => $config['app_secret_source'],
             'app_secret_error' => $config['app_secret_error'],
             'encryption_ready' => $this->encryptionReady(),
+            'storage_ready' => $this->storageReady(),
             'user_id' => $config['user_id'],
             'username' => $config['username'],
             'access_token_ready' => $config['access_token'] !== '',
@@ -98,7 +99,19 @@ class InstagramConfigService
     public function isAppReady(): bool
     {
         $config = $this->resolved();
-        return $config['app_id'] !== '' && $config['app_secret'] !== '' && ! $config['app_secret_error'];
+        return $this->storageReady()
+            && $config['app_id'] !== ''
+            && $config['app_secret'] !== ''
+            && ! $config['app_secret_error'];
+    }
+
+    public function storageReady(): bool
+    {
+        try {
+            return db_connect()->tableExists('integration_settings');
+        } catch (\Throwable) {
+            return false;
+        }
     }
 
     public function isConnected(): bool
