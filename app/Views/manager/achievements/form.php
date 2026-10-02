@@ -16,7 +16,15 @@
 <div class="field"><label>Tanggal Prestasi</label><input type="date" name="achievement_date" value="<?= esc(old('achievement_date', $achievement['achievement_date'] ?? '')) ?>"></div>
 <div class="field span-2"><label>Ringkasan</label><textarea name="summary" rows="4" maxlength="3000"><?= esc(old('summary', $achievement['summary'] ?? '')) ?></textarea></div>
 <div class="field span-2"><label>Cerita / Keterangan</label><textarea name="content" rows="10" maxlength="30000"><?= esc(old('content', $achievement['content'] ?? '')) ?></textarea></div>
-</div></section></div>
+</div></section>
+<section class="content-card">
+<p class="eyebrow">SEO PER KONTEN</p>
+<div class="settings-grid">
+<div class="field span-2"><label>Meta Title</label><input type="text" name="meta_title" maxlength="255" value="<?= esc(old('meta_title', $achievement['meta_title'] ?? '')) ?>"><small>Kosongkan untuk memakai Judul.</small></div>
+<div class="field span-2"><label>Meta Description</label><textarea name="meta_description" rows="3" maxlength="320"><?= esc(old('meta_description', $achievement['meta_description'] ?? '')) ?></textarea><small>Kosongkan untuk memakai Ringkasan.</small></div>
+<div class="field span-2"><label>OG Image</label><select name="og_media_id"><option value="">— Gunakan foto utama/default —</option><?php foreach ($images as $image): ?><option value="<?= (int) $image['id'] ?>" <?= (int) old('og_media_id', $achievement['og_media_id'] ?? 0) === (int) $image['id'] ? 'selected' : '' ?>>#<?= (int) $image['id'] ?> — <?= esc($image['original_name']) ?></option><?php endforeach ?></select></div>
+</div>
+</section></div>
 <aside class="form-side"><section class="content-card"><h3>Publikasi</h3><div class="settings-grid" style="grid-template-columns:1fr">
 <div class="field"><label>Status</label><select name="status"><option value="DRAFT" <?= old('status', $achievement['status'] ?? 'DRAFT') === 'DRAFT' ? 'selected' : '' ?>>DRAFT</option><option value="PUBLISHED" <?= old('status', $achievement['status'] ?? '') === 'PUBLISHED' ? 'selected' : '' ?>>PUBLISHED</option></select></div>
 <div class="field"><label>Foto Utama</label><select name="primary_media_id"><option value="">— Tanpa foto —</option><?php foreach ($images as $image): ?><option value="<?= (int) $image['id'] ?>" <?= (int) old('primary_media_id', $achievement['primary_media_id'] ?? 0) === (int) $image['id'] ? 'selected' : '' ?>>#<?= (int) $image['id'] ?> — <?= esc($image['original_name']) ?></option><?php endforeach ?></select></div>

@@ -167,6 +167,7 @@ class MediaController extends BaseController
             ['news', 'og_media_id', 'SEO Berita'],
             ['events', 'primary_media_id', 'Agenda'],
             ['achievements', 'primary_media_id', 'Prestasi'],
+            ['achievements', 'og_media_id', 'SEO Prestasi'],
             ['galleries', 'cover_media_id', 'Galeri'],
             ['gallery_items', 'media_id', 'Item Galeri'],
             ['spmb_periods', 'qr_media_id', 'QR SPMB'],
@@ -176,6 +177,17 @@ class MediaController extends BaseController
         foreach ($checks as [$table, $field, $label]) {
             if ($db->tableExists($table) && $db->table($table)->where($field, $mediaId)->countAllResults() > 0) {
                 return $label;
+            }
+        }
+
+        if ($db->tableExists('site_settings')) {
+            $globalOg = $db->table('site_settings')
+                ->where('setting_key', 'seo_default_og_media_id')
+                ->where('setting_value', (string) $mediaId)
+                ->countAllResults();
+
+            if ($globalOg > 0) {
+                return 'SEO Global';
             }
         }
 

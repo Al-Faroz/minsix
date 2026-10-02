@@ -142,7 +142,12 @@ class Home extends SiteController
         }
 
         return view('frontend/home/index', array_merge($context, [
-            'title' => ($context['site']['site_name'] ?? 'MIN 6 Jember') . ' — ' . ($context['site']['site_tagline'] ?? ''),
+            'title' => $context['site']['seo_default_title'] ?: ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => $context['site']['seo_default_title'] ?: ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'metaDescription' => $context['site']['seo_default_description'] ?: ($context['site']['site_tagline'] ?? ''),
+            'ogImageUrl' => ! empty($sections['hero']['primary_media_id']) && isset($sectionMedia[(int) $sections['hero']['primary_media_id']])
+                ? base_url($sectionMedia[(int) $sections['hero']['primary_media_id']]['relative_path'])
+                : null,
             'sections' => $sections,
             'sectionMedia' => $sectionMedia,
             'profileAbout' => $profileAbout,

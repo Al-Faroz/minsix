@@ -60,7 +60,8 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/index', array_merge($context, [
-            'title' => 'Kabar Madrasah — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'Kabar Madrasah | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => 'Kabar Madrasah',
             'metaDescription' => 'Berita, agenda, prestasi, dan galeri MIN 6 Jember',
             'news' => $news,
             'events' => $events,
@@ -76,8 +77,9 @@ class KabarController extends SiteController
 
         $context = $this->siteContext();
         $item = db_connect()->table('news n')
-            ->select('n.*, m.relative_path, m.alt_text')
+            ->select('n.*, m.relative_path, m.alt_text, og.relative_path AS og_path')
             ->join('media m', 'm.id = n.primary_media_id', 'left')
+            ->join('media og', 'og.id = n.og_media_id', 'left')
             ->where('n.slug', $slug)
             ->where('n.status', 'PUBLISHED')
             ->where('n.published_at <=', date('Y-m-d H:i:s'))
@@ -88,8 +90,19 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/news_detail', array_merge($context, [
-            'title' => ($item['meta_title'] ?: $item['title']) . ' — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => $item['meta_title'] ?: $item['title'],
             'metaDescription' => $item['meta_description'] ?: ($item['summary'] ?: $item['title']),
+            'ogImageUrl' => ! empty($item['og_path']) ? base_url($item['og_path']) : (! empty($item['relative_path']) ? base_url($item['relative_path']) : null),
+            'ogType' => 'article',
+            'structuredData' => [
+                '@context' => 'https://schema.org',
+                '@type' => 'Article',
+                'headline' => $item['title'],
+                'datePublished' => $item['published_at'] ? date('c', strtotime($item['published_at'])) : null,
+                'dateModified' => $item['updated_at'] ? date('c', strtotime($item['updated_at'])) : null,
+                'mainEntityOfPage' => site_url('kabar/berita/' . $item['slug']),
+            ],
             'item' => $item,
             'currentNav' => 'kabar',
         ]));
@@ -101,8 +114,9 @@ class KabarController extends SiteController
 
         $context = $this->siteContext();
         $item = db_connect()->table('achievements a')
-            ->select('a.*, m.relative_path, m.alt_text')
+            ->select('a.*, m.relative_path, m.alt_text, og.relative_path AS og_path')
             ->join('media m', 'm.id = a.primary_media_id', 'left')
+            ->join('media og', 'og.id = a.og_media_id', 'left')
             ->where('a.slug', $slug)
             ->where('a.status', 'PUBLISHED')
             ->limit(1)->get()->getRowArray();
@@ -112,8 +126,11 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/achievement_detail', array_merge($context, [
-            'title' => $item['title'] . ' — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
-            'metaDescription' => $item['summary'] ?: $item['title'],
+            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => $item['meta_title'] ?: $item['title'],
+            'metaDescription' => $item['meta_description'] ?: ($item['summary'] ?: $item['title']),
+            'ogImageUrl' => ! empty($item['og_path']) ? base_url($item['og_path']) : (! empty($item['relative_path']) ? base_url($item['relative_path']) : null),
+            'ogType' => 'article',
             'item' => $item,
             'currentNav' => 'kabar',
         ]));
@@ -136,8 +153,10 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/event_detail', array_merge($context, [
-            'title' => $item['title'] . ' — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => $item['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => $item['title'],
             'metaDescription' => $item['summary'] ?: $item['title'],
+            'ogImageUrl' => ! empty($item['relative_path']) ? base_url($item['relative_path']) : null,
             'item' => $item,
             'currentNav' => 'kabar',
         ]));
@@ -170,8 +189,10 @@ class KabarController extends SiteController
             ->get()->getResultArray();
 
         return view('frontend/kabar/gallery_detail', array_merge($context, [
-            'title' => $gallery['title'] . ' — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => $gallery['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => $gallery['title'],
             'metaDescription' => $gallery['description'] ?: $gallery['title'],
+            'ogImageUrl' => ! empty($gallery['cover_path']) ? base_url($gallery['cover_path']) : null,
             'gallery' => $gallery,
             'items' => $items,
             'currentNav' => 'kabar',

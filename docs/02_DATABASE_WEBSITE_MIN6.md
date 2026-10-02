@@ -130,6 +130,7 @@ google_maps_embed
 seo_default_title
 seo_default_description
 seo_default_og_media_id
+seo_canonical_base_url
 ```
 
 Hanya Admin mengubah setting global.
@@ -363,11 +364,16 @@ content             LONGTEXT NULL
 primary_media_id    BIGINT UNSIGNED NULL
 status              ENUM('DRAFT','PUBLISHED') DEFAULT 'DRAFT'
 published_at        DATETIME NULL
+meta_title          VARCHAR(255) NULL
+meta_description    VARCHAR(320) NULL
+og_media_id         BIGINT UNSIGNED NULL
 created_by          BIGINT UNSIGNED NULL
 updated_by          BIGINT UNSIGNED NULL
 created_at          DATETIME NULL
 updated_at          DATETIME NULL
 ```
+
+> Revisi PHASE 8: field SEO Prestasi ditambahkan agar sinkron dengan dokumen `06_MEDIA_INSTAGRAM_SEO_WEBSITE_MIN6.md`.
 
 ---
 

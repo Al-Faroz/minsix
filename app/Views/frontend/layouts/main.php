@@ -3,14 +3,82 @@ $siteName = $site['site_name'] ?? 'MIN 6 Jember';
 $tagline = $site['site_tagline'] ?? 'Berakhlaqul Karimah dan Berprestasi';
 $kabarVisible = isset($features['kabar']) && (int) $features['kabar']['is_enabled'] === 1 && (int) $features['kabar']['show_in_nav'] === 1;
 $spmbVisible = isset($features['spmb']) && (int) $features['spmb']['is_enabled'] === 1 && (int) $features['spmb']['show_in_nav'] === 1;
+
+$rawSeoTitle = trim((string) ($seoTitle ?? ''));
+if ($rawSeoTitle === '') {
+    $rawSeoTitle = trim((string) ($title ?? ''));
+}
+if ($rawSeoTitle === '') {
+    $rawSeoTitle = trim((string) ($site['seo_default_title'] ?? ''));
+}
+if ($rawSeoTitle === '') {
+    $rawSeoTitle = $siteName;
+}
+
+$documentTitle = str_contains(mb_strtolower($rawSeoTitle), mb_strtolower($siteName))
+    ? $rawSeoTitle
+    : $rawSeoTitle . ' | ' . $siteName;
+
+$description = trim((string) ($metaDescription ?? ''));
+if ($description === '') {
+    $description = trim((string) ($site['seo_default_description'] ?? ''));
+}
+if ($description === '') {
+    $description = $tagline;
+}
+
+$canonicalBase = rtrim(trim((string) ($site['seo_canonical_base_url'] ?? '')), '/');
+$relativeUri = trim(uri_string(), '/');
+$resolvedCanonical = $canonicalUrl ?? ($canonicalBase !== ''
+    ? $canonicalBase . ($relativeUri !== '' ? '/' . $relativeUri : '/')
+    : current_url());
+
+$resolvedOgImage = $ogImageUrl ?? ($seoDefaultOgUrl ?? null);
+$resolvedOgType = $ogType ?? 'website';
+
+$organizationData = [
+    '@context' => 'https://schema.org',
+    '@type' => 'EducationalOrganization',
+    'name' => $siteName,
+    'url' => $canonicalBase !== '' ? $canonicalBase . '/' : site_url('/'),
+];
+
+if (! empty($site['address'])) $organizationData['address'] = $site['address'];
+if (! empty($site['phone'])) $organizationData['telephone'] = $site['phone'];
+if (! empty($site['email'])) $organizationData['email'] = $site['email'];
+if (! empty($site['instagram_url'])) $organizationData['sameAs'] = [$site['instagram_url']];
+
+$structuredItems = [$organizationData];
+if (! empty($structuredData) && is_array($structuredData)) {
+    $structuredItems[] = $structuredData;
+}
 ?>
 <!doctype html>
 <html lang="id">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><?= esc($title ?? $siteName) ?></title>
-    <meta name="description" content="<?= esc($metaDescription ?? $tagline) ?>">
+    <title><?= esc($documentTitle) ?></title>
+    <meta name="description" content="<?= esc($description) ?>">
+    <link rel="canonical" href="<?= esc($resolvedCanonical) ?>">
+
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="<?= esc($siteName) ?>">
+    <meta property="og:type" content="<?= esc($resolvedOgType) ?>">
+    <meta property="og:title" content="<?= esc($documentTitle) ?>">
+    <meta property="og:description" content="<?= esc($description) ?>">
+    <meta property="og:url" content="<?= esc($resolvedCanonical) ?>">
+    <?php if ($resolvedOgImage): ?><meta property="og:image" content="<?= esc($resolvedOgImage) ?>"><?php endif ?>
+
+    <meta name="twitter:card" content="<?= $resolvedOgImage ? 'summary_large_image' : 'summary' ?>">
+    <meta name="twitter:title" content="<?= esc($documentTitle) ?>">
+    <meta name="twitter:description" content="<?= esc($description) ?>">
+    <?php if ($resolvedOgImage): ?><meta name="twitter:image" content="<?= esc($resolvedOgImage) ?>"><?php endif ?>
+
+    <?php foreach ($structuredItems as $structuredItem): ?>
+        <script type="application/ld+json"><?= json_encode($structuredItem, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?></script>
+    <?php endforeach ?>
+
     <link rel="stylesheet" href="<?= base_url('assets/site/css/site.css') ?>">
 </head>
 <body>

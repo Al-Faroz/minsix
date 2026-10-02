@@ -17,7 +17,8 @@ class PageController extends SiteController
             ->getResultArray();
 
         return view('frontend/profile/index', array_merge($context, [
-            'title' => 'Profil — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'Profil | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => 'Profil',
             'metaDescription' => 'Profil MIN 6 Jember',
             'sections' => $rows,
             'currentNav' => 'profile',
@@ -42,7 +43,8 @@ class PageController extends SiteController
         }
 
         return view('frontend/program/index', array_merge($context, [
-            'title' => 'Program — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'Program | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => 'Program',
             'metaDescription' => 'Program pembelajaran dan pengembangan MIN 6 Jember',
             'programGroups' => $grouped,
             'currentNav' => 'program',
@@ -108,7 +110,8 @@ class PageController extends SiteController
         unset($group);
 
         return view('frontend/gtk/index', array_merge($context, [
-            'title' => 'GTK — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'GTK | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => 'GTK',
             'metaDescription' => 'Guru dan Tenaga Kependidikan MIN 6 Jember',
             'groups' => $groups,
             'currentNav' => 'gtk',
@@ -153,7 +156,8 @@ class PageController extends SiteController
         }
 
         return view('frontend/spmb/index', array_merge($context, [
-            'title' => 'SPMB — ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'SPMB | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'seoTitle' => 'SPMB',
             'metaDescription' => $period['summary'] ?? 'Informasi SPMB MIN 6 Jember',
             'period' => $period,
             'requirements' => $requirements,

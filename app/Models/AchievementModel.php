@@ -15,6 +15,7 @@ class AchievementModel extends Model
     protected $allowedFields = [
         'slug', 'title', 'participant_name', 'field_name', 'award', 'level',
         'organizer', 'achievement_date', 'summary', 'content', 'primary_media_id',
-        'status', 'published_at', 'created_by', 'updated_by',
+        'status', 'published_at', 'meta_title', 'meta_description', 'og_media_id',
+        'created_by', 'updated_by',
     ];
 }

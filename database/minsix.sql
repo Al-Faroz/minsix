@@ -1,5 +1,5 @@
 -- MIN SIX — canonical SQL dump
--- PHASE 7: Instagram Hybrid
+-- PHASE 8A/B: SEO foundation + metadata
 -- Schema aplikasi menggunakan SQL dump, bukan Migration/Seeder.
 
 SET NAMES utf8mb4;
@@ -350,6 +350,9 @@ CREATE TABLE IF NOT EXISTS achievements (
     primary_media_id BIGINT UNSIGNED NULL,
     status ENUM('DRAFT','PUBLISHED') NOT NULL DEFAULT 'DRAFT',
     published_at DATETIME NULL,
+    meta_title VARCHAR(255) NULL,
+    meta_description VARCHAR(320) NULL,
+    og_media_id BIGINT UNSIGNED NULL,
     created_by BIGINT UNSIGNED NULL,
     updated_by BIGINT UNSIGNED NULL,
     created_at DATETIME NULL,
@@ -358,7 +361,9 @@ CREATE TABLE IF NOT EXISTS achievements (
     UNIQUE KEY uq_achievements_slug (slug),
     KEY idx_achievements_status_date (status, achievement_date),
     KEY idx_achievements_primary_media (primary_media_id),
+    KEY idx_achievements_og_media (og_media_id),
     CONSTRAINT fk_achievements_media FOREIGN KEY (primary_media_id) REFERENCES media(id) ON UPDATE CASCADE ON DELETE SET NULL,
+    CONSTRAINT fk_achievements_og FOREIGN KEY (og_media_id) REFERENCES media(id) ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT fk_achievements_created_by FOREIGN KEY (created_by) REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT fk_achievements_updated_by FOREIGN KEY (updated_by) REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -463,7 +468,11 @@ INSERT INTO site_settings (setting_key, setting_value, value_type, is_public) VA
 ('instagram_url', 'https://www.instagram.com/min6jember', 'string', 1),
 ('google_maps_embed', '', 'text', 1),
 ('instagram_source_mode', 'HYBRID', 'string', 0),
-('instagram_display_count', '8', 'integer', 0);
+('instagram_display_count', '8', 'integer', 0),
+('seo_default_title', 'MIN 6 Jember', 'string', 1),
+('seo_default_description', 'Berakhlaqul Karimah dan Berprestasi', 'text', 1),
+('seo_default_og_media_id', '', 'integer', 1),
+('seo_canonical_base_url', '', 'string', 1);
 
 INSERT INTO site_features (feature_key, label, is_enabled, show_in_nav, show_on_home) VALUES
 ('kabar', 'Kabar Madrasah', 1, 1, 0),

@@ -44,13 +44,12 @@ $navActive = static fn (string $prefix): string =>
                 <a class="nav-item<?= $navActive('manager/settings') ?>" href="<?= site_url('manager/settings') ?>">Website</a>
                 <a class="nav-item<?= $navActive('manager/features') ?>" href="<?= site_url('manager/features') ?>">Fitur</a>
                 <a class="nav-item<?= $navActive('manager/instagram-settings') ?>" href="<?= site_url('manager/instagram-settings') ?>">Instagram</a>
-                <?php foreach (['SEO','Pengguna'] as $item): ?>
-                    <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
-                <?php endforeach ?>
+                <a class="nav-item<?= $navActive('manager/seo') ?>" href="<?= site_url('manager/seo') ?>">SEO</a>
+                <button class="nav-item disabled" type="button" disabled><span>Pengguna</span><small>Segera</small></button>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 7</span><strong>Instagram Hybrid</strong></div>
+        <div class="sidebar-foot"><span>PHASE 8</span><strong>SEO + Performance + Security</strong></div>
     </aside>
 
     <div class="content-wrap">

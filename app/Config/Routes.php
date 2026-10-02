@@ -13,6 +13,7 @@ $routes->get('kabar/prestasi/(:segment)', 'KabarController::achievementDetail/$1
 $routes->get('kabar/agenda/(:segment)', 'KabarController::eventDetail/$1');
 $routes->get('kabar/galeri/(:segment)', 'KabarController::galleryDetail/$1');
 $routes->get('spmb', 'PageController::spmb');
+$routes->get('sitemap.xml', 'SitemapController::index');
 
 $routes->get('manager/login', 'Manager\AuthController::login');
 $routes->post('manager/login', 'Manager\AuthController::attempt');
@@ -119,3 +120,5 @@ $routes->get('manager/settings', 'Manager\SettingsController::index', ['filter' 
 $routes->post('manager/settings', 'Manager\SettingsController::update', ['filter' => 'admin']);
 $routes->get('manager/features', 'Manager\FeatureController::index', ['filter' => 'admin']);
 $routes->post('manager/features', 'Manager\FeatureController::update', ['filter' => 'admin']);
+$routes->get('manager/seo', 'Manager\SeoController::index', ['filter' => 'admin']);
+$routes->post('manager/seo', 'Manager\SeoController::update', ['filter' => 'admin']);

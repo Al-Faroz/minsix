@@ -52,6 +52,9 @@ class AchievementController extends BaseController
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $status === 'PUBLISHED' ? date('Y-m-d H:i:s') : null,
+            'meta_title' => trim((string) $this->request->getPost('meta_title')),
+            'meta_description' => trim((string) $this->request->getPost('meta_description')),
+            'og_media_id' => $this->validImageId($this->request->getPost('og_media_id')),
             'created_by' => (int) session()->get('auth_user_id'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
@@ -106,6 +109,9 @@ class AchievementController extends BaseController
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $publishedAt,
+            'meta_title' => trim((string) $this->request->getPost('meta_title')),
+            'meta_description' => trim((string) $this->request->getPost('meta_description')),
+            'og_media_id' => $this->validImageId($this->request->getPost('og_media_id')),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
 
@@ -152,6 +158,9 @@ class AchievementController extends BaseController
             'content' => 'permit_empty|max_length[30000]',
             'primary_media_id' => 'permit_empty|is_natural_no_zero',
             'status' => 'required|in_list[DRAFT,PUBLISHED]',
+            'meta_title' => 'permit_empty|max_length[255]',
+            'meta_description' => 'permit_empty|max_length[320]',
+            'og_media_id' => 'permit_empty|is_natural_no_zero',
         ]);
     }
 
