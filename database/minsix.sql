@@ -1,5 +1,5 @@
 -- MIN SIX — canonical SQL dump
--- PHASE 8A/B: SEO foundation + metadata
+-- PHASE 10C: production schema including Instagram Login lifecycle + carousel cache
 -- Schema aplikasi menggunakan SQL dump, bukan Migration/Seeder.
 
 SET NAMES utf8mb4;
