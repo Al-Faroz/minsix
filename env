@@ -67,3 +67,15 @@
 #--------------------------------------------------------------------
 
 # logger.threshold = 4
+
+
+#--------------------------------------------------------------------
+# INSTAGRAM HYBRID
+#--------------------------------------------------------------------
+# Use Instagram API with Instagram Login credentials for a Professional account.
+# Keep real credentials only in .env; never commit them.
+#
+# instagram.apiBaseUrl = 'https://graph.instagram.com'
+# instagram.apiVersion = 'vXX.X'
+# instagram.userId =
+# instagram.accessToken =

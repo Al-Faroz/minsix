@@ -118,6 +118,29 @@ class Home extends SiteController
                 ->getRowArray();
         }
 
+        $showInstagram = $this->featureOnHome('instagram');
+        $instagramPosts = [];
+        $instagramSourceUsed = null;
+
+        if ($showInstagram && $db->tableExists('instagram_posts')) {
+            $mode = strtoupper(trim((string) ($context['site']['instagram_source_mode'] ?? 'HYBRID')));
+            $displayCount = max(6, min(8, (int) ($context['site']['instagram_display_count'] ?? 8)));
+
+            if ($mode !== 'MANUAL') {
+                $instagramPosts = $this->instagramRows($db, 'API', $displayCount);
+                if ($instagramPosts !== []) {
+                    $instagramSourceUsed = 'API';
+                }
+            }
+
+            if ($instagramPosts === []) {
+                $instagramPosts = $this->instagramRows($db, 'MANUAL', $displayCount);
+                if ($instagramPosts !== []) {
+                    $instagramSourceUsed = 'MANUAL';
+                }
+            }
+        }
+
         return view('frontend/home/index', array_merge($context, [
             'title' => ($context['site']['site_name'] ?? 'MIN 6 Jember') . ' — ' . ($context['site']['site_tagline'] ?? ''),
             'sections' => $sections,
@@ -131,9 +154,40 @@ class Home extends SiteController
             'headmaster' => $headmaster,
             'headmasterProfile' => $headmasterProfile,
             'spmb' => $spmb,
-            'showInstagram' => $this->featureOnHome('instagram'),
+            'showInstagram' => $showInstagram,
+            'instagramPosts' => $instagramPosts,
+            'instagramSourceUsed' => $instagramSourceUsed,
             'currentNav' => 'home',
         ]));
+    }
+
+    private function instagramRows($db, string $source, int $limit): array
+    {
+        $builder = $db->table('instagram_posts i')
+            ->select('i.*, m.relative_path, m.alt_text')
+            ->join('media m', 'm.id = i.local_media_id', 'left')
+            ->where('i.source', $source)
+            ->where('i.is_visible', 1);
+
+        if ($source === 'MANUAL') {
+            $builder->orderBy('i.sort_order', 'ASC')->orderBy('i.published_at', 'DESC');
+        } else {
+            $builder->orderBy('i.published_at', 'DESC')->orderBy('i.id', 'DESC');
+        }
+
+        $rows = $builder->limit($limit)->get()->getResultArray();
+
+        return array_values(array_filter($rows, static function (array $row): bool {
+            if (! empty($row['relative_path'])) {
+                return true;
+            }
+
+            if (! empty($row['thumbnail_url'])) {
+                return true;
+            }
+
+            return ! empty($row['media_url']);
+        }));
     }
 
     private function sectionMedia(array $sections): array

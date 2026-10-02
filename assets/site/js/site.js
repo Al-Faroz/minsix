@@ -53,3 +53,22 @@ document.addEventListener('DOMContentLoaded', () => {
     if (event.key === 'Escape' && !lightbox.hidden) closeLightbox();
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const track = document.querySelector('[data-instagram-carousel]');
+  const prev = document.querySelector('[data-instagram-prev]');
+  const next = document.querySelector('[data-instagram-next]');
+
+  if (!track || !prev || !next) return;
+
+  const step = () => Math.max(track.clientWidth * 0.82, 240);
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -step(), behavior: 'smooth' });
+  });
+
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: step(), behavior: 'smooth' });
+  });
+});

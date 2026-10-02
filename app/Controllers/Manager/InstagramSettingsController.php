@@ -6,6 +6,7 @@ use App\Controllers\BaseController;
 use App\Models\AuditLogModel;
 use App\Models\InstagramPostModel;
 use App\Models\SiteSettingModel;
+use App\Services\InstagramSyncService;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class InstagramSettingsController extends BaseController
@@ -22,8 +23,8 @@ class InstagramSettingsController extends BaseController
             'title' => 'Pengaturan Instagram | CMS MIN 6 Jember',
             'pageTitle' => 'Pengaturan Instagram',
             'settings' => $settings,
-            'apiReady' => $this->apiReady(),
-            'apiState' => $this->apiState(),
+            'apiReady' => (new InstagramSyncService())->isReady(),
+            'apiState' => (new InstagramSyncService())->readiness(),
             'latestFetchedAt' => $latest['fetched_at'] ?? null,
             'apiCount' => (new InstagramPostModel())->where('source', 'API')->countAllResults(),
         ]);
@@ -84,30 +85,40 @@ class InstagramSettingsController extends BaseController
         return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Pengaturan Instagram berhasil disimpan.');
     }
 
-    private function apiReady(): bool
+    public function sync(): RedirectResponse
     {
-        $state = $this->apiState();
-        return ! in_array(false, $state, true);
-    }
+        $result = (new InstagramSyncService())->sync();
 
-    private function apiState(): array
-    {
-        return [
-            'base_url' => trim((string) env('instagram.apiBaseUrl', '')) !== '',
-            'api_version' => trim((string) env('instagram.apiVersion', '')) !== '',
-            'user_id' => trim((string) env('instagram.userId', '')) !== '',
-            'access_token' => trim((string) env('instagram.accessToken', '')) !== '',
-        ];
+        $this->auditAction(
+            ($result['ok'] ?? false) ? 'INSTAGRAM_SYNC_RUN' : 'INSTAGRAM_SYNC_FAILED',
+            (string) ($result['message'] ?? 'Sinkronisasi Instagram dijalankan.')
+        );
+
+        if (! ($result['ok'] ?? false)) {
+            return redirect()->to(site_url('manager/instagram-settings'))
+                ->with('error', (string) ($result['message'] ?? 'Sinkronisasi Instagram gagal.'));
+        }
+
+        return redirect()->to(site_url('manager/instagram-settings'))
+            ->with('success', (string) ($result['message'] ?? 'Sinkronisasi Instagram selesai.'));
     }
 
     private function audit(): void
     {
+        $this->auditAction(
+            'INSTAGRAM_CONFIG_UPDATED',
+            'Mode source dan jumlah carousel Instagram diperbarui. Credential tidak disimpan di database.'
+        );
+    }
+
+    private function auditAction(string $action, string $description): void
+    {
         try {
             (new AuditLogModel())->insert([
                 'user_id' => (int) session()->get('auth_user_id'),
-                'action' => 'INSTAGRAM_CONFIG_UPDATED',
+                'action' => $action,
                 'module' => 'INSTAGRAM_CONFIG',
-                'description' => 'Mode source dan jumlah carousel Instagram diperbarui. Credential tidak disimpan di database.',
+                'description' => $description,
                 'ip_address' => $this->request->getIPAddress(),
                 'created_at' => date('Y-m-d H:i:s'),
             ]);

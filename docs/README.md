@@ -37,3 +37,4 @@ Urutan baca:
 - PHASE 4: Kabar Madrasah — audit source selesai, menunggu cek fungsional lokal
 - PHASE 5: SPMB — audit source selesai, menunggu cek fungsional lokal
 - PHASE 6: Homepage / Frontend — implementasi source selesai, menunggu cek lokal & responsive audit akhir
+- PHASE 7: Instagram Hybrid — implementasi source selesai, menunggu konfigurasi credential dan cek lokal

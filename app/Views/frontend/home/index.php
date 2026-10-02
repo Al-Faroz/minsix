@@ -239,10 +239,48 @@ $habitItems = $habits['content_data']['items'] ?? [
 <?php endif ?>
 
 <?php if ($showInstagram): ?>
-<section class="section instagram-teaser">
-    <div class="site-container instagram-row">
-        <div><p class="section-eyebrow"><?= esc($instagramIntro['eyebrow'] ?: 'INSTAGRAM') ?></p><h2><?= esc($instagramIntro['title'] ?: 'Ikuti keseharian @min6jember') ?></h2></div>
-        <div><p>Carousel Instagram hybrid akan diaktifkan pada PHASE 7. Untuk sementara pengunjung diarahkan ke akun resmi.</p><a class="button outline" target="_blank" rel="noopener" href="<?= esc($site['instagram_url'] ?? 'https://www.instagram.com/min6jember') ?>">@<?= esc($site['instagram_username'] ?? 'min6jember') ?> →</a></div>
+<section class="section instagram-section">
+    <div class="site-container">
+        <div class="instagram-heading">
+            <div>
+                <p class="section-eyebrow"><?= esc($instagramIntro['eyebrow'] ?: 'INSTAGRAM') ?></p>
+                <h2><?= esc($instagramIntro['title'] ?: 'Ikuti keseharian @min6jember') ?></h2>
+            </div>
+            <div class="instagram-heading-actions">
+                <a class="button outline" target="_blank" rel="noopener" href="<?= esc($site['instagram_url'] ?? 'https://www.instagram.com/min6jember') ?>">@<?= esc($site['instagram_username'] ?? 'min6jember') ?> →</a>
+                <?php if ($instagramPosts !== []): ?>
+                    <div class="carousel-controls" aria-label="Kontrol carousel Instagram">
+                        <button type="button" data-instagram-prev aria-label="Geser ke kiri">←</button>
+                        <button type="button" data-instagram-next aria-label="Geser ke kanan">→</button>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
+
+        <?php if ($instagramPosts !== []): ?>
+            <div class="instagram-carousel" data-instagram-carousel tabindex="0" aria-label="Posting Instagram MIN 6 Jember">
+                <?php foreach ($instagramPosts as $post): ?>
+                    <?php
+                    $imageSrc = $post['relative_path'] ?: ($post['thumbnail_url'] ?: $post['media_url']);
+                    $imageUrl = preg_match('~^https?://~i', (string) $imageSrc) ? $imageSrc : base_url($imageSrc);
+                    $targetUrl = $post['permalink'] ?: ($site['instagram_url'] ?? 'https://www.instagram.com/min6jember');
+                    ?>
+                    <a class="instagram-card" href="<?= esc($targetUrl) ?>" target="_blank" rel="noopener">
+                        <div class="instagram-card-media">
+                            <img loading="lazy" src="<?= esc($imageUrl) ?>" alt="<?= esc($post['alt_text'] ?: 'Posting Instagram MIN 6 Jember') ?>">
+                            <span class="instagram-mark" aria-hidden="true">IG</span>
+                        </div>
+                        <?php if ($post['caption']): ?><p><?= esc($post['caption']) ?></p><?php endif ?>
+                    </a>
+                <?php endforeach ?>
+            </div>
+            <p class="instagram-cache-note">Ditampilkan dari <?= esc($instagramSourceUsed === 'API' ? 'cache lokal Instagram' : 'fallback manual') ?>.</p>
+        <?php else: ?>
+            <div class="instagram-empty">
+                <p>Belum ada cache atau fallback Instagram yang dapat ditampilkan.</p>
+                <a class="arrow-link" target="_blank" rel="noopener" href="<?= esc($site['instagram_url'] ?? 'https://www.instagram.com/min6jember') ?>">Buka Instagram resmi →</a>
+            </div>
+        <?php endif ?>
     </div>
 </section>
 <?php endif ?>

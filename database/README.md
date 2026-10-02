@@ -6,41 +6,44 @@ Canonical schema:
 
 `database/minsix.sql`
 
-## PHASE 6
+## PHASE 7
 
-Tabel aktif:
-- `app_users`
-- `audit_logs`
-- `site_settings`
-- `site_features`
-- `media`
-- `homepage_sections`
-- `profile_sections`
-- `programs`
-- `gtk`
-- `gtk_roles`
-- `gtk_role_assignments`
-- `news`
-- `events`
-- `achievements`
-- `galleries`
-- `gallery_items`
-- `spmb_periods`
-- `spmb_requirements`
-- `spmb_faq`
+PHASE 7 menambahkan:
+- `instagram_posts` sebagai local cache API + fallback manual;
+- `instagram_source_mode` (`HYBRID` / `MANUAL`);
+- `instagram_display_count` (6–8 item).
 
-Database lokal yang sudah lulus PHASE 5 **jangan di-reset**. Jalankan hanya:
+Database lokal yang sudah lulus PHASE 6 **jangan di-reset**. Jalankan hanya:
 
-`database/upgrades/20261002_phase6a_homepage.sql`
+`database/upgrades/20261002_phase7a_instagram.sql`
 
-Upgrade PHASE 6 menambahkan `homepage_sections`. Batch 6B–6D tidak menambah tabel baru.
+Batch 7B tidak menambah tabel baru.
+
+### Credential API
+
+Credential **tidak disimpan di database/repository**. Atur pada file lokal `.env`:
+
+```ini
+instagram.apiBaseUrl = 'https://graph.instagram.com'
+instagram.apiVersion = 'vXX.X'
+instagram.userId = '...'
+instagram.accessToken = '...'
+```
+
+Gunakan API version yang valid untuk aplikasi Meta saat credential dibuat.
+
+### Sinkronisasi
+
+Manual dari CMS Admin: `/manager/instagram-settings`
+
+CLI / cron:
+
+```bash
+php spark instagram:sync
+```
+
+Jika fetch gagal, cache API lama tidak dihapus. Jika cache tidak tersedia, homepage memakai fallback MANUAL. Mode MANUAL tidak melakukan fetch API.
 
 Untuk instalasi baru dari database kosong, import `database/minsix.sql`.
-
-Frontend publik membaca:
-- `homepage_sections` untuk copy dan foto homepage;
-- `site_features` untuk visibility Kabar, submodul, Instagram, dan SPMB;
-- konten berstatus `PUBLISHED` untuk Program/Kabar/SPMB;
-- `site_settings` untuk identitas dan kontak.
 
 Jangan commit credential, plaintext password, token, atau dump production yang berisi data sensitif.

@@ -51,7 +51,13 @@
             <div><code><?= esc($name) ?></code><span class="status-chip <?= $ready ? 'published' : 'draft' ?>"><?= $ready ? 'SET' : 'BELUM' ?></span></div>
         <?php endforeach ?>
     </div>
-    <p class="muted" style="margin-top:16px">Sinkronisasi API dan perintah cron ditambahkan pada Batch 7B.</p>
+    <div class="form-actions" style="margin-top:18px">
+        <form action="<?= site_url('manager/instagram-settings/sync') ?>" method="post" onsubmit="return confirm('Sinkronkan cache Instagram sekarang? Cache lama tidak akan dihapus bila API gagal.');">
+            <?= csrf_field() ?>
+            <button class="btn primary" type="submit" <?= ! $apiReady ? 'disabled' : '' ?>>Sinkronkan Sekarang</button>
+        </form>
+    </div>
+    <p class="muted" style="margin-top:16px">Cron/CLI: <code>php spark instagram:sync</code>. Jadwal yang disarankan dokumen acuan adalah setiap 1–6 jam.</p>
 </section>
 
 <?= $this->endSection() ?>
