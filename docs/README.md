@@ -34,4 +34,5 @@ Urutan baca:
 - PHASE 1: Auth + Manager Skeleton — PASS
 - PHASE 2: Settings + Feature Toggle + Media — PASS
 - PHASE 3: Profil + Program + GTK — PASS
-- PHASE 4: Kabar Madrasah (Berita + Agenda + Prestasi + Galeri) — selesai di kode, menunggu cek lokal
+- PHASE 4: Kabar Madrasah (Berita + Agenda + Prestasi + Galeri) — audit source selesai, menunggu cek fungsional lokal
+- PHASE 5: SPMB — selesai di kode, menunggu cek lokal

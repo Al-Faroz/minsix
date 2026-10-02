@@ -167,6 +167,8 @@ class MediaController extends BaseController
             ['achievements', 'primary_media_id', 'Prestasi'],
             ['galleries', 'cover_media_id', 'Galeri'],
             ['gallery_items', 'media_id', 'Item Galeri'],
+            ['spmb_periods', 'qr_media_id', 'QR SPMB'],
+            ['spmb_periods', 'brochure_media_id', 'Brosur SPMB'],
         ];
 
         foreach ($checks as [$table, $field, $label]) {

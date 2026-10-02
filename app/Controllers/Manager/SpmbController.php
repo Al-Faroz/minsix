@@ -60,33 +60,42 @@ class SpmbController extends BaseController
         $db = db_connect();
         $model = new SpmbPeriodModel();
 
-        $db->transStart();
+        $db->transBegin();
 
-        if ($isCurrent === 1) {
-            $db->table('spmb_periods')->set('is_current', 0)->update();
-        }
+        try {
+            if ($isCurrent === 1) {
+                $unsetCurrent = $db->table('spmb_periods')->set('is_current', 0)->update();
+                if ($unsetCurrent === false) {
+                    throw new \RuntimeException('Gagal melepas Current SPMB sebelumnya.');
+                }
+            }
 
-        $id = $model->insert([
-            'academic_year' => trim((string) $this->request->getPost('academic_year')),
-            'title' => trim((string) $this->request->getPost('title')),
-            'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
-            'start_date' => $this->nullablePost('start_date'),
-            'end_date' => $this->nullablePost('end_date'),
-            'registration_url' => trim((string) $this->request->getPost('registration_url')),
-            'qr_media_id' => $qrId,
-            'brochure_media_id' => $brochureId,
-            'contact_name' => trim((string) $this->request->getPost('contact_name')),
-            'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
-            'status' => (string) $this->request->getPost('status'),
-            'is_current' => $isCurrent,
-            'created_by' => (int) session()->get('auth_user_id'),
-            'updated_by' => (int) session()->get('auth_user_id'),
-        ]);
+            $id = $model->insert([
+                'academic_year' => trim((string) $this->request->getPost('academic_year')),
+                'title' => trim((string) $this->request->getPost('title')),
+                'summary' => trim((string) $this->request->getPost('summary')),
+                'content' => trim((string) $this->request->getPost('content')),
+                'start_date' => $this->nullablePost('start_date'),
+                'end_date' => $this->nullablePost('end_date'),
+                'registration_url' => trim((string) $this->request->getPost('registration_url')),
+                'qr_media_id' => $qrId,
+                'brochure_media_id' => $brochureId,
+                'contact_name' => trim((string) $this->request->getPost('contact_name')),
+                'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
+                'status' => (string) $this->request->getPost('status'),
+                'is_current' => $isCurrent,
+                'created_by' => (int) session()->get('auth_user_id'),
+                'updated_by' => (int) session()->get('auth_user_id'),
+            ]);
 
-        $db->transComplete();
+            if ($id === false || ! $db->transStatus()) {
+                throw new \RuntimeException('Insert periode SPMB gagal.');
+            }
 
-        if (! $db->transStatus() || $id === false) {
+            $db->transCommit();
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            log_message('error', 'Simpan SPMB gagal: {message}', ['message' => $e->getMessage()]);
             return redirect()->back()->withInput()->with('error', 'Periode SPMB gagal disimpan.');
         }
 
@@ -140,32 +149,41 @@ class SpmbController extends BaseController
 
         $isCurrent = $this->request->getPost('is_current') ? 1 : 0;
         $db = db_connect();
-        $db->transStart();
+        $db->transBegin();
 
-        if ($isCurrent === 1) {
-            $db->table('spmb_periods')->where('id !=', $id)->set('is_current', 0)->update();
-        }
+        try {
+            if ($isCurrent === 1) {
+                $unsetCurrent = $db->table('spmb_periods')->where('id !=', $id)->set('is_current', 0)->update();
+                if ($unsetCurrent === false) {
+                    throw new \RuntimeException('Gagal melepas Current SPMB lainnya.');
+                }
+            }
 
-        $model->update($id, [
-            'academic_year' => trim((string) $this->request->getPost('academic_year')),
-            'title' => trim((string) $this->request->getPost('title')),
-            'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
-            'start_date' => $this->nullablePost('start_date'),
-            'end_date' => $this->nullablePost('end_date'),
-            'registration_url' => trim((string) $this->request->getPost('registration_url')),
-            'qr_media_id' => $qrId,
-            'brochure_media_id' => $brochureId,
-            'contact_name' => trim((string) $this->request->getPost('contact_name')),
-            'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
-            'status' => (string) $this->request->getPost('status'),
-            'is_current' => $isCurrent,
-            'updated_by' => (int) session()->get('auth_user_id'),
-        ]);
+            $updated = $model->update($id, [
+                'academic_year' => trim((string) $this->request->getPost('academic_year')),
+                'title' => trim((string) $this->request->getPost('title')),
+                'summary' => trim((string) $this->request->getPost('summary')),
+                'content' => trim((string) $this->request->getPost('content')),
+                'start_date' => $this->nullablePost('start_date'),
+                'end_date' => $this->nullablePost('end_date'),
+                'registration_url' => trim((string) $this->request->getPost('registration_url')),
+                'qr_media_id' => $qrId,
+                'brochure_media_id' => $brochureId,
+                'contact_name' => trim((string) $this->request->getPost('contact_name')),
+                'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
+                'status' => (string) $this->request->getPost('status'),
+                'is_current' => $isCurrent,
+                'updated_by' => (int) session()->get('auth_user_id'),
+            ]);
 
-        $db->transComplete();
+            if ($updated === false || ! $db->transStatus()) {
+                throw new \RuntimeException('Update periode SPMB gagal.');
+            }
 
-        if (! $db->transStatus()) {
+            $db->transCommit();
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            log_message('error', 'Update SPMB gagal: {message}', ['message' => $e->getMessage()]);
             return redirect()->back()->withInput()->with('error', 'Periode SPMB gagal diperbarui.');
         }
 
@@ -192,15 +210,23 @@ class SpmbController extends BaseController
         }
 
         $db = db_connect();
-        $db->transStart();
-        $db->table('spmb_periods')->set('is_current', 0)->update();
-        $model->update($id, [
-            'is_current' => 1,
-            'updated_by' => (int) session()->get('auth_user_id'),
-        ]);
-        $db->transComplete();
+        $db->transBegin();
 
-        if (! $db->transStatus()) {
+        try {
+            $unsetCurrent = $db->table('spmb_periods')->set('is_current', 0)->update();
+            $setCurrent = $model->update($id, [
+                'is_current' => 1,
+                'updated_by' => (int) session()->get('auth_user_id'),
+            ]);
+
+            if ($unsetCurrent === false || $setCurrent === false || ! $db->transStatus()) {
+                throw new \RuntimeException('Pergantian Current SPMB gagal.');
+            }
+
+            $db->transCommit();
+        } catch (\Throwable $e) {
+            $db->transRollback();
+            log_message('error', 'Current SPMB gagal diubah: {message}', ['message' => $e->getMessage()]);
             return redirect()->to(site_url('manager/spmb'))->with('error', 'Current SPMB gagal diubah.');
         }
 
@@ -223,7 +249,10 @@ class SpmbController extends BaseController
                 ->with('error', 'Periode current tidak dapat dihapus. Tetapkan periode lain sebagai current atau lepas status Current terlebih dahulu.');
         }
 
-        $model->delete($id);
+        if ($model->delete($id) === false) {
+            return redirect()->to(site_url('manager/spmb'))->with('error', 'Periode SPMB gagal dihapus.');
+        }
+
         $this->audit($id, 'SPMB_DELETED', 'Periode SPMB dihapus: ' . $period['academic_year']);
 
         return redirect()->to(site_url('manager/spmb'))->with('success', 'Periode SPMB berhasil dihapus.');
@@ -272,11 +301,16 @@ class SpmbController extends BaseController
             return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
-        $model->update($requirementId, [
+        $updated = $model->update($requirementId, [
             'requirement_text' => trim((string) $this->request->getPost('requirement_text')),
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
         ]);
 
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Persyaratan gagal diperbarui.');
+        }
+
+        $this->audit($periodId, 'SPMB_REQUIREMENT_UPDATED', 'Persyaratan SPMB diperbarui.');
         return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Persyaratan berhasil diperbarui.');
     }
 
@@ -289,7 +323,10 @@ class SpmbController extends BaseController
             return redirect()->back()->with('error', 'Persyaratan tidak ditemukan.');
         }
 
-        $model->delete($requirementId);
+        if ($model->delete($requirementId) === false) {
+            return redirect()->back()->with('error', 'Persyaratan gagal dihapus.');
+        }
+
         $this->audit($periodId, 'SPMB_REQUIREMENT_DELETED', 'Persyaratan SPMB dihapus.');
 
         return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Persyaratan berhasil dihapus.');
@@ -341,12 +378,17 @@ class SpmbController extends BaseController
             return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
-        $model->update($faqId, [
+        $updated = $model->update($faqId, [
             'question' => trim((string) $this->request->getPost('question')),
             'answer' => trim((string) $this->request->getPost('answer')),
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
         ]);
 
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'FAQ gagal diperbarui.');
+        }
+
+        $this->audit($periodId, 'SPMB_FAQ_UPDATED', 'FAQ SPMB diperbarui.');
         return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'FAQ berhasil diperbarui.');
     }
 
@@ -359,7 +401,10 @@ class SpmbController extends BaseController
             return redirect()->back()->with('error', 'FAQ tidak ditemukan.');
         }
 
-        $model->delete($faqId);
+        if ($model->delete($faqId) === false) {
+            return redirect()->back()->with('error', 'FAQ gagal dihapus.');
+        }
+
         $this->audit($periodId, 'SPMB_FAQ_DELETED', 'FAQ SPMB dihapus.');
 
         return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'FAQ berhasil dihapus.');
