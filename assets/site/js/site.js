@@ -72,3 +72,53 @@ document.addEventListener('DOMContentLoaded', () => {
     track.scrollBy({ left: step(), behavior: 'smooth' });
   });
 });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const selectors = [
+    '.section-heading',
+    '.split-editorial',
+    '.habit-layout',
+    '.program-row',
+    '.achievement-card',
+    '.story-card',
+    '.news-card',
+    '.agenda-panel',
+    '.instagram-card',
+    '.headmaster-grid',
+    '.spmb-grid',
+    '.contact-grid',
+    '.profile-block',
+    '.program-group',
+    '.gtk-card',
+    '.public-card',
+    '.event-row',
+    '.gallery-public-card',
+    '.article-header',
+    '.article-cover',
+    '.article-body',
+    '.spmb-public-intro',
+    '.requirement-list',
+    '.faq-public'
+  ];
+
+  const items = document.querySelectorAll(selectors.join(','));
+  if (!items.length) return;
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) {
+    items.forEach(item => item.classList.add('is-visible'));
+    return;
+  }
+
+  items.forEach(item => item.classList.add('rival-reveal'));
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' });
+
+  items.forEach(item => observer.observe(item));
+});

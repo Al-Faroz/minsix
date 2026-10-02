@@ -10,16 +10,22 @@ Karakter:
 - humanis;
 - premium tanpa terlihat mewah berlebihan.
 
-Referensi utama sementara: **Rival — BootstrapMade**.
+Referensi utama yang **dikunci**: **Rival — BootstrapMade**.
 
-Yang diadaptasi:
-- hero split;
-- big typography;
-- statistik;
+Yang wajib diadaptasi secara konsisten:
+- hero split dan dark hero;
+- hierarchy tipografi besar;
+- header/nav ringkas;
+- statistik horizontal;
 - numbered services;
-- editorial portfolio;
+- editorial portfolio/media grid;
+- whitespace luas;
 - ritme dark/light;
-- CTA jelas.
+- tombol pill/CTA;
+- motion reveal ringan;
+- responsive behavior yang terasa native, bukan sekadar mengecilkan desktop.
+
+Implementasi MIN SIX **tidak menyalin asset/template Rival**. Yang ditiru adalah sistem visual, komposisi, hierarchy, spacing, dan interaction pattern.
 
 Yang tidak ditiru mentah:
 - identitas agency;
@@ -63,17 +69,14 @@ Footer                DARK
 
 ## 4. Typography
 
-Maksimal dua keluarga font:
-- 1 font utama sans-serif;
-- opsional 1 display/serif untuk aksen.
+PHASE 9 mengunci hierarchy ala BootstrapMade/Rival dengan stack:
+- **Body:** Roboto;
+- **Heading:** Raleway;
+- **Navigation/label:** Poppins.
 
-Rekomendasi awal:
-- Plus Jakarta Sans;
-- Manrope;
-- Inter;
-- DM Sans.
+Font di-load dari Google Fonts dengan fallback system sans-serif. Heading desktop menggunakan `clamp()`, tight line-height, dan negative letter-spacing secukupnya agar proporsi mendekati Rival.
 
-Heading desktop dapat besar, tetapi wajib responsive menggunakan `clamp()` atau mekanisme setara.
+Jika pada audit browser ditemukan Rival memakai family berbeda, font dapat dikoreksi tanpa mengubah struktur layout karena seluruh typography sudah memakai CSS variable.
 
 ---
 
