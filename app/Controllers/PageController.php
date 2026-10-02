@@ -138,6 +138,8 @@ class PageController extends SiteController
 
         $requirements = [];
         $faq = [];
+        $steps = [];
+        $highlights = [];
 
         if ($period) {
             $requirements = $db->table('spmb_requirements')
@@ -153,6 +155,20 @@ class PageController extends SiteController
                 ->orderBy('id', 'ASC')
                 ->get()
                 ->getResultArray();
+
+            $steps = $db->table('spmb_steps')
+                ->where('spmb_period_id', $period['id'])
+                ->orderBy('display_order', 'ASC')
+                ->orderBy('id', 'ASC')
+                ->get()
+                ->getResultArray();
+
+            $highlights = $db->table('spmb_highlights')
+                ->where('spmb_period_id', $period['id'])
+                ->orderBy('display_order', 'ASC')
+                ->orderBy('id', 'ASC')
+                ->get()
+                ->getResultArray();
         }
 
         return view('frontend/spmb/index', array_merge($context, [
@@ -162,6 +178,8 @@ class PageController extends SiteController
             'period' => $period,
             'requirements' => $requirements,
             'faq' => $faq,
+            'steps' => $steps,
+            'highlights' => $highlights,
             'currentNav' => 'spmb',
         ]));
     }

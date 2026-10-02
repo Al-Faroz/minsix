@@ -163,6 +163,84 @@
 <section class="content-card spmb-repeat-section">
     <div class="section-head">
         <div>
+            <p class="eyebrow">ALUR PENDAFTARAN</p>
+            <h2>Tahapan Pendaftaran</h2>
+            <p class="muted">Gunakan langkah singkat dan berurutan agar mudah dipahami calon wali murid.</p>
+        </div>
+    </div>
+
+    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/steps') ?>" method="post" class="faq-add-form">
+        <?= csrf_field() ?>
+        <div class="field"><label>Judul Tahap</label><input type="text" name="title" maxlength="255" required placeholder="Contoh: Isi Formulir"></div>
+        <div class="field"><label>Keterangan</label><textarea name="description" rows="3" maxlength="3000"></textarea></div>
+        <div class="field"><label>Urutan</label><input type="number" name="display_order" value="<?= count($steps) * 10 + 10 ?>"></div>
+        <button class="btn primary" type="submit">Tambah Tahap</button>
+    </form>
+
+    <?php if ($steps === []): ?>
+        <div class="empty-state">Belum ada alur pendaftaran.</div>
+    <?php else: ?>
+        <div class="repeat-list">
+            <?php foreach ($steps as $item): ?>
+                <article class="repeat-item faq-item">
+                    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/steps/' . $item['id']) ?>" method="post" class="faq-edit-form">
+                        <?= csrf_field() ?>
+                        <div class="field"><label>Judul</label><input type="text" name="title" maxlength="255" required value="<?= esc($item['title']) ?>"></div>
+                        <div class="field"><label>Keterangan</label><textarea name="description" rows="3" maxlength="3000"><?= esc($item['description']) ?></textarea></div>
+                        <div class="field"><label>Urutan</label><input type="number" name="display_order" value="<?= (int) $item['display_order'] ?>"></div>
+                        <button class="btn ghost" type="submit">Simpan</button>
+                    </form>
+                    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/steps/' . $item['id'] . '/delete') ?>" method="post" onsubmit="return confirm('Hapus tahap ini?');">
+                        <?= csrf_field() ?><button class="text-danger" type="submit">Hapus</button>
+                    </form>
+                </article>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+</section>
+
+<section class="content-card spmb-repeat-section">
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">PROGRAM UNGGULAN</p>
+            <h2>Highlight SPMB</h2>
+            <p class="muted">Tampilkan keunggulan yang memang ingin dikenalkan pada periode SPMB ini.</p>
+        </div>
+    </div>
+
+    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/highlights') ?>" method="post" class="faq-add-form">
+        <?= csrf_field() ?>
+        <div class="field"><label>Nama Program</label><input type="text" name="title" maxlength="255" required placeholder="Contoh: Yanbu'a"></div>
+        <div class="field"><label>Keterangan</label><textarea name="description" rows="3" maxlength="3000"></textarea></div>
+        <div class="field"><label>Urutan</label><input type="number" name="display_order" value="<?= count($highlights) * 10 + 10 ?>"></div>
+        <button class="btn primary" type="submit">Tambah Program</button>
+    </form>
+
+    <?php if ($highlights === []): ?>
+        <div class="empty-state">Belum ada program unggulan SPMB.</div>
+    <?php else: ?>
+        <div class="repeat-list">
+            <?php foreach ($highlights as $item): ?>
+                <article class="repeat-item faq-item">
+                    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/highlights/' . $item['id']) ?>" method="post" class="faq-edit-form">
+                        <?= csrf_field() ?>
+                        <div class="field"><label>Nama Program</label><input type="text" name="title" maxlength="255" required value="<?= esc($item['title']) ?>"></div>
+                        <div class="field"><label>Keterangan</label><textarea name="description" rows="3" maxlength="3000"><?= esc($item['description']) ?></textarea></div>
+                        <div class="field"><label>Urutan</label><input type="number" name="display_order" value="<?= (int) $item['display_order'] ?>"></div>
+                        <button class="btn ghost" type="submit">Simpan</button>
+                    </form>
+                    <form action="<?= site_url('manager/spmb/' . $period['id'] . '/highlights/' . $item['id'] . '/delete') ?>" method="post" onsubmit="return confirm('Hapus program unggulan ini?');">
+                        <?= csrf_field() ?><button class="text-danger" type="submit">Hapus</button>
+                    </form>
+                </article>
+            <?php endforeach ?>
+        </div>
+    <?php endif ?>
+</section>
+
+<section class="content-card spmb-repeat-section">
+    <div class="section-head">
+        <div>
             <p class="eyebrow">FAQ</p>
             <h2>Pertanyaan yang Sering Diajukan</h2>
         </div>

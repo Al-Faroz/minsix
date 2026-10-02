@@ -37,3 +37,16 @@ Frontend PHASE 8 menyediakan:
 Untuk instalasi baru dari database kosong, import `database/minsix.sql`.
 
 Jangan commit credential, plaintext password, token, atau dump production yang berisi data sensitif.
+
+
+## FINAL-D2 — Structured SPMB
+
+Untuk database existing yang sudah memiliki PHASE 8, jalankan:
+
+`database/upgrades/20261002_finald2_spmb_structured.sql`
+
+Menambahkan:
+- `spmb_steps` untuk Alur Pendaftaran;
+- `spmb_highlights` untuk Program Unggulan.
+
+Keduanya mengikuti periode SPMB dan otomatis terhapus ketika periodenya dihapus.

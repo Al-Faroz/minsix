@@ -7,6 +7,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 
 DROP TABLE IF EXISTS instagram_posts;
 DROP TABLE IF EXISTS spmb_faq;
+DROP TABLE IF EXISTS spmb_steps;
+DROP TABLE IF EXISTS spmb_highlights;
 DROP TABLE IF EXISTS homepage_sections;
 DROP TABLE IF EXISTS spmb_requirements;
 DROP TABLE IF EXISTS spmb_periods;
@@ -434,6 +436,28 @@ CREATE TABLE IF NOT EXISTS spmb_periods (
     CONSTRAINT fk_spmb_periods_brochure FOREIGN KEY (brochure_media_id) REFERENCES media(id) ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT fk_spmb_periods_created_by FOREIGN KEY (created_by) REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL,
     CONSTRAINT fk_spmb_periods_updated_by FOREIGN KEY (updated_by) REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS spmb_steps (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    spmb_period_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    display_order INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    KEY idx_spmb_steps_period_order (spmb_period_id, display_order),
+    CONSTRAINT fk_spmb_steps_period FOREIGN KEY (spmb_period_id) REFERENCES spmb_periods(id) ON UPDATE CASCADE ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE IF NOT EXISTS spmb_highlights (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    spmb_period_id BIGINT UNSIGNED NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NULL,
+    display_order INT NOT NULL DEFAULT 0,
+    PRIMARY KEY (id),
+    KEY idx_spmb_highlights_period_order (spmb_period_id, display_order),
+    CONSTRAINT fk_spmb_highlights_period FOREIGN KEY (spmb_period_id) REFERENCES spmb_periods(id) ON UPDATE CASCADE ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS spmb_requirements (

@@ -98,6 +98,14 @@ $routes->post('manager/spmb/(:num)/faq', 'Manager\SpmbController::addFaq/$1', ['
 $routes->post('manager/spmb/(:num)/faq/(:num)', 'Manager\SpmbController::updateFaq/$1/$2', ['filter' => 'auth']);
 $routes->post('manager/spmb/(:num)/faq/(:num)/delete', 'Manager\SpmbController::deleteFaq/$1/$2', ['filter' => 'auth']);
 
+$routes->post('manager/spmb/(:num)/steps', 'Manager\SpmbController::addStep/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/steps/(:num)', 'Manager\SpmbController::updateStep/$1/$2', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/steps/(:num)/delete', 'Manager\SpmbController::deleteStep/$1/$2', ['filter' => 'auth']);
+
+$routes->post('manager/spmb/(:num)/highlights', 'Manager\SpmbController::addHighlight/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/highlights/(:num)', 'Manager\SpmbController::updateHighlight/$1/$2', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/highlights/(:num)/delete', 'Manager\SpmbController::deleteHighlight/$1/$2', ['filter' => 'auth']);
+
 // Instagram content: ADMIN and OPERATOR manage manual fallback/cache visibility.
 $routes->get('manager/instagram', 'Manager\InstagramContentController::index', ['filter' => 'auth']);
 $routes->post('manager/instagram', 'Manager\InstagramContentController::create', ['filter' => 'auth']);

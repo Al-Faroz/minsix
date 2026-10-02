@@ -8,8 +8,10 @@ use App\Models\AuditLogModel;
 use App\Models\MediaModel;
 use App\Models\SiteFeatureModel;
 use App\Models\SpmbFaqModel;
+use App\Models\SpmbHighlightModel;
 use App\Models\SpmbPeriodModel;
 use App\Models\SpmbRequirementModel;
+use App\Models\SpmbStepModel;
 use CodeIgniter\HTTP\RedirectResponse;
 
 class SpmbController extends BaseController
@@ -411,10 +413,167 @@ class SpmbController extends BaseController
         return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'FAQ berhasil dihapus.');
     }
 
+
+    public function addStep(int $periodId): RedirectResponse
+    {
+        if (! $this->periodExists($periodId)) {
+            return redirect()->to(site_url('manager/spmb'))->with('error', 'Periode SPMB tidak ditemukan.');
+        }
+
+        if (! $this->validate([
+            'title' => 'required|min_length[2]|max_length[255]',
+            'description' => 'permit_empty|max_length[3000]',
+            'display_order' => 'permit_empty|integer',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $id = (new SpmbStepModel())->insert([
+            'spmb_period_id' => $periodId,
+            'title' => trim((string) $this->request->getPost('title')),
+            'description' => trim((string) $this->request->getPost('description')),
+            'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
+        ]);
+
+        if ($id === false) {
+            return redirect()->back()->with('error', 'Tahap pendaftaran gagal ditambahkan.');
+        }
+
+        $this->audit($periodId, 'SPMB_STEP_CREATED', 'Tahap pendaftaran ditambahkan.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Tahap pendaftaran berhasil ditambahkan.');
+    }
+
+    public function updateStep(int $periodId, int $stepId): RedirectResponse
+    {
+        $model = new SpmbStepModel();
+        $row = $model->where('id', $stepId)->where('spmb_period_id', $periodId)->first();
+
+        if (! $row) {
+            return redirect()->back()->with('error', 'Tahap pendaftaran tidak ditemukan.');
+        }
+
+        if (! $this->validate([
+            'title' => 'required|min_length[2]|max_length[255]',
+            'description' => 'permit_empty|max_length[3000]',
+            'display_order' => 'permit_empty|integer',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $updated = $model->update($stepId, [
+            'title' => trim((string) $this->request->getPost('title')),
+            'description' => trim((string) $this->request->getPost('description')),
+            'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
+        ]);
+
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Tahap pendaftaran gagal diperbarui.');
+        }
+
+        $this->audit($periodId, 'SPMB_STEP_UPDATED', 'Tahap pendaftaran diperbarui.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Tahap pendaftaran berhasil diperbarui.');
+    }
+
+    public function deleteStep(int $periodId, int $stepId): RedirectResponse
+    {
+        $model = new SpmbStepModel();
+        $row = $model->where('id', $stepId)->where('spmb_period_id', $periodId)->first();
+
+        if (! $row) {
+            return redirect()->back()->with('error', 'Tahap pendaftaran tidak ditemukan.');
+        }
+
+        if ($model->delete($stepId) === false) {
+            return redirect()->back()->with('error', 'Tahap pendaftaran gagal dihapus.');
+        }
+
+        $this->audit($periodId, 'SPMB_STEP_DELETED', 'Tahap pendaftaran dihapus.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Tahap pendaftaran berhasil dihapus.');
+    }
+
+    public function addHighlight(int $periodId): RedirectResponse
+    {
+        if (! $this->periodExists($periodId)) {
+            return redirect()->to(site_url('manager/spmb'))->with('error', 'Periode SPMB tidak ditemukan.');
+        }
+
+        if (! $this->validate([
+            'title' => 'required|min_length[2]|max_length[255]',
+            'description' => 'permit_empty|max_length[3000]',
+            'display_order' => 'permit_empty|integer',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $id = (new SpmbHighlightModel())->insert([
+            'spmb_period_id' => $periodId,
+            'title' => trim((string) $this->request->getPost('title')),
+            'description' => trim((string) $this->request->getPost('description')),
+            'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
+        ]);
+
+        if ($id === false) {
+            return redirect()->back()->with('error', 'Program unggulan gagal ditambahkan.');
+        }
+
+        $this->audit($periodId, 'SPMB_HIGHLIGHT_CREATED', 'Program unggulan SPMB ditambahkan.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Program unggulan berhasil ditambahkan.');
+    }
+
+    public function updateHighlight(int $periodId, int $highlightId): RedirectResponse
+    {
+        $model = new SpmbHighlightModel();
+        $row = $model->where('id', $highlightId)->where('spmb_period_id', $periodId)->first();
+
+        if (! $row) {
+            return redirect()->back()->with('error', 'Program unggulan tidak ditemukan.');
+        }
+
+        if (! $this->validate([
+            'title' => 'required|min_length[2]|max_length[255]',
+            'description' => 'permit_empty|max_length[3000]',
+            'display_order' => 'permit_empty|integer',
+        ])) {
+            return redirect()->back()->with('errors', $this->validator->getErrors());
+        }
+
+        $updated = $model->update($highlightId, [
+            'title' => trim((string) $this->request->getPost('title')),
+            'description' => trim((string) $this->request->getPost('description')),
+            'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
+        ]);
+
+        if ($updated === false) {
+            return redirect()->back()->with('error', 'Program unggulan gagal diperbarui.');
+        }
+
+        $this->audit($periodId, 'SPMB_HIGHLIGHT_UPDATED', 'Program unggulan SPMB diperbarui.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Program unggulan berhasil diperbarui.');
+    }
+
+    public function deleteHighlight(int $periodId, int $highlightId): RedirectResponse
+    {
+        $model = new SpmbHighlightModel();
+        $row = $model->where('id', $highlightId)->where('spmb_period_id', $periodId)->first();
+
+        if (! $row) {
+            return redirect()->back()->with('error', 'Program unggulan tidak ditemukan.');
+        }
+
+        if ($model->delete($highlightId) === false) {
+            return redirect()->back()->with('error', 'Program unggulan gagal dihapus.');
+        }
+
+        $this->audit($periodId, 'SPMB_HIGHLIGHT_DELETED', 'Program unggulan SPMB dihapus.');
+        return redirect()->to(site_url('manager/spmb/' . $periodId . '/edit'))->with('success', 'Program unggulan berhasil dihapus.');
+    }
+
     private function formView(?array $period): string
     {
         $requirements = [];
         $faq = [];
+        $steps = [];
+        $highlights = [];
 
         if ($period) {
             $requirements = (new SpmbRequirementModel())
@@ -428,6 +587,18 @@ class SpmbController extends BaseController
                 ->orderBy('display_order', 'ASC')
                 ->orderBy('id', 'ASC')
                 ->findAll();
+
+            $steps = (new SpmbStepModel())
+                ->where('spmb_period_id', $period['id'])
+                ->orderBy('display_order', 'ASC')
+                ->orderBy('id', 'ASC')
+                ->findAll();
+
+            $highlights = (new SpmbHighlightModel())
+                ->where('spmb_period_id', $period['id'])
+                ->orderBy('display_order', 'ASC')
+                ->orderBy('id', 'ASC')
+                ->findAll();
         }
 
         return view('manager/spmb/form', [
@@ -436,6 +607,8 @@ class SpmbController extends BaseController
             'period' => $period,
             'requirements' => $requirements,
             'faq' => $faq,
+            'steps' => $steps,
+            'highlights' => $highlights,
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),
             'documents' => (new MediaModel())->where('media_type', 'DOCUMENT')->orderBy('id', 'DESC')->findAll(),
         ]);

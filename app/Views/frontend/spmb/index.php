@@ -31,6 +31,35 @@
     </aside>
 </section>
 
+<?php if ($steps !== []): ?>
+<section>
+    <div class="section-heading"><p class="section-eyebrow">ALUR PENDAFTARAN</p><h2>Langkah Pendaftaran</h2></div>
+    <div class="spmb-step-grid">
+        <?php foreach ($steps as $index => $item): ?>
+            <article class="spmb-step-card">
+                <span><?= str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) ?></span>
+                <h3><?= esc($item['title']) ?></h3>
+                <?php if ($item['description']): ?><p><?= nl2br(esc($item['description'])) ?></p><?php endif ?>
+            </article>
+        <?php endforeach ?>
+    </div>
+</section>
+<?php endif ?>
+
+<?php if ($highlights !== []): ?>
+<section>
+    <div class="section-heading"><p class="section-eyebrow">PROGRAM UNGGULAN</p><h2>Yang Tumbuh Bersama Anak</h2></div>
+    <div class="spmb-highlight-grid">
+        <?php foreach ($highlights as $item): ?>
+            <article class="spmb-highlight-card">
+                <h3><?= esc($item['title']) ?></h3>
+                <?php if ($item['description']): ?><p><?= nl2br(esc($item['description'])) ?></p><?php endif ?>
+            </article>
+        <?php endforeach ?>
+    </div>
+</section>
+<?php endif ?>
+
 <?php if ($requirements !== []): ?>
 <section>
     <div class="section-heading"><p class="section-eyebrow">PERSYARATAN</p><h2>Yang perlu disiapkan</h2></div>
