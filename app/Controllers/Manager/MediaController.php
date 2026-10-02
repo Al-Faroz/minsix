@@ -159,6 +159,7 @@ class MediaController extends BaseController
         $db = db_connect();
         $checks = [
             ['homepage_sections', 'primary_media_id', 'Beranda'],
+            ['instagram_posts', 'local_media_id', 'Instagram Manual'],
             ['profile_sections', 'primary_media_id', 'Profil'],
             ['programs', 'primary_media_id', 'Program'],
             ['gtk', 'photo_media_id', 'GTK'],

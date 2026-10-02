@@ -36,19 +36,21 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $navActive('manager/galleries') ?>" href="<?= site_url('manager/galleries') ?>">Galeri</a>
             <a class="nav-item<?= $navActive('manager/spmb') ?>" href="<?= site_url('manager/spmb') ?>">SPMB</a>
             <a class="nav-item<?= $navActive('manager/media') ?>" href="<?= site_url('manager/media') ?>">Media</a>
-            <button class="nav-item disabled" type="button" disabled><span>Instagram Content</span><small>Segera</small></button>
+            <p class="nav-label">INTEGRASI</p>
+            <a class="nav-item<?= $navActive('manager/instagram') ?>" href="<?= site_url('manager/instagram') ?>">Instagram Content</a>
 
             <?php if ($isAdmin): ?>
                 <p class="nav-label">PENGATURAN</p>
                 <a class="nav-item<?= $navActive('manager/settings') ?>" href="<?= site_url('manager/settings') ?>">Website</a>
                 <a class="nav-item<?= $navActive('manager/features') ?>" href="<?= site_url('manager/features') ?>">Fitur</a>
-                <?php foreach (['Instagram','SEO','Pengguna'] as $item): ?>
+                <a class="nav-item<?= $navActive('manager/instagram-settings') ?>" href="<?= site_url('manager/instagram-settings') ?>">Instagram</a>
+                <?php foreach (['SEO','Pengguna'] as $item): ?>
                     <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
                 <?php endforeach ?>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 6</span><strong>Homepage / Frontend</strong></div>
+        <div class="sidebar-foot"><span>PHASE 7</span><strong>Instagram Hybrid</strong></div>
     </aside>
 
     <div class="content-wrap">

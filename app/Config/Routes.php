@@ -97,6 +97,16 @@ $routes->post('manager/spmb/(:num)/faq', 'Manager\SpmbController::addFaq/$1', ['
 $routes->post('manager/spmb/(:num)/faq/(:num)', 'Manager\SpmbController::updateFaq/$1/$2', ['filter' => 'auth']);
 $routes->post('manager/spmb/(:num)/faq/(:num)/delete', 'Manager\SpmbController::deleteFaq/$1/$2', ['filter' => 'auth']);
 
+// Instagram content: ADMIN and OPERATOR manage manual fallback/cache visibility.
+$routes->get('manager/instagram', 'Manager\InstagramContentController::index', ['filter' => 'auth']);
+$routes->post('manager/instagram', 'Manager\InstagramContentController::create', ['filter' => 'auth']);
+$routes->post('manager/instagram/(:num)', 'Manager\InstagramContentController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/instagram/(:num)/delete', 'Manager\InstagramContentController::delete/$1', ['filter' => 'auth']);
+
+// Instagram integration configuration: ADMIN-only.
+$routes->get('manager/instagram-settings', 'Manager\InstagramSettingsController::index', ['filter' => 'admin']);
+$routes->post('manager/instagram-settings', 'Manager\InstagramSettingsController::update', ['filter' => 'admin']);
+
 // Media is content.
 $routes->get('manager/media', 'Manager\MediaController::index', ['filter' => 'auth']);
 $routes->post('manager/media/upload', 'Manager\MediaController::upload', ['filter' => 'auth']);
