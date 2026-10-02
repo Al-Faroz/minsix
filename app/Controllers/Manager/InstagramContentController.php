@@ -26,7 +26,7 @@ class InstagramContentController extends BaseController
             ->findAll(24);
 
         return view('manager/instagram/index', [
-            'title' => 'Instagram Content | CMS MIN 6 Jember',
+            'title' => 'Instagram Content | CMS MIN 6 JEMBER',
             'pageTitle' => 'Instagram Content',
             'manualPosts' => $manual,
             'apiPosts' => $api,

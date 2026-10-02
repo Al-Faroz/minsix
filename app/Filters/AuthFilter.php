@@ -14,7 +14,7 @@ class AuthFilter implements FilterInterface
         if (! session()->get('auth_logged_in')) {
             return redirect()
                 ->to(site_url('manager/login'))
-                ->with('error', 'Silakan masuk untuk mengakses CMS MIN 6 Jember.');
+                ->with('error', 'Silakan masuk untuk mengakses CMS MIN 6 JEMBER.');
         }
 
         $userId = (int) session()->get('auth_user_id');

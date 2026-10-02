@@ -23,7 +23,7 @@ class ProgramController extends BaseController
     public function index(): string
     {
         return view('manager/programs/index', [
-            'title' => 'Program | CMS MIN 6 Jember',
+            'title' => 'Program | CMS MIN 6 JEMBER',
             'pageTitle' => 'Program',
             'programs' => (new ProgramModel())->orderBy('display_order', 'ASC')->orderBy('name', 'ASC')->findAll(),
         ]);
@@ -143,7 +143,7 @@ class ProgramController extends BaseController
     private function formView(?array $program): string
     {
         return view('manager/programs/form', [
-            'title' => ($program ? 'Edit' : 'Tambah') . ' Program | CMS MIN 6 Jember',
+            'title' => ($program ? 'Edit' : 'Tambah') . ' Program | CMS MIN 6 JEMBER',
             'pageTitle' => $program ? 'Edit Program' : 'Tambah Program',
             'program' => $program,
             'categories' => self::CATEGORIES,

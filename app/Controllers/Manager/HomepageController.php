@@ -25,7 +25,7 @@ class HomepageController extends BaseController
         unset($section);
 
         return view('manager/homepage/index', [
-            'title' => 'Beranda | CMS MIN 6 Jember',
+            'title' => 'Beranda | CMS MIN 6 JEMBER',
             'pageTitle' => 'Beranda',
             'sections' => $sections,
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),

@@ -14,7 +14,7 @@ class UserController extends BaseController
     public function index(): string
     {
         return view('manager/users/index', [
-            'title' => 'Pengguna | CMS MIN 6 Jember',
+            'title' => 'Pengguna | CMS MIN 6 JEMBER',
             'pageTitle' => 'Pengguna',
             'users' => (new UserModel())
                 ->orderBy('role', 'ASC')
@@ -28,7 +28,7 @@ class UserController extends BaseController
     public function new(): string
     {
         return view('manager/users/form', [
-            'title' => 'Tambah Pengguna | CMS MIN 6 Jember',
+            'title' => 'Tambah Pengguna | CMS MIN 6 JEMBER',
             'pageTitle' => 'Tambah Pengguna',
             'user' => null,
             'roles' => self::ROLES,
@@ -88,7 +88,7 @@ class UserController extends BaseController
         }
 
         return view('manager/users/form', [
-            'title' => 'Edit Pengguna | CMS MIN 6 Jember',
+            'title' => 'Edit Pengguna | CMS MIN 6 JEMBER',
             'pageTitle' => 'Edit Pengguna',
             'user' => $user,
             'roles' => self::ROLES,

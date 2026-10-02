@@ -13,7 +13,7 @@ class ProfileController extends BaseController
     public function index(): string
     {
         return view('manager/profile/index', [
-            'title' => 'Profil | CMS MIN 6 Jember',
+            'title' => 'Profil | CMS MIN 6 JEMBER',
             'pageTitle' => 'Profil',
             'sections' => (new ProfileSectionModel())->orderBy('display_order', 'ASC')->findAll(),
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),

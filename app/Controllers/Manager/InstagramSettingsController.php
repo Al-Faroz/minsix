@@ -20,7 +20,7 @@ class InstagramSettingsController extends BaseController
             ->first();
 
         return view('manager/instagram/settings', [
-            'title' => 'Pengaturan Instagram | CMS MIN 6 Jember',
+            'title' => 'Pengaturan Instagram | CMS MIN 6 JEMBER',
             'pageTitle' => 'Pengaturan Instagram',
             'settings' => $settings,
             'apiReady' => (new InstagramSyncService())->isReady(),

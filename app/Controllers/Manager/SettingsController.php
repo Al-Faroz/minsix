@@ -24,7 +24,7 @@ class SettingsController extends BaseController
     public function index(): string
     {
         return view('manager/settings/index', [
-            'title' => 'Pengaturan Website | CMS MIN 6 Jember',
+            'title' => 'Pengaturan Website | CMS MIN 6 JEMBER',
             'pageTitle' => 'Pengaturan Website',
             'settings' => (new SiteSettingModel())->valuesByKey(),
         ]);

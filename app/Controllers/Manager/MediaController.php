@@ -15,7 +15,7 @@ class MediaController extends BaseController
         $media = $model->orderBy('id', 'DESC')->paginate(24, 'media');
 
         return view('manager/media/index', [
-            'title' => 'Media | CMS MIN 6 Jember',
+            'title' => 'Media | CMS MIN 6 JEMBER',
             'pageTitle' => 'Media',
             'media' => $media,
             'pager' => $model->pager,

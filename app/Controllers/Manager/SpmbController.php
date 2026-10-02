@@ -21,7 +21,7 @@ class SpmbController extends BaseController
         $model = new SpmbPeriodModel();
 
         return view('manager/spmb/index', [
-            'title' => 'SPMB | CMS MIN 6 Jember',
+            'title' => 'SPMB | CMS MIN 6 JEMBER',
             'pageTitle' => 'SPMB',
             'periods' => $model
                 ->orderBy('is_current', 'DESC')
@@ -602,7 +602,7 @@ class SpmbController extends BaseController
         }
 
         return view('manager/spmb/form', [
-            'title' => ($period ? 'Edit' : 'Tambah') . ' SPMB | CMS MIN 6 Jember',
+            'title' => ($period ? 'Edit' : 'Tambah') . ' SPMB | CMS MIN 6 JEMBER',
             'pageTitle' => $period ? 'Edit SPMB' : 'Tambah SPMB',
             'period' => $period,
             'requirements' => $requirements,

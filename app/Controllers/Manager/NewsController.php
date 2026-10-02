@@ -17,7 +17,7 @@ class NewsController extends BaseController
         $model = new NewsModel();
 
         return view('manager/news/index', [
-            'title' => 'Berita | CMS MIN 6 Jember',
+            'title' => 'Berita | CMS MIN 6 JEMBER',
             'pageTitle' => 'Berita',
             'news' => $model->orderBy('published_at', 'DESC')->orderBy('id', 'DESC')->paginate(20, 'news'),
             'pager' => $model->pager,
@@ -133,7 +133,7 @@ class NewsController extends BaseController
     private function formView(?array $news): string
     {
         return view('manager/news/form', [
-            'title' => ($news ? 'Edit' : 'Tambah') . ' Berita | CMS MIN 6 Jember',
+            'title' => ($news ? 'Edit' : 'Tambah') . ' Berita | CMS MIN 6 JEMBER',
             'pageTitle' => $news ? 'Edit Berita' : 'Tambah Berita',
             'newsItem' => $news,
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),

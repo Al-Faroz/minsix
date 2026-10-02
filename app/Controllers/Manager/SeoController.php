@@ -20,7 +20,7 @@ class SeoController extends BaseController
     public function index(): string
     {
         return view('manager/seo/index', [
-            'title' => 'SEO | CMS MIN 6 Jember',
+            'title' => 'SEO | CMS MIN 6 JEMBER',
             'pageTitle' => 'SEO',
             'settings' => (new SiteSettingModel())->valuesByKey(),
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),
