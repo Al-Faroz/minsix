@@ -76,6 +76,6 @@
 # Keep real credentials only in .env; never commit them.
 #
 # instagram.apiBaseUrl = 'https://graph.instagram.com'
-# instagram.apiVersion = 'vXX.X'
+# instagram.apiVersion = 'vXX.X'   # optional; leave blank if your endpoint is unversioned
 # instagram.userId =
 # instagram.accessToken =

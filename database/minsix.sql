@@ -1,5 +1,5 @@
 -- MIN SIX — canonical SQL dump
--- PHASE 7A: Instagram Hybrid schema + CMS
+-- PHASE 7: Instagram Hybrid
 -- Schema aplikasi menggunakan SQL dump, bukan Migration/Seeder.
 
 SET NAMES utf8mb4;

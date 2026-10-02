@@ -23,7 +23,12 @@ class InstagramSyncService
         }
 
         $config = $this->config();
-        $missing = array_keys(array_filter($config, static fn ($value): bool => trim((string) $value) === ''));
+        $required = [
+            'base_url' => $config['base_url'],
+            'user_id' => $config['user_id'],
+            'access_token' => $config['access_token'],
+        ];
+        $missing = array_keys(array_filter($required, static fn ($value): bool => trim((string) $value) === ''));
 
         if ($missing !== []) {
             return [
@@ -34,10 +39,13 @@ class InstagramSyncService
             ];
         }
 
-        $endpoint = rtrim($config['base_url'], '/')
-            . '/' . rawurlencode($config['api_version'])
-            . '/' . rawurlencode($config['user_id'])
-            . '/media';
+        $endpoint = rtrim($config['base_url'], '/');
+
+        if ($config['api_version'] !== '') {
+            $endpoint .= '/' . rawurlencode($config['api_version']);
+        }
+
+        $endpoint .= '/' . rawurlencode($config['user_id']) . '/media';
 
         try {
             $client = Services::curlrequest();
@@ -184,7 +192,11 @@ class InstagramSyncService
 
     public function isReady(): bool
     {
-        return ! in_array(false, $this->readiness(), true);
+        $state = $this->readiness();
+
+        return $state['base_url']
+            && $state['user_id']
+            && $state['access_token'];
     }
 
     private function config(): array

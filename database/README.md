@@ -25,12 +25,12 @@ Credential **tidak disimpan di database/repository**. Atur pada file lokal `.env
 
 ```ini
 instagram.apiBaseUrl = 'https://graph.instagram.com'
-instagram.apiVersion = 'vXX.X'
+instagram.apiVersion = 'vXX.X'   # opsional
 instagram.userId = '...'
 instagram.accessToken = '...'
 ```
 
-Gunakan API version yang valid untuk aplikasi Meta saat credential dibuat.
+Gunakan API version yang valid bila konfigurasi aplikasi Meta Anda memerlukannya. Jika endpoint Instagram Login yang digunakan tidak memakai version segment, biarkan `instagram.apiVersion` kosong.
 
 ### Sinkronisasi
 

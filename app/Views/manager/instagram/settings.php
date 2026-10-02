@@ -44,13 +44,14 @@
     <div class="credential-list">
         <?php foreach ([
             'instagram.apiBaseUrl' => $apiState['base_url'],
-            'instagram.apiVersion' => $apiState['api_version'],
+            'instagram.apiVersion (opsional)' => $apiState['api_version'],
             'instagram.userId' => $apiState['user_id'],
             'instagram.accessToken' => $apiState['access_token'],
         ] as $name => $ready): ?>
             <div><code><?= esc($name) ?></code><span class="status-chip <?= $ready ? 'published' : 'draft' ?>"><?= $ready ? 'SET' : 'BELUM' ?></span></div>
         <?php endforeach ?>
     </div>
+    <p class="muted" style="margin-top:14px">API version boleh dikosongkan jika konfigurasi Instagram Login yang digunakan tidak memerlukannya. <code>instagram.userId</code> dapat diisi ID akun yang diberikan Meta; gunakan <code>me</code> hanya jika token/endpoint Anda memang mendukungnya.</p>
     <div class="form-actions" style="margin-top:18px">
         <form action="<?= site_url('manager/instagram-settings/sync') ?>" method="post" onsubmit="return confirm('Sinkronkan cache Instagram sekarang? Cache lama tidak akan dihapus bila API gagal.');">
             <?= csrf_field() ?>
