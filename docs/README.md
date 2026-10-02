@@ -43,3 +43,4 @@ Urutan baca:
 - PHASE 9B: Responsive Structural Audit — source fixes selesai
 - PHASE 9C: Functional Source Audit — PASS; menunggu runtime/browser audit lokal
 - PHASE 9D: Palette + Typography Revision — gradient #032100 → #614A27 dan font public/CMS diperkecil
+- FINAL-A: Branding & Visual Cleanup — logo/favicons final, placeholder M6 dan label PHASE di UI dibersihkan

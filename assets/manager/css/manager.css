@@ -159,3 +159,24 @@ body{font-size:.94rem}
   .content-card{padding:16px}
   .login-brand h1{font-size:2.35rem}
 }
+
+
+/* FINAL BRANDING */
+.manager-brand-logo{
+  display:block;
+  flex:0 0 auto;
+  width:38px;
+  height:38px;
+  object-fit:contain;
+}
+.login-brand-logo{
+  display:block;
+  width:82px;
+  height:82px;
+  object-fit:contain;
+  margin-bottom:18px;
+}
+@media(max-width:620px){
+  .manager-brand-logo{width:34px;height:34px}
+  .login-brand-logo{width:68px;height:68px}
+}

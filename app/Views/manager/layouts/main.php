@@ -1,6 +1,10 @@
 <?php
 $currentPath = trim(uri_string(), '/');
 $isAdmin = session()->get('auth_role') === 'ADMIN';
+$gtkNavActive = $currentPath === 'manager/gtk'
+    || str_starts_with($currentPath, 'manager/gtk/')
+    || $currentPath === 'manager/gtk-roles'
+    || str_starts_with($currentPath, 'manager/gtk-roles/');
 $navActive = static fn (string $prefix): string =>
     ($currentPath === $prefix || str_starts_with($currentPath, $prefix . '/')) ? ' active' : '';
 ?>
@@ -11,13 +15,14 @@ $navActive = static fn (string $prefix): string =>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= esc($title ?? 'CMS MIN 6 Jember') ?></title>
     <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/brand/favicon-32x32.png') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/manager/css/manager.css') ?>">
 </head>
 <body>
 <div class="manager-shell">
     <aside class="sidebar" id="managerSidebar">
         <div class="sidebar-brand">
-            <div class="brand-mark small">M6</div>
+            <img class="manager-brand-logo" src="<?= base_url('assets/brand/min6-logo.png') ?>" alt="" width="38" height="38">
             <div><strong>MIN 6 Jember</strong><span>Content Manager</span></div>
         </div>
 
@@ -29,7 +34,7 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $navActive('manager/homepage') ?>" href="<?= site_url('manager/homepage') ?>">Beranda</a>
             <a class="nav-item<?= $navActive('manager/profile') ?>" href="<?= site_url('manager/profile') ?>">Profil</a>
             <a class="nav-item<?= $navActive('manager/programs') ?>" href="<?= site_url('manager/programs') ?>">Program</a>
-            <a class="nav-item<?= $navActive('manager/gtk') . $navActive('manager/gtk-roles') ?>" href="<?= site_url('manager/gtk') ?>">GTK</a>
+            <a class="nav-item<?= $gtkNavActive ? ' active' : '' ?>" href="<?= site_url('manager/gtk') ?>">GTK</a>
             <a class="nav-item<?= $navActive('manager/news') ?>" href="<?= site_url('manager/news') ?>">Berita</a>
             <a class="nav-item<?= $navActive('manager/events') ?>" href="<?= site_url('manager/events') ?>">Agenda</a>
             <a class="nav-item<?= $navActive('manager/achievements') ?>" href="<?= site_url('manager/achievements') ?>">Prestasi</a>
@@ -49,7 +54,7 @@ $navActive = static fn (string $prefix): string =>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 8</span><strong>SEO + Performance + Security</strong></div>
+        <div class="sidebar-foot"><span>MIN SIX</span><strong>Website Content Manager</strong></div>
     </aside>
 
     <div class="content-wrap">

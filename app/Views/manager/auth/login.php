@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= esc($title ?? 'Masuk CMS MIN 6 Jember') ?></title>
     <meta name="robots" content="noindex,nofollow">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/brand/favicon-32x32.png') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/manager/css/manager.css') ?>">
 </head>
 <body class="login-page">
 <main class="login-shell">
     <section class="login-brand">
-        <div class="brand-mark">M6</div>
+        <img class="login-brand-logo" src="<?= base_url('assets/brand/min6-logo.png') ?>" alt="Lambang MIN 6 Jember" width="82" height="82">
         <p class="eyebrow">CMS WEBSITE</p>
         <h1>MIN 6 Jember</h1>
         <p>Kelola konten website madrasah dengan tampilan sederhana dan terarah.</p>

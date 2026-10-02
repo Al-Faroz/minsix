@@ -41,6 +41,7 @@ $organizationData = [
     '@type' => 'EducationalOrganization',
     'name' => $siteName,
     'url' => $canonicalBase !== '' ? $canonicalBase . '/' : site_url('/'),
+    'logo' => base_url('assets/brand/min6-logo.png'),
 ];
 
 if (! empty($site['address'])) $organizationData['address'] = $site['address'];
@@ -58,6 +59,8 @@ if (! empty($structuredData) && is_array($structuredData)) {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= base_url('assets/brand/favicon-32x32.png') ?>">
+    <link rel="apple-touch-icon" href="<?= base_url('assets/brand/min6-logo.png') ?>">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Raleway:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -90,7 +93,7 @@ if (! empty($structuredData) && is_array($structuredData)) {
 <header class="site-header" id="siteHeader">
     <div class="site-container nav-shell">
         <a class="site-brand" href="<?= site_url('/') ?>" aria-label="<?= esc($siteName) ?>">
-            <span class="brand-symbol">M6</span>
+            <img class="site-brand-logo" src="<?= base_url('assets/brand/min6-logo.png') ?>" alt="" width="42" height="42">
             <span class="brand-copy"><strong><?= esc($siteName) ?></strong><small><?= esc($tagline) ?></small></span>
         </a>
 
@@ -116,7 +119,7 @@ if (! empty($structuredData) && is_array($structuredData)) {
 <footer class="site-footer">
     <div class="site-container footer-grid">
         <div class="footer-brand">
-            <span class="brand-symbol">M6</span>
+            <img class="footer-brand-logo" src="<?= base_url('assets/brand/min6-logo-white.png') ?>" alt="" width="56" height="56">
             <h2><?= esc($siteName) ?></h2>
             <p><?= esc($tagline) ?></p>
         </div>

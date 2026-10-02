@@ -3,11 +3,11 @@
 
 <section class="hero-panel">
     <div>
-        <p class="eyebrow">PHASE 5</p>
-        <h2>Konten utama CMS semakin lengkap.</h2>
-        <p>SPMB tahunan, persyaratan, FAQ, QR, brosur, dan Current period kini dikelola bersama konten madrasah lainnya.</p>
+        <p class="eyebrow">CMS WEBSITE</p>
+        <h2>Kelola website MIN 6 Jember dari satu tempat.</h2>
+        <p>Perbarui profil, program, GTK, kabar madrasah, SPMB, media, dan konten Instagram tanpa mengubah struktur desain website.</p>
     </div>
-    <span class="phase-badge">PHASE 5</span>
+    <span class="phase-badge">SIAP</span>
 </section>
 
 <section class="metric-grid">
@@ -27,9 +27,9 @@
 </section>
 
 <section class="next-panel">
-    <p class="eyebrow">TAHAP BERIKUTNYA</p>
-    <h2>Homepage / Frontend</h2>
-    <p>PHASE 6 mulai membangun tampilan publik modern-humanis dengan homepage sebagai pusat pengalaman website.</p>
+    <p class="eyebrow">WEBSITE PUBLIK</p>
+    <h2>Konten berubah, tampilan tetap konsisten.</h2>
+    <p>CMS mengatur isi website; layout, tipografi, warna, dan pola responsive tetap dijaga oleh sistem desain MIN 6 Jember.</p>
 </section>
 
 <?= $this->endSection() ?>
