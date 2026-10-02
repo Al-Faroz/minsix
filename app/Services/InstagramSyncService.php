@@ -226,6 +226,15 @@ class InstagramSyncService
         ]);
 
         if (! $result['ok']) {
+            // Keep basic sync available if a Graph version rejects nested field expansion.
+            // CAROUSEL_ALBUM children are then read from the dedicated /children edge.
+            $result = $this->getJson($endpoint, $config['access_token'], [
+                'fields' => 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp',
+                'limit' => max(1, min($limit, 25)),
+            ]);
+        }
+
+        if (! $result['ok']) {
             return ['ok' => false, 'rows' => [], 'message' => $result['message']];
         }
 
