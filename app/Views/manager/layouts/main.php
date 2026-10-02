@@ -1,4 +1,9 @@
-<?php $isAdmin = session()->get('auth_role') === 'ADMIN'; ?>
+<?php
+$currentPath = trim(uri_string(), '/');
+$isAdmin = session()->get('auth_role') === 'ADMIN';
+$navActive = static fn (string $prefix): string =>
+    ($currentPath === $prefix || str_starts_with($currentPath, $prefix . '/')) ? ' active' : '';
+?>
 <!doctype html>
 <html lang="id">
 <head>
@@ -18,22 +23,26 @@
 
         <nav>
             <p class="nav-label">UTAMA</p>
-            <a class="nav-item active" href="<?= site_url('manager') ?>">Dashboard</a>
+            <a class="nav-item<?= $currentPath === 'manager' ? ' active' : '' ?>" href="<?= site_url('manager') ?>">Dashboard</a>
 
             <p class="nav-label">KONTEN</p>
-            <?php foreach (['Beranda','Profil','Program','GTK','Berita','Agenda','Prestasi','Galeri','SPMB','Media','Instagram Content'] as $item): ?>
+            <?php foreach (['Beranda','Profil','Program','GTK','Berita','Agenda','Prestasi','Galeri','SPMB'] as $item): ?>
                 <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
             <?php endforeach ?>
+            <a class="nav-item<?= $navActive('manager/media') ?>" href="<?= site_url('manager/media') ?>">Media</a>
+            <button class="nav-item disabled" type="button" disabled><span>Instagram Content</span><small>Segera</small></button>
 
             <?php if ($isAdmin): ?>
                 <p class="nav-label">PENGATURAN</p>
-                <?php foreach (['Website','Fitur','Instagram','SEO','Pengguna'] as $item): ?>
+                <a class="nav-item<?= $navActive('manager/settings') ?>" href="<?= site_url('manager/settings') ?>">Website</a>
+                <a class="nav-item<?= $navActive('manager/features') ?>" href="<?= site_url('manager/features') ?>">Fitur</a>
+                <?php foreach (['Instagram','SEO','Pengguna'] as $item): ?>
                     <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
                 <?php endforeach ?>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 1</span><strong>Auth & Manager Skeleton</strong></div>
+        <div class="sidebar-foot"><span>PHASE 2</span><strong>Settings · Features · Media</strong></div>
     </aside>
 
     <div class="content-wrap">

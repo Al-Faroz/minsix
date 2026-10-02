@@ -3,20 +3,20 @@
 
 <section class="hero-panel">
     <div>
-        <p class="eyebrow">SELAMAT DATANG</p>
-        <h2>Fondasi CMS sudah siap.</h2>
-        <p>Autentikasi, dua role, proteksi route, CSRF, login throttling, audit login, dan perubahan password sudah disiapkan.</p>
+        <p class="eyebrow">PHASE 2</p>
+        <h2>Fondasi konten mulai aktif.</h2>
+        <p>Pengaturan global, kontrol ON/OFF fitur publik, dan Media Library sudah tersedia. Modul konten inti akan dibangun pada phase berikutnya.</p>
     </div>
-    <span class="phase-badge">PHASE 1</span>
+    <span class="phase-badge">PHASE 2</span>
 </section>
 
 <section class="status-grid">
     <?php
     $cards = [
-        ['01','Authentication','Login, logout, rate limit, session regeneration, dan password hash.','SIAP'],
-        ['02','Role','ADMIN untuk sistem + konten. OPERATOR hanya konten.','DIKUNCI'],
-        ['03','Database','Schema memakai SQL dump tanpa Migration/Seeder.','SQL DUMP'],
-        ['04','Manager UI','Sidebar responsif siap diisi modul CMS berikutnya.','SIAP DIISI'],
+        ['01','Website Settings','Identitas, kontak, Instagram resmi, dan lokasi global.','ADMIN'],
+        ['02','Feature Toggle','Kabar/Berita, Agenda, Prestasi, Galeri, Instagram, dan SPMB.','ADMIN'],
+        ['03','Media Library','Upload JPG/PNG/WebP/PDF, metadata, reuse, dan delete.','ADMIN + OPERATOR'],
+        ['04','Security','CSRF, auth/role filter, protected uploads, audit log.','AKTIF'],
     ];
     ?>
     <?php foreach ($cards as $card): ?>
@@ -29,10 +29,18 @@
     <?php endforeach ?>
 </section>
 
+<section class="quick-grid">
+    <?php if (session()->get('auth_role') === 'ADMIN'): ?>
+        <a class="quick-card" href="<?= site_url('manager/settings') ?>"><span>01</span><strong>Pengaturan Website</strong><small>Identitas & kontak</small></a>
+        <a class="quick-card" href="<?= site_url('manager/features') ?>"><span>02</span><strong>Pengaturan Fitur</strong><small>ON/OFF publik</small></a>
+    <?php endif ?>
+    <a class="quick-card" href="<?= site_url('manager/media') ?>"><span>03</span><strong>Media Library</strong><small>Upload & kelola media</small></a>
+</section>
+
 <section class="next-panel">
     <p class="eyebrow">TAHAP BERIKUTNYA</p>
-    <h2>Settings, Feature Toggle & Media</h2>
-    <p>PHASE 2 akan menghidupkan pengaturan global, ON/OFF fitur, dan Media Library.</p>
+    <h2>Profil, Program & GTK</h2>
+    <p>PHASE 3 mulai menghidupkan master konten utama MIN 6 Jember.</p>
 </section>
 
 <?= $this->endSection() ?>
