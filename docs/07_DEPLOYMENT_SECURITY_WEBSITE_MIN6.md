@@ -350,19 +350,33 @@ Production dump tidak boleh dimasukkan repository publik.
 
 ## 22. Security Checklist
 
+Status source setelah PHASE 8:
+
 ```text
-[ ] .env tidak di-repo
-[ ] password di-hash
-[ ] CSRF aktif
-[ ] auth filter aktif
-[ ] admin filter aktif
-[ ] upload restricted
-[ ] production error off
-[ ] HTTPS aktif
-[ ] rate limit login
-[ ] no plaintext secret
-[ ] feature endpoint admin-only
+[x] .env tidak di-repo
+[x] password di-hash
+[x] CSRF aktif
+[x] auth filter aktif + verifikasi user masih aktif
+[x] admin filter aktif + verifikasi role dari database
+[x] upload restricted + image validation + pixel limit
+[x] uploads tidak mengeksekusi script
+[x] rate limit login
+[x] no plaintext secret
+[x] feature endpoint admin-only
+[x] SEO global/API config admin-only
+[x] manager no-store + noindex
+[x] security headers dasar di Apache
+[ ] CI_ENVIRONMENT=production          -> saat deploy
+[ ] HTTPS aktif                        -> saat deploy
+[ ] cookie.secure=true                 -> saat deploy HTTPS
+[ ] CSP final                          -> setelah seluruh third-party final
 ```
+
+Catatan:
+- session Manager disinkronkan ulang dengan record user sehingga user yang dinonaktifkan kehilangan akses pada request berikutnya;
+- perubahan role juga langsung berlaku pada request berikutnya;
+- `Session::regenerateDestroy` diaktifkan;
+- CSP sengaja belum dikunci karena flow external image/Instagram/Maps masih perlu diuji di production.
 
 ---
 

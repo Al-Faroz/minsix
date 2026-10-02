@@ -6,43 +6,33 @@ Canonical schema:
 
 `database/minsix.sql`
 
-## PHASE 7
+## PHASE 8
 
-PHASE 7 menambahkan:
-- `instagram_posts` sebagai local cache API + fallback manual;
-- `instagram_source_mode` (`HYBRID` / `MANUAL`);
-- `instagram_display_count` (6–8 item).
+Jika database lokal sudah lulus PHASE 7, jalankan hanya:
 
-Database lokal yang sudah lulus PHASE 6 **jangan di-reset**. Jalankan hanya:
+`database/upgrades/20261002_phase8a_seo.sql`
 
-`database/upgrades/20261002_phase7a_instagram.sql`
+Upgrade PHASE 8 menambahkan SEO per Prestasi:
+- `meta_title`
+- `meta_description`
+- `og_media_id`
 
-Batch 7B tidak menambah tabel baru.
+Serta setting global:
+- `seo_default_title`
+- `seo_default_description`
+- `seo_default_og_media_id`
+- `seo_canonical_base_url`
 
-### Credential API
+Batch 8C–8D tidak menambah schema.
 
-Credential **tidak disimpan di database/repository**. Atur pada file lokal `.env`:
-
-```ini
-instagram.apiBaseUrl = 'https://graph.instagram.com'
-instagram.apiVersion = 'vXX.X'   # opsional
-instagram.userId = '...'
-instagram.accessToken = '...'
-```
-
-Gunakan API version yang valid bila konfigurasi aplikasi Meta Anda memerlukannya. Jika endpoint Instagram Login yang digunakan tidak memakai version segment, biarkan `instagram.apiVersion` kosong.
-
-### Sinkronisasi
-
-Manual dari CMS Admin: `/manager/instagram-settings`
-
-CLI / cron:
-
-```bash
-php spark instagram:sync
-```
-
-Jika fetch gagal, cache API lama tidak dihapus. Jika cache tidak tersedia, homepage memakai fallback MANUAL. Mode MANUAL tidak melakukan fetch API.
+Frontend PHASE 8 menyediakan:
+- title/meta description;
+- canonical;
+- Open Graph;
+- Twitter Card;
+- EducationalOrganization JSON-LD;
+- Article JSON-LD untuk Berita;
+- `/sitemap.xml` dinamis mengikuti feature toggle dan konten published.
 
 Untuk instalasi baru dari database kosong, import `database/minsix.sql`.
 

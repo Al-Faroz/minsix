@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Filters\AdminFilter;
 use App\Filters\AuthFilter;
+use App\Filters\ManagerHeadersFilter;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -29,6 +30,7 @@ class Filters extends BaseFilters
         'performance' => PerformanceMetrics::class,
         'auth' => AuthFilter::class,
         'admin' => AdminFilter::class,
+        'managerheaders' => ManagerHeadersFilter::class,
     ];
 
     public array $required = [
@@ -42,5 +44,10 @@ class Filters extends BaseFilters
     ];
 
     public array $methods = [];
-    public array $filters = [];
+    public array $filters = [
+        'managerheaders' => [
+            'before' => ['manager', 'manager/*'],
+            'after' => ['manager', 'manager/*'],
+        ],
+    ];
 }

@@ -38,3 +38,4 @@ Urutan baca:
 - PHASE 5: SPMB — audit source selesai, menunggu cek fungsional lokal
 - PHASE 6: Homepage / Frontend — implementasi source selesai, menunggu cek lokal & responsive audit akhir
 - PHASE 7: Instagram Hybrid — audit source selesai, menunggu konfigurasi credential dan cek lokal
+- PHASE 8: SEO + Performance + Security — audit source selesai, menunggu cek lokal/production

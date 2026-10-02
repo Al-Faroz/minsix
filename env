@@ -79,3 +79,15 @@
 # instagram.apiVersion = 'vXX.X'   # optional; leave blank if your endpoint is unversioned
 # instagram.userId =
 # instagram.accessToken =
+
+
+#--------------------------------------------------------------------
+# PRODUCTION SECURITY
+#--------------------------------------------------------------------
+# Enable these only on the final HTTPS production host.
+#
+# CI_ENVIRONMENT = production
+# app.forceGlobalSecureRequests = true
+# cookie.secure = true
+# cookie.httponly = true
+# cookie.samesite = Lax
