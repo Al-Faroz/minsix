@@ -62,7 +62,7 @@ class InstagramConfigService
         $expired = $expiresAt !== null && $expiresAt <= $now;
         $daysRemaining = $expiresAt === null ? null : max(0, (int) ceil(($expiresAt - $now) / 86400));
         $tokenAgeHours = $issuedAt === null ? null : max(0, (int) floor(($now - $issuedAt) / 3600));
-        $connectionPresent = $config['user_id'] !== '' && $config['access_token'] !== '' && ! $config['token_error'];
+        $connectionPresent = $config['user_id'] !== ''\n            && $config['access_token'] !== ''\n            && ! $config['token_error']\n            && $config['connection_status'] === 'CONNECTED'\n            && $config['token_issued_at'] !== null\n            && $config['token_expires_at'] !== null;
         $connected = $connectionPresent && ! $expired;
         $refreshDue = $connected && $expiresAt !== null && ($expiresAt - $now) <= (7 * 86400);
 
