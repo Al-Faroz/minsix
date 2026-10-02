@@ -21,6 +21,7 @@ class NewsController extends BaseController
             'news' => $model->orderBy('published_at', 'DESC')->orderBy('id', 'DESC')->paginate(20, 'news'),
             'pager' => $model->pager,
             'feature' => (new SiteFeatureModel())->where('feature_key', 'news')->first(),
+            'kabarFeature' => (new SiteFeatureModel())->where('feature_key', 'kabar')->first(),
         ]);
     }
 
@@ -51,6 +52,10 @@ class NewsController extends BaseController
             'created_by' => (int) session()->get('auth_user_id'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Berita gagal disimpan.');
+        }
 
         $this->audit((int) $id, 'NEWS_CREATED', 'Berita dibuat.');
         return redirect()->to(site_url('manager/news'))->with('success', 'Berita berhasil ditambahkan.');

@@ -10,8 +10,10 @@
     <div class="toolbar-actions"><a class="btn primary" href="<?= site_url('manager/galleries/new') ?>">+ Tambah Album</a></div>
 </div>
 
-<?php if ($feature && (int) $feature['is_enabled'] !== 1): ?>
-    <div class="feature-state off"><strong>Galeri sedang OFF di website publik.</strong><span>Album tetap dapat dikelola dari CMS.</span></div>
+<?php if ($kabarFeature && (int) $kabarFeature['is_enabled'] !== 1): ?>
+    <div class="feature-state off"><strong>Kabar Madrasah sedang OFF di website publik.</strong><span>Galeri tetap dapat dikelola, tetapi tidak akan tampil sampai fitur induk Kabar Madrasah diaktifkan kembali.</span></div>
+<?php elseif ($feature && (int) $feature['is_enabled'] !== 1): ?>
+    <div class="feature-state off"><strong>Galeri sedang OFF di website publik.</strong><span>Data tetap dapat dikelola dari CMS. Hanya Admin yang dapat mengubah pengaturan fitur.</span></div>
 <?php endif ?>
 
 <?php if ($galleries === []): ?>

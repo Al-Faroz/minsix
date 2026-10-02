@@ -29,6 +29,7 @@ class GalleryController extends BaseController
             'galleries' => $galleries,
             'pager' => $model->pager,
             'feature' => (new SiteFeatureModel())->where('feature_key', 'gallery')->first(),
+            'kabarFeature' => (new SiteFeatureModel())->where('feature_key', 'kabar')->first(),
         ]);
     }
 
@@ -56,6 +57,10 @@ class GalleryController extends BaseController
             'created_by' => (int) session()->get('auth_user_id'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Album galeri gagal disimpan.');
+        }
 
         $this->audit((int) $id, 'GALLERY_CREATED', 'Album galeri dibuat.');
         return redirect()->to(site_url('manager/galleries/' . $id . '/edit'))

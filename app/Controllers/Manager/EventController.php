@@ -21,6 +21,7 @@ class EventController extends BaseController
             'events' => $model->orderBy('start_at', 'DESC')->paginate(20, 'events'),
             'pager' => $model->pager,
             'feature' => (new SiteFeatureModel())->where('feature_key', 'events')->first(),
+            'kabarFeature' => (new SiteFeatureModel())->where('feature_key', 'kabar')->first(),
         ]);
     }
 
@@ -56,6 +57,10 @@ class EventController extends BaseController
             'created_by' => (int) session()->get('auth_user_id'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Agenda gagal disimpan.');
+        }
 
         $this->audit((int) $id, 'EVENT_CREATED', 'Agenda dibuat.');
         return redirect()->to(site_url('manager/events'))->with('success', 'Agenda berhasil ditambahkan.');

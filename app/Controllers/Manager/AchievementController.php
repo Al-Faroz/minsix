@@ -21,6 +21,7 @@ class AchievementController extends BaseController
             'achievements' => $model->orderBy('achievement_date', 'DESC')->orderBy('id', 'DESC')->paginate(20, 'achievements'),
             'pager' => $model->pager,
             'feature' => (new SiteFeatureModel())->where('feature_key', 'achievements')->first(),
+            'kabarFeature' => (new SiteFeatureModel())->where('feature_key', 'kabar')->first(),
         ]);
     }
 
@@ -54,6 +55,10 @@ class AchievementController extends BaseController
             'created_by' => (int) session()->get('auth_user_id'),
             'updated_by' => (int) session()->get('auth_user_id'),
         ]);
+
+        if ($id === false) {
+            return redirect()->back()->withInput()->with('error', 'Prestasi gagal disimpan.');
+        }
 
         $this->audit((int) $id, 'ACHIEVEMENT_CREATED', 'Prestasi dibuat.');
         return redirect()->to(site_url('manager/achievements'))->with('success', 'Prestasi berhasil ditambahkan.');

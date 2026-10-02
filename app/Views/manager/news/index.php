@@ -10,8 +10,10 @@
     <div class="toolbar-actions"><a class="btn primary" href="<?= site_url('manager/news/new') ?>">+ Tambah Berita</a></div>
 </div>
 
-<?php if ($feature && (int) $feature['is_enabled'] !== 1): ?>
-    <div class="feature-state off"><strong>Berita sedang OFF di website publik.</strong><span>Data tetap dapat dikelola. Hanya Admin yang dapat menyalakan fitur.</span></div>
+<?php if ($kabarFeature && (int) $kabarFeature['is_enabled'] !== 1): ?>
+    <div class="feature-state off"><strong>Kabar Madrasah sedang OFF di website publik.</strong><span>Berita tetap dapat dikelola, tetapi tidak akan tampil sampai fitur induk Kabar Madrasah diaktifkan kembali.</span></div>
+<?php elseif ($feature && (int) $feature['is_enabled'] !== 1): ?>
+    <div class="feature-state off"><strong>Berita sedang OFF di website publik.</strong><span>Data tetap dapat dikelola dari CMS. Hanya Admin yang dapat mengubah pengaturan fitur.</span></div>
 <?php endif ?>
 
 <?php if ($news === []): ?>
