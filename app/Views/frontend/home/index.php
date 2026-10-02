@@ -145,7 +145,7 @@ $habitItems = $habits['content_data']['items'] ?? [
         </div>
         <div class="program-list">
             <?php foreach ($programs as $index => $program): ?>
-                <article class="program-row">
+                <article class="program-row program-row--<?= ($index % 6) + 1 ?>">
                     <span class="program-no"><?= str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) ?></span>
                     <div><small><?= esc($program['category'] ?: 'Program') ?></small><h3><?= esc($program['name']) ?></h3></div>
                     <p><?= esc($program['summary'] ?: '') ?></p>

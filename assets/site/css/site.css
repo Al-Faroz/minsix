@@ -804,3 +804,102 @@ body{font-size:.94rem}
 .spmb-highlight-card{padding:24px;border:1px solid var(--rival-line);border-radius:var(--rival-radius);background:#f8f9f6}
 @media(max-width:900px){.spmb-step-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.spmb-highlight-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:560px){.spmb-step-grid,.spmb-highlight-grid{grid-template-columns:1fr}.spmb-step-card{min-height:auto}.spmb-step-card>span{margin-bottom:28px}}
+
+
+/* ========================================================================
+   FINAL-E — gradient program cards + public CMS access
+   ======================================================================== */
+.program-list{
+  gap:18px;
+  border:0;
+  background:transparent;
+}
+.program-row{
+  position:relative;
+  min-height:270px;
+  padding:26px;
+  border:1px solid rgba(3,33,0,.10);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 12px 30px rgba(13,23,19,.045);
+  transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease;
+}
+.program-row::after{
+  content:"";
+  position:absolute;
+  right:-40px;
+  bottom:-54px;
+  width:150px;
+  height:150px;
+  border-radius:50%;
+  background:rgba(255,255,255,.18);
+  pointer-events:none;
+}
+.program-row:hover{
+  transform:translateY(-4px);
+  border-color:rgba(3,33,0,.18);
+  box-shadow:0 18px 42px rgba(13,23,19,.09);
+}
+.program-row .program-no,
+.program-row small{
+  position:relative;
+  z-index:1;
+  color:#07592f;
+}
+.program-row h3,
+.program-row p{
+  position:relative;
+  z-index:1;
+}
+.program-row p{color:#44524a}
+
+/* Different subtle gradient for each program item */
+.program-row--1{background:linear-gradient(145deg,#f2faf2 0%,#dcefdc 56%,#c8e6cc 100%)}
+.program-row--2{background:linear-gradient(145deg,#f5f8eb 0%,#e4eccd 56%,#d2dda8 100%)}
+.program-row--3{background:linear-gradient(145deg,#fbf8ef 0%,#eee2c6 56%,#ddc793 100%)}
+.program-row--4{background:linear-gradient(145deg,#eef7f3 0%,#d9e9e0 56%,#bfd7ca 100%)}
+.program-row--5{background:linear-gradient(145deg,#f5f5f0 0%,#e5e6d9 56%,#d1d5c2 100%)}
+.program-row--6{background:linear-gradient(145deg,#faf4ea 0%,#ecdcc3 56%,#d8bd94 100%)}
+
+/* Compact public entry to the manager area */
+.footer-manager-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  min-height:38px;
+  padding:.58rem .86rem;
+  border:1px solid rgba(184,242,15,.30);
+  border-radius:999px;
+  color:#dff58c;
+  background:rgba(255,255,255,.045);
+  font-family:var(--font-nav);
+  font-size:.68rem;
+  font-weight:650;
+  letter-spacing:.02em;
+  transition:background .2s ease,color .2s ease,border-color .2s ease,transform .2s ease;
+}
+.footer-manager-link:hover{
+  color:#142000;
+  background:var(--rival-accent);
+  border-color:var(--rival-accent);
+  transform:translateY(-1px);
+}
+.footer-manager-link span{font-size:.8rem}
+
+@media(max-width:1100px){
+  .program-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:760px){
+  .program-list{grid-template-columns:1fr}
+  .program-row{min-height:230px}
+}
+@media(max-width:620px){
+  .program-row{
+    min-height:auto;
+    padding:22px;
+    border-radius:18px;
+  }
+  .program-row .program-no{margin-bottom:46px}
+  .footer-manager-link{align-self:flex-start}
+}

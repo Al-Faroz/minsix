@@ -53,3 +53,4 @@ Urutan baca:
 - PHASE 10A: Production Hardening Source — security headers/CSP, dynamic robots, branded errors, dan deployment runbook selesai
 - PHASE 10B: Branding Uppercase — seluruh branding aplikasi + database dinormalisasi menjadi MIN 6 JEMBER
 - PHASE 10 Runtime: menunggu deploy pada domain/hosting final dan smoke test production
+- FINAL-E: Homepage Program Cards + CMS Access — kartu Program memakai gradient per item dan tombol Login CMS tersedia di footer publik

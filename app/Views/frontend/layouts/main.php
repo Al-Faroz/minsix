@@ -138,7 +138,12 @@ if (! empty($structuredData) && is_array($structuredData)) {
             <?php if (! empty($site['instagram_url'])): ?><a href="<?= esc($site['instagram_url']) ?>" target="_blank" rel="noopener">@<?= esc($site['instagram_username'] ?? 'min6jember') ?></a><?php endif ?>
         </div>
     </div>
-    <div class="site-container footer-bottom"><span>© <?= date('Y') ?> <?= esc($siteName) ?></span><a href="<?= site_url('manager') ?>">Manager</a></div>
+    <div class="site-container footer-bottom">
+        <span>© <?= date('Y') ?> <?= esc($siteName) ?></span>
+        <a class="footer-manager-link" href="<?= site_url('manager/login') ?>" rel="nofollow">
+            <span aria-hidden="true">↗</span> Login CMS
+        </a>
+    </div>
 </footer>
 
 <script src="<?= base_url('assets/site/js/site.js') ?>" defer></script>
