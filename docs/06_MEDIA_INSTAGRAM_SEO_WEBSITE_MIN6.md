@@ -220,7 +220,7 @@ Admin mengatur:
 Pola title:
 
 ```text
-{Page Title} | MIN 6 Jember
+{Page Title} | MIN 6 JEMBER
 ```
 
 ---
@@ -321,7 +321,7 @@ Jangan memasukkan data yang belum tervalidasi.
 Setiap foto utama sebaiknya mempunyai alt text yang singkat dan deskriptif.
 
 Contoh:
-> Siswa MIN 6 Jember mengikuti pembelajaran di kelas.
+> Siswa MIN 6 JEMBER mengikuti pembelajaran di kelas.
 
 ---
 

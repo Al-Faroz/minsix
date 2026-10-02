@@ -125,7 +125,7 @@ Foto:
 ```text
 01 Hero
 02 Stats
-03 Mengenal MIN 6 Jember
+03 Mengenal MIN 6 JEMBER
 04 Keseharian yang Membentuk Karakter
 05 Belajar & Berkembang
 06 Prestasi
@@ -227,7 +227,7 @@ Format editorial:
 Jika aktif:
 
 ```text
-Mari tumbuh bersama MIN 6 Jember.
+Mari tumbuh bersama MIN 6 JEMBER.
 [Informasi SPMB]
 ```
 

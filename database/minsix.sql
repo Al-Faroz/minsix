@@ -170,18 +170,18 @@ CREATE TABLE IF NOT EXISTS homepage_sections (
 INSERT IGNORE INTO homepage_sections
 (section_key, eyebrow, title, subtitle, body, cta_label, cta_url, secondary_cta_label, secondary_cta_url, display_order)
 VALUES
-('hero', 'MADRASAH IBTIDAIYAH NEGERI 6 JEMBER', 'Berakhlakul Karimah. Tumbuh dalam Prestasi.', 'Lingkungan belajar untuk menumbuhkan ilmu, karakter, kreativitas, dan nilai-nilai keislaman sejak usia dasar.', NULL, 'Jelajahi Madrasah', '#mengenal', 'Kenali MIN 6 Jember', '/profil', 10),
+('hero', 'MADRASAH IBTIDAIYAH NEGERI 6 JEMBER', 'Berakhlakul Karimah. Tumbuh dalam Prestasi.', 'Lingkungan belajar untuk menumbuhkan ilmu, karakter, kreativitas, dan nilai-nilai keislaman sejak usia dasar.', NULL, 'Jelajahi Madrasah', '#mengenal', 'Kenali MIN 6 JEMBER', '/profil', 10),
 ('stats', 'MIN 6 JEMBER', 'Madrasah yang terus tumbuh', NULL, NULL, NULL, NULL, NULL, NULL, 20),
 ('about', 'MENGENAL MIN 6 JEMBER', 'Ruang belajar yang menumbuhkan ilmu dan karakter.', NULL, NULL, 'Selengkapnya', '/profil', NULL, NULL, 30),
 ('habits', 'KESEHARIAN MADRASAH', 'Keseharian yang Membentuk Karakter', NULL, NULL, NULL, NULL, NULL, NULL, 40),
 ('program_intro', 'BELAJAR & BERKEMBANG', 'Program yang mendampingi setiap proses tumbuh.', NULL, NULL, 'Lihat Program', '/program', NULL, NULL, 50),
 ('achievement_intro', 'PRESTASI PESERTA DIDIK', 'Tumbuh melalui proses, berkembang melalui pengalaman.', NULL, NULL, NULL, NULL, NULL, NULL, 60),
-('story_intro', 'CERITA DARI MADRASAH', 'Potret keseharian MIN 6 Jember.', NULL, NULL, NULL, NULL, NULL, NULL, 70),
+('story_intro', 'CERITA DARI MADRASAH', 'Potret keseharian MIN 6 JEMBER.', NULL, NULL, NULL, NULL, NULL, NULL, 70),
 ('news_intro', 'KABAR TERBARU', 'Informasi terbaru dari madrasah.', NULL, NULL, 'Lihat Semua Kabar', '/kabar', NULL, NULL, 80),
 ('instagram_intro', 'INSTAGRAM', 'Ikuti keseharian @min6jember', NULL, NULL, NULL, NULL, NULL, NULL, 90),
-('headmaster', 'SAMBUTAN KEPALA MADRASAH', 'Menyambut setiap langkah tumbuh bersama MIN 6 Jember.', NULL, NULL, 'Mengenal Madrasah', '/profil', NULL, NULL, 100),
-('spmb_cta', 'SPMB', 'Mari tumbuh bersama MIN 6 Jember.', NULL, NULL, 'Informasi SPMB', '/spmb', NULL, NULL, 110),
-('contact', 'KONTAK', 'Terhubung dengan MIN 6 Jember', NULL, NULL, NULL, NULL, NULL, NULL, 120);
+('headmaster', 'SAMBUTAN KEPALA MADRASAH', 'Menyambut setiap langkah tumbuh bersama MIN 6 JEMBER.', NULL, NULL, 'Mengenal Madrasah', '/profil', NULL, NULL, 100),
+('spmb_cta', 'SPMB', 'Mari tumbuh bersama MIN 6 JEMBER.', NULL, NULL, 'Informasi SPMB', '/spmb', NULL, NULL, 110),
+('contact', 'KONTAK', 'Terhubung dengan MIN 6 JEMBER', NULL, NULL, NULL, NULL, NULL, NULL, 120);
 
 CREATE TABLE profile_sections (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -482,7 +482,7 @@ CREATE TABLE IF NOT EXISTS spmb_faq (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 INSERT INTO site_settings (setting_key, setting_value, value_type, is_public) VALUES
-('site_name', 'MIN 6 Jember', 'string', 1),
+('site_name', 'MIN 6 JEMBER', 'string', 1),
 ('site_tagline', 'Berakhlakul Karimah dan Berprestasi', 'string', 1),
 ('address', '', 'text', 1),
 ('phone', '', 'string', 1),
@@ -493,7 +493,7 @@ INSERT INTO site_settings (setting_key, setting_value, value_type, is_public) VA
 ('google_maps_embed', '', 'text', 1),
 ('instagram_source_mode', 'HYBRID', 'string', 0),
 ('instagram_display_count', '8', 'integer', 0),
-('seo_default_title', 'MIN 6 Jember', 'string', 1),
+('seo_default_title', 'MIN 6 JEMBER', 'string', 1),
 ('seo_default_description', 'Berakhlaqul Karimah dan Berprestasi', 'text', 1),
 ('seo_default_og_media_id', '', 'integer', 1),
 ('seo_canonical_base_url', '', 'string', 1);
@@ -508,7 +508,7 @@ INSERT INTO site_features (feature_key, label, is_enabled, show_in_nav, show_on_
 ('spmb', 'SPMB', 1, 1, 1);
 
 INSERT INTO profile_sections (section_key, title, body, display_order) VALUES
-('about', 'Mengenal MIN 6 Jember', '', 10),
+('about', 'Mengenal MIN 6 JEMBER', '', 10),
 ('vision', 'Visi', 'Berakhlaqul Karimah dan Berprestasi', 20),
 ('history', 'Sejarah', '', 30),
 ('timeline', 'Perjalanan Madrasah', '', 40),

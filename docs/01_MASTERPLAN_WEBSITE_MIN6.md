@@ -1,7 +1,7 @@
 # 01 — MASTERPLAN WEBSITE MIN 6 JEMBER
 
 ## 1. Status Dokumen
-- **Nama proyek:** Website MIN 6 Jember / MIN SIX
+- **Nama proyek:** Website MIN 6 JEMBER / MIN SIX
 - **Framework:** CodeIgniter 4
 - **Folder lokal:** `G:\xampp\htdocs\minsix`
 - **Repository:** `https://github.com/Al-Faroz/minsix`
@@ -18,7 +18,7 @@ Dokumen ini menjadi acuan induk. Jika implementasi berbeda dengan dokumen ini, k
 
 ## 2. Tujuan Proyek
 
-Membangun website resmi MIN 6 Jember yang:
+Membangun website resmi MIN 6 JEMBER yang:
 1. modern, minimalis, responsif, dan mudah digunakan;
 2. berfungsi sebagai representasi resmi dan identitas digital madrasah;
 3. mengutamakan **homepage/landing page** sebagai pusat pengalaman pengunjung;
@@ -55,10 +55,10 @@ Referensi visual utama sementara adalah **Rival — BootstrapMade**, tetapi hany
 ## 4. Sumber Konten dan Prioritas Data
 
 Urutan sumber kebenaran konten:
-1. **PDF/dokumen internal terbaru MIN 6 Jember**
+1. **PDF/dokumen internal terbaru MIN 6 JEMBER**
 2. **Data internal madrasah**
 3. **Sumber resmi pemerintah (Kemenag/Kemendikdasmen)**
-4. **Website resmi/arsip MIN 6 Jember**
+4. **Website resmi/arsip MIN 6 JEMBER**
 5. **Sumber internet lain sebagai pelengkap**
 
 Jika terjadi konflik, data internal/PDF terbaru menjadi acuan utama.
@@ -158,8 +158,8 @@ Route publik mengikuti status modul. Jika modul dinonaktifkan, data tidak dihapu
 
 Urutan awal:
 1. **Hero**
-2. **Statistik MIN 6 Jember**
-3. **Mengenal MIN 6 Jember**
+2. **Statistik MIN 6 JEMBER**
+3. **Mengenal MIN 6 JEMBER**
 4. **Keseharian yang Membentuk Karakter**
 5. **Program / Belajar & Berkembang**
 6. **Prestasi Peserta Didik**
@@ -193,17 +193,17 @@ CTA:
 
 ```text
 [Jelajahi Madrasah]
-Kenali MIN 6 Jember →
+Kenali MIN 6 JEMBER →
 ```
 
-Hero menggunakan foto asli MIN 6 Jember, bukan ilustrasi stok sebagai elemen utama.
+Hero menggunakan foto asli MIN 6 JEMBER, bukan ilustrasi stok sebagai elemen utama.
 
 ---
 
 ## 9. Halaman Profil
 
 Satu halaman:
-1. Tentang MIN 6 Jember
+1. Tentang MIN 6 JEMBER
 2. Visi
 3. Sejarah
 4. Timeline perkembangan madrasah

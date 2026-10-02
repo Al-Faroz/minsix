@@ -50,3 +50,12 @@ Menambahkan:
 - `spmb_highlights` untuk Program Unggulan.
 
 Keduanya mengikuti periode SPMB dan otomatis terhapus ketika periodenya dihapus.
+
+
+## PHASE 10 — Branding Uppercase
+
+Untuk database existing, jalankan:
+
+`database/upgrades/20261002_phase10_brand_uppercase.sql`
+
+Upgrade ini hanya mengganti teks exact `MIN 6 Jember` menjadi `MIN 6 JEMBER` pada setting dan konten. Tidak mengubah schema.

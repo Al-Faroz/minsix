@@ -1,4 +1,4 @@
-# Dokumen Acuan — Website MIN 6 Jember
+# Dokumen Acuan — Website MIN 6 JEMBER
 
 Dokumen ini menjadi pegangan implementasi proyek `minsix`.
 
@@ -51,3 +51,5 @@ Urutan baca:
 - FINAL-D3: Dashboard Completion — Konten Terbaru lintas Berita/Prestasi/Agenda/Galeri/Program/SPMB
 
 - PHASE 10A: Production Hardening Source — security headers/CSP, dynamic robots, branded errors, dan deployment runbook selesai
+- PHASE 10B: Branding Uppercase — seluruh branding aplikasi + database dinormalisasi menjadi MIN 6 JEMBER
+- PHASE 10 Runtime: menunggu deploy pada domain/hosting final dan smoke test production

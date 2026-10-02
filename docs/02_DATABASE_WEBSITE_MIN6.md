@@ -2,7 +2,7 @@
 
 ## 1. Prinsip Database
 
-Database website MIN 6 Jember menggunakan **MySQL/MariaDB**.
+Database website MIN 6 JEMBER menggunakan **MySQL/MariaDB**.
 
 Ketentuan:
 - schema dikelola melalui **SQL dump**;

@@ -409,7 +409,7 @@ Tidak termasuk:
 
 ## 25. Final Principle
 
-Website MIN 6 Jember adalah sistem publikasi institusi.
+Website MIN 6 JEMBER adalah sistem publikasi institusi.
 
 > Prioritas utama: **stabil, cepat, aman, mudah dikelola, dan terlihat modern.**
 

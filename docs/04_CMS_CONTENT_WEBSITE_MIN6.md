@@ -2,7 +2,7 @@
 
 ## 1. Prinsip CMS
 
-CMS dibuat khusus untuk MIN 6 Jember.
+CMS dibuat khusus untuk MIN 6 JEMBER.
 
 Prinsip:
 - sederhana;
