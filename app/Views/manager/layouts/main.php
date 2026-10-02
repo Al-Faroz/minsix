@@ -34,7 +34,7 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $navActive('manager/events') ?>" href="<?= site_url('manager/events') ?>">Agenda</a>
             <a class="nav-item<?= $navActive('manager/achievements') ?>" href="<?= site_url('manager/achievements') ?>">Prestasi</a>
             <a class="nav-item<?= $navActive('manager/galleries') ?>" href="<?= site_url('manager/galleries') ?>">Galeri</a>
-            <button class="nav-item disabled" type="button" disabled><span>SPMB</span><small>Segera</small></button>
+            <a class="nav-item<?= $navActive('manager/spmb') ?>" href="<?= site_url('manager/spmb') ?>">SPMB</a>
             <a class="nav-item<?= $navActive('manager/media') ?>" href="<?= site_url('manager/media') ?>">Media</a>
             <button class="nav-item disabled" type="button" disabled><span>Instagram Content</span><small>Segera</small></button>
 
@@ -48,7 +48,7 @@ $navActive = static fn (string $prefix): string =>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 4</span><strong>Kabar Madrasah</strong></div>
+        <div class="sidebar-foot"><span>PHASE 5</span><strong>SPMB</strong></div>
     </aside>
 
     <div class="content-wrap">

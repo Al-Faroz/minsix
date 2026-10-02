@@ -37,7 +37,7 @@ $routes->post('manager/gtk-roles', 'Manager\GtkRoleController::create', ['filter
 $routes->post('manager/gtk-roles/(:num)', 'Manager\GtkRoleController::update/$1', ['filter' => 'auth']);
 $routes->post('manager/gtk-roles/(:num)/delete', 'Manager\GtkRoleController::delete/$1', ['filter' => 'auth']);
 
-// Kabar Madrasah: content remains manageable even when public feature is OFF.
+// Kabar Madrasah.
 $routes->get('manager/news', 'Manager\NewsController::index', ['filter' => 'auth']);
 $routes->get('manager/news/new', 'Manager\NewsController::new', ['filter' => 'auth']);
 $routes->post('manager/news', 'Manager\NewsController::create', ['filter' => 'auth']);
@@ -68,6 +68,23 @@ $routes->post('manager/galleries/(:num)/delete', 'Manager\GalleryController::del
 $routes->post('manager/galleries/(:num)/items', 'Manager\GalleryController::addItems/$1', ['filter' => 'auth']);
 $routes->post('manager/galleries/(:num)/items/(:num)', 'Manager\GalleryController::updateItem/$1/$2', ['filter' => 'auth']);
 $routes->post('manager/galleries/(:num)/items/(:num)/delete', 'Manager\GalleryController::deleteItem/$1/$2', ['filter' => 'auth']);
+
+// SPMB.
+$routes->get('manager/spmb', 'Manager\SpmbController::index', ['filter' => 'auth']);
+$routes->get('manager/spmb/new', 'Manager\SpmbController::new', ['filter' => 'auth']);
+$routes->post('manager/spmb', 'Manager\SpmbController::create', ['filter' => 'auth']);
+$routes->get('manager/spmb/(:num)/edit', 'Manager\SpmbController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)', 'Manager\SpmbController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/current', 'Manager\SpmbController::setCurrent/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/delete', 'Manager\SpmbController::delete/$1', ['filter' => 'auth']);
+
+$routes->post('manager/spmb/(:num)/requirements', 'Manager\SpmbController::addRequirement/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/requirements/(:num)', 'Manager\SpmbController::updateRequirement/$1/$2', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/requirements/(:num)/delete', 'Manager\SpmbController::deleteRequirement/$1/$2', ['filter' => 'auth']);
+
+$routes->post('manager/spmb/(:num)/faq', 'Manager\SpmbController::addFaq/$1', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/faq/(:num)', 'Manager\SpmbController::updateFaq/$1/$2', ['filter' => 'auth']);
+$routes->post('manager/spmb/(:num)/faq/(:num)/delete', 'Manager\SpmbController::deleteFaq/$1/$2', ['filter' => 'auth']);
 
 // Media is content.
 $routes->get('manager/media', 'Manager\MediaController::index', ['filter' => 'auth']);
