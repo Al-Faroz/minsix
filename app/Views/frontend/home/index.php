@@ -1,7 +1,40 @@
 <?= $this->extend('frontend/layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$section = static fn (string $key): array => $sections[$key] ?? [];
+$sectionDefaults = [
+    'eyebrow' => '',
+    'title' => '',
+    'subtitle' => '',
+    'body' => '',
+    'content_data' => [],
+    'primary_media_id' => null,
+    'cta_label' => '',
+    'cta_url' => '',
+    'secondary_cta_label' => '',
+    'secondary_cta_url' => '',
+];
+
+$section = static function (string $key) use ($sections, $sectionDefaults): array {
+    return array_merge($sectionDefaults, $sections[$key] ?? []);
+};
+
+$link = static function (?string $value, string $fallback): string {
+    $value = trim((string) $value);
+    if ($value === '') {
+        $value = $fallback;
+    }
+
+    if (str_starts_with($value, '#')) {
+        return $value;
+    }
+
+    if (preg_match('~^(?:https?:)?//|^(?:mailto:|tel:)~i', $value)) {
+        return $value;
+    }
+
+    return site_url(ltrim($value, '/'));
+};
+
 $mediaFor = static function (array $row) use ($sectionMedia): ?array {
     $id = (int) ($row['primary_media_id'] ?? 0);
     return $id > 0 ? ($sectionMedia[$id] ?? null) : null;
@@ -43,8 +76,8 @@ $habitItems = $habits['content_data']['items'] ?? [
             <p class="hero-lead"><?= esc($hero['subtitle'] ?? 'Lingkungan belajar untuk menumbuhkan ilmu, karakter, kreativitas, dan nilai-nilai keislaman sejak usia dasar.') ?></p>
             <?php if (! empty($hero['body'])): ?><p class="hero-body"><?= nl2br(esc($hero['body'])) ?></p><?php endif ?>
             <div class="hero-actions">
-                <a class="button primary" href="<?= esc($hero['cta_url'] ?: '#mengenal') ?>"><?= esc($hero['cta_label'] ?: 'Jelajahi Madrasah') ?></a>
-                <a class="button text" href="<?= esc($hero['secondary_cta_url'] ?: site_url('profil')) ?>"><?= esc($hero['secondary_cta_label'] ?: 'Kenali MIN 6 Jember') ?> <span aria-hidden="true">→</span></a>
+                <a class="button primary" href="<?= esc($link($hero['cta_url'], '#mengenal')) ?>"><?= esc($hero['cta_label'] ?: 'Jelajahi Madrasah') ?></a>
+                <a class="button text" href="<?= esc($link($hero['secondary_cta_url'], 'profil')) ?>"><?= esc($hero['secondary_cta_label'] ?: 'Kenali MIN 6 Jember') ?> <span aria-hidden="true">→</span></a>
             </div>
         </div>
         <div class="hero-visual<?= $heroMedia ? '' : ' placeholder' ?>">
@@ -76,7 +109,7 @@ $habitItems = $habits['content_data']['items'] ?? [
         <div class="section-body">
             <?php $aboutBody = trim((string) ($about['body'] ?? '')) ?: trim((string) ($profileAbout['body'] ?? '')); ?>
             <?php if ($aboutBody !== ''): ?><p><?= nl2br(esc($aboutBody)) ?></p><?php else: ?><p>MIN 6 Jember tumbuh sebagai ruang belajar yang memadukan pembelajaran, pembiasaan, nilai keislaman, kreativitas, dan prestasi.</p><?php endif ?>
-            <a class="arrow-link" href="<?= esc($about['cta_url'] ?: site_url('profil')) ?>"><?= esc($about['cta_label'] ?: 'Selengkapnya') ?> →</a>
+            <a class="arrow-link" href="<?= esc($link($about['cta_url'], 'profil')) ?>"><?= esc($about['cta_label'] ?: 'Selengkapnya') ?> →</a>
         </div>
         <?php if ($aboutMedia): ?><figure class="wide-photo"><img loading="lazy" src="<?= base_url($aboutMedia['relative_path']) ?>" alt="<?= esc($aboutMedia['alt_text'] ?: 'MIN 6 Jember') ?>"></figure><?php endif ?>
     </div>
@@ -119,7 +152,7 @@ $habitItems = $habits['content_data']['items'] ?? [
                 </article>
             <?php endforeach ?>
         </div>
-        <a class="arrow-link" href="<?= esc($programIntro['cta_url'] ?: site_url('program')) ?>"><?= esc($programIntro['cta_label'] ?: 'Lihat Program') ?> →</a>
+        <a class="arrow-link" href="<?= esc($link($programIntro['cta_url'], 'program')) ?>"><?= esc($programIntro['cta_label'] ?: 'Lihat Program') ?> →</a>
     </div>
 </section>
 <?php endif ?>
@@ -200,7 +233,7 @@ $habitItems = $habits['content_data']['items'] ?? [
             </aside>
             <?php endif ?>
         </div>
-        <a class="arrow-link" href="<?= esc($newsIntro['cta_url'] ?: site_url('kabar')) ?>"><?= esc($newsIntro['cta_label'] ?: 'Lihat Semua Kabar') ?> →</a>
+        <a class="arrow-link" href="<?= esc($link($newsIntro['cta_url'], 'kabar')) ?>"><?= esc($newsIntro['cta_label'] ?: 'Lihat Semua Kabar') ?> →</a>
     </div>
 </section>
 <?php endif ?>
@@ -226,7 +259,7 @@ $habitItems = $habits['content_data']['items'] ?? [
             <?php $hmBody = trim((string) ($headmasterSection['body'] ?? '')) ?: trim((string) ($headmasterProfile['body'] ?? '')); ?>
             <?php if ($hmBody): ?><p><?= nl2br(esc($hmBody)) ?></p><?php endif ?>
             <?php if ($headmaster): ?><strong class="signature"><?= esc(trim(($headmaster['front_title'] ? $headmaster['front_title'] . ' ' : '') . $headmaster['name'] . ($headmaster['back_title'] ? ', ' . $headmaster['back_title'] : ''))) ?></strong><?php endif ?>
-            <a class="arrow-link" href="<?= esc($headmasterSection['cta_url'] ?: site_url('profil')) ?>"><?= esc($headmasterSection['cta_label'] ?: 'Mengenal Madrasah') ?> →</a>
+            <a class="arrow-link" href="<?= esc($link($headmasterSection['cta_url'], 'profil')) ?>"><?= esc($headmasterSection['cta_label'] ?: 'Mengenal Madrasah') ?> →</a>
         </div>
     </div>
 </section>

@@ -1,5 +1,5 @@
 -- MIN SIX — canonical SQL dump
--- PHASE 6A: Auth + CMS + Homepage + Frontend foundation
+-- PHASE 6: Auth + CMS + Homepage + Public Frontend
 -- Schema aplikasi menggunakan SQL dump, bukan Migration/Seeder.
 
 SET NAMES utf8mb4;
