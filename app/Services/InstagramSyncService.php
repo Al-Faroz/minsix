@@ -52,6 +52,16 @@ class InstagramSyncService
             ];
         }
 
+        $db = db_connect();
+        if (! $db->tableExists('instagram_posts') || ! $db->fieldExists('children_json', 'instagram_posts')) {
+            return [
+                'ok' => false,
+                'skipped' => false,
+                'count' => 0,
+                'message' => 'Schema Instagram belum PHASE 10C2. Jalankan database/upgrades/20261002_phase10c2_instagram_login.sql.',
+            ];
+        }
+
         $fetch = $this->fetchMedia(25);
         if (! $fetch['ok']) {
             return [
