@@ -19,6 +19,41 @@
     <article class="metric-card"><span>SPMB CURRENT</span><strong><?= esc($spmbCurrent['academic_year'] ?? '—') ?></strong><small><?= esc($spmbCurrent['status'] ?? 'Belum ditetapkan') ?></small></article>
 </section>
 
+<section class="content-card" style="margin-top:16px">
+    <div class="section-head">
+        <div>
+            <p class="eyebrow">KONTEN TERBARU</p>
+            <h2>Perubahan terakhir</h2>
+            <p class="muted">Enam konten yang paling baru diperbarui di CMS.</p>
+        </div>
+    </div>
+
+    <?php if ($recentContent === []): ?>
+        <div class="empty-state">Belum ada aktivitas konten.</div>
+    <?php else: ?>
+        <div class="table-wrap">
+            <table class="cms-table">
+                <thead><tr><th>Jenis</th><th>Konten</th><th>Status</th><th>Diperbarui</th><th>Aksi</th></tr></thead>
+                <tbody>
+                <?php foreach ($recentContent as $item): ?>
+                    <tr>
+                        <td><span class="status-chip category"><?= esc($item['type']) ?></span></td>
+                        <td><div class="table-title"><strong><?= esc($item['title']) ?></strong></div></td>
+                        <td>
+                            <?php if ($item['status']): ?>
+                                <span class="status-chip <?= strtolower($item['status']) ?>"><?= esc($item['status']) ?></span>
+                            <?php else: ?>—<?php endif ?>
+                        </td>
+                        <td><?= $item['changed_at'] ? esc(date('d-m-Y H:i', strtotime($item['changed_at']))) : '—' ?></td>
+                        <td><a class="text-link" href="<?= esc($item['url']) ?>">Buka</a></td>
+                    </tr>
+                <?php endforeach ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif ?>
+</section>
+
 <section class="quick-grid">
     <a class="quick-card" href="<?= site_url('manager/news/new') ?>"><span>01</span><strong>Tambah Berita</strong><small>Publikasi informasi terbaru</small></a>
     <a class="quick-card" href="<?= site_url('manager/achievements/new') ?>"><span>02</span><strong>Tambah Prestasi</strong><small>Catat prestasi siswa/madrasah</small></a>

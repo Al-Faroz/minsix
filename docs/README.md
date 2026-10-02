@@ -48,3 +48,4 @@ Urutan baca:
 - FINAL-C: User Management — Admin-only CRUD akun tanpa delete; role/status/reset password + last-active-admin protection
 - FINAL-D1: Rich Text + Maps — editor ringan internal, sanitasi server-side, rendering aman, dan Google Maps Profil
 - FINAL-D2: Structured SPMB — Alur Pendaftaran + Program Unggulan terstruktur
+- FINAL-D3: Dashboard Completion — Konten Terbaru lintas Berita/Prestasi/Agenda/Galeri/Program/SPMB
