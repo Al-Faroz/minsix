@@ -7,6 +7,7 @@ use App\Models\AuditLogModel;
 use App\Models\InstagramPostModel;
 use App\Models\SiteSettingModel;
 use App\Services\InstagramConfigService;
+use App\Services\InstagramOAuthService;
 use App\Services\InstagramSyncService;
 use CodeIgniter\HTTP\RedirectResponse;
 
@@ -20,6 +21,7 @@ class InstagramSettingsController extends BaseController
             ->orderBy('fetched_at', 'DESC')
             ->first();
         $configService = new InstagramConfigService();
+        $oauthService = new InstagramOAuthService();
 
         return view('manager/instagram/settings', [
             'title' => 'Pengaturan Instagram | CMS MIN 6 JEMBER',
@@ -27,6 +29,7 @@ class InstagramSettingsController extends BaseController
             'settings' => $settings,
             'apiReady' => $configService->isReady(),
             'apiState' => $configService->state(),
+            'callbackUrl' => $oauthService->callbackUrl(),
             'latestFetchedAt' => $latest['fetched_at'] ?? null,
             'apiCount' => (new InstagramPostModel())->where('source', 'API')->countAllResults(),
         ]);
@@ -80,34 +83,102 @@ class InstagramSettingsController extends BaseController
         return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Pengaturan Instagram berhasil disimpan.');
     }
 
-    public function updateApi(): RedirectResponse
+    public function updateApp(): RedirectResponse
     {
         if (! $this->validate([
-            'api_base_url' => 'required|max_length[255]',
-            'api_version' => 'permit_empty|max_length[50]|regex_match[/^[A-Za-z0-9._-]+$/]',
-            'instagram_user_id' => 'required|max_length[100]|regex_match[/^[A-Za-z0-9._-]+$/]',
-            'instagram_access_token' => 'permit_empty|max_length[10000]',
+            'app_id' => 'required|max_length[100]|regex_match[/^[0-9]+$/]',
+            'api_version' => 'permit_empty|max_length[50]|regex_match[/^v[0-9]+\.[0-9]+$/i]',
+            'app_secret' => 'permit_empty|max_length[1000]',
         ])) {
             return redirect()->back()->withInput()->with('errors', $this->validator->getErrors());
         }
 
         try {
-            (new InstagramConfigService())->saveApiSettings(
-                (string) $this->request->getPost('api_base_url'),
+            (new InstagramConfigService())->saveAppSettings(
+                (string) $this->request->getPost('app_id'),
                 (string) $this->request->getPost('api_version'),
-                (string) $this->request->getPost('instagram_user_id'),
-                trim((string) $this->request->getPost('instagram_access_token')),
+                trim((string) $this->request->getPost('app_secret')),
                 (int) session()->get('auth_user_id')
             );
         } catch (\InvalidArgumentException|\RuntimeException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         } catch (\Throwable $e) {
-            log_message('error', 'Credential Instagram gagal disimpan: {class}', ['class' => $e::class]);
-            return redirect()->back()->withInput()->with('error', 'Konfigurasi API gagal disimpan karena terjadi kesalahan internal.');
+            log_message('error', 'Konfigurasi Meta App gagal disimpan: {class}', ['class' => $e::class]);
+            return redirect()->back()->withInput()->with('error', 'Konfigurasi Meta App gagal disimpan karena terjadi kesalahan internal.');
         }
 
-        $this->auditAction('INSTAGRAM_API_CONFIG_UPDATED', 'Konfigurasi API Instagram diperbarui. Nilai token tidak dicatat.');
-        return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Konfigurasi API berhasil disimpan.');
+        $this->auditAction('INSTAGRAM_APP_CONFIG_UPDATED', 'Meta App ID/API Version/App Secret Instagram diperbarui. Secret tidak dicatat.');
+        return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Konfigurasi Meta App berhasil disimpan.');
+    }
+
+    public function connect(): RedirectResponse
+    {
+        try {
+            $url = (new InstagramOAuthService())->authorizationUrl();
+        } catch (\Throwable $e) {
+            return redirect()->to(site_url('manager/instagram-settings'))->with('error', $e->getMessage());
+        }
+
+        $this->auditAction('INSTAGRAM_LOGIN_STARTED', 'Proses Instagram Login dimulai.');
+        return redirect()->to($url);
+    }
+
+    public function callback(): RedirectResponse
+    {
+        $oauthError = trim((string) $this->request->getGet('error'));
+        if ($oauthError !== '') {
+            $description = trim((string) $this->request->getGet('error_description'));
+            $message = $description !== '' ? $description : 'Instagram Login dibatalkan atau ditolak.';
+            $this->auditAction('INSTAGRAM_LOGIN_FAILED', $message);
+            return redirect()->to(site_url('manager/instagram-settings'))->with('error', $message);
+        }
+
+        $code = trim((string) $this->request->getGet('code'));
+        $state = trim((string) $this->request->getGet('state'));
+        if ($code === '' || $state === '') {
+            return redirect()->to(site_url('manager/instagram-settings'))->with('error', 'Callback Instagram tidak lengkap. Ulangi Hubungkan Instagram.');
+        }
+
+        try {
+            $result = (new InstagramOAuthService())->completeAuthorization(
+                $code,
+                $state,
+                (int) session()->get('auth_user_id')
+            );
+        } catch (\Throwable $e) {
+            log_message('error', 'Instagram Login callback gagal: {class}', ['class' => $e::class]);
+            $this->auditAction('INSTAGRAM_LOGIN_FAILED', $e->getMessage());
+            return redirect()->to(site_url('manager/instagram-settings'))->with('error', $e->getMessage());
+        }
+
+        $this->auditAction('INSTAGRAM_CONNECTED', (string) ($result['message'] ?? 'Akun Instagram berhasil dihubungkan.'));
+        return redirect()->to(site_url('manager/instagram-settings'))->with('success', (string) $result['message']);
+    }
+
+    public function refreshToken(): RedirectResponse
+    {
+        $result = (new InstagramOAuthService())->refreshToken(true, (int) session()->get('auth_user_id'));
+        $this->auditAction(
+            ($result['ok'] ?? false) ? 'INSTAGRAM_TOKEN_REFRESH' : 'INSTAGRAM_TOKEN_REFRESH_FAILED',
+            (string) ($result['message'] ?? 'Refresh token Instagram dijalankan.')
+        );
+
+        $key = ($result['ok'] ?? false) ? 'success' : 'error';
+        return redirect()->to(site_url('manager/instagram-settings'))->with($key, (string) $result['message']);
+    }
+
+    public function disconnect(): RedirectResponse
+    {
+        try {
+            if (! (new InstagramConfigService())->disconnect()) {
+                throw new \RuntimeException('Koneksi Instagram gagal diputus.');
+            }
+        } catch (\Throwable $e) {
+            return redirect()->to(site_url('manager/instagram-settings'))->with('error', 'Koneksi Instagram gagal diputus.');
+        }
+
+        $this->auditAction('INSTAGRAM_DISCONNECTED', 'Token dan identitas akun Instagram dihapus dari konfigurasi lokal. Cache media tetap dipertahankan.');
+        return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Koneksi Instagram diputus. Cache media lama tetap tersedia.');
     }
 
     public function testConnection(): RedirectResponse
@@ -119,15 +190,6 @@ class InstagramSettingsController extends BaseController
         );
         $key = ($result['ok'] ?? false) ? 'success' : 'error';
         return redirect()->to(site_url('manager/instagram-settings'))->with($key, (string) $result['message']);
-    }
-
-    public function clearToken(): RedirectResponse
-    {
-        if (! (new InstagramConfigService())->clearDatabaseToken()) {
-            return redirect()->to(site_url('manager/instagram-settings'))->with('error', 'Token database gagal dihapus.');
-        }
-        $this->auditAction('INSTAGRAM_TOKEN_CLEARED', 'Access Token terenkripsi di database dihapus. Token ENV, bila ada, tidak berubah.');
-        return redirect()->to(site_url('manager/instagram-settings'))->with('success', 'Token database berhasil dihapus.');
     }
 
     public function sync(): RedirectResponse
