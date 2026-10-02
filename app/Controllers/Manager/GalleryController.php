@@ -24,7 +24,7 @@ class GalleryController extends BaseController
         unset($gallery);
 
         return view('manager/galleries/index', [
-            'title' => 'Galeri | CMS MIN 6 Jember',
+            'title' => 'Galeri | CMS MIN 6 JEMBER',
             'pageTitle' => 'Galeri',
             'galleries' => $galleries,
             'pager' => $model->pager,
@@ -238,7 +238,7 @@ class GalleryController extends BaseController
     private function formView(?array $gallery, array $items): string
     {
         return view('manager/galleries/form', [
-            'title' => ($gallery ? 'Edit' : 'Tambah') . ' Galeri | CMS MIN 6 Jember',
+            'title' => ($gallery ? 'Edit' : 'Tambah') . ' Galeri | CMS MIN 6 JEMBER',
             'pageTitle' => $gallery ? 'Edit Galeri' : 'Tambah Galeri',
             'gallery' => $gallery,
             'items' => $items,

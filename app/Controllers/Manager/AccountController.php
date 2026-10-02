@@ -12,7 +12,7 @@ class AccountController extends BaseController
     public function password(): string
     {
         return view('manager/account/password', [
-            'title' => 'Ubah Password | CMS MIN 6 Jember',
+            'title' => 'Ubah Password | CMS MIN 6 JEMBER',
             'pageTitle' => 'Ubah Password',
         ]);
     }

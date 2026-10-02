@@ -24,7 +24,7 @@ class FeatureController extends BaseController
         $features = (new SiteFeatureModel())->orderBy('id', 'ASC')->findAll();
 
         return view('manager/features/index', [
-            'title' => 'Pengaturan Fitur | CMS MIN 6 Jember',
+            'title' => 'Pengaturan Fitur | CMS MIN 6 JEMBER',
             'pageTitle' => 'Pengaturan Fitur',
             'features' => $features,
             'capabilities' => self::CAPABILITIES,

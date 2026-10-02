@@ -16,7 +16,7 @@ class EventController extends BaseController
         $model = new EventModel();
 
         return view('manager/events/index', [
-            'title' => 'Agenda | CMS MIN 6 Jember',
+            'title' => 'Agenda | CMS MIN 6 JEMBER',
             'pageTitle' => 'Agenda',
             'events' => $model->orderBy('start_at', 'DESC')->paginate(20, 'events'),
             'pager' => $model->pager,
@@ -137,7 +137,7 @@ class EventController extends BaseController
     private function formView(?array $event): string
     {
         return view('manager/events/form', [
-            'title' => ($event ? 'Edit' : 'Tambah') . ' Agenda | CMS MIN 6 Jember',
+            'title' => ($event ? 'Edit' : 'Tambah') . ' Agenda | CMS MIN 6 JEMBER',
             'pageTitle' => $event ? 'Edit Agenda' : 'Tambah Agenda',
             'event' => $event,
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),

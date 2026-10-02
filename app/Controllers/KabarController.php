@@ -60,9 +60,9 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/index', array_merge($context, [
-            'title' => 'Kabar Madrasah | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => 'Kabar Madrasah | ' . ($context['site']['site_name'] ?? 'MIN 6 JEMBER'),
             'seoTitle' => 'Kabar Madrasah',
-            'metaDescription' => 'Berita, agenda, prestasi, dan galeri MIN 6 Jember',
+            'metaDescription' => 'Berita, agenda, prestasi, dan galeri MIN 6 JEMBER',
             'news' => $news,
             'events' => $events,
             'achievements' => $achievements,
@@ -90,7 +90,7 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/news_detail', array_merge($context, [
-            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 JEMBER'),
             'seoTitle' => $item['meta_title'] ?: $item['title'],
             'metaDescription' => $item['meta_description'] ?: ($item['summary'] ?: $item['title']),
             'ogImageUrl' => ! empty($item['og_path']) ? base_url($item['og_path']) : (! empty($item['relative_path']) ? base_url($item['relative_path']) : null),
@@ -126,7 +126,7 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/achievement_detail', array_merge($context, [
-            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => ($item['meta_title'] ?: $item['title']) . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 JEMBER'),
             'seoTitle' => $item['meta_title'] ?: $item['title'],
             'metaDescription' => $item['meta_description'] ?: ($item['summary'] ?: $item['title']),
             'ogImageUrl' => ! empty($item['og_path']) ? base_url($item['og_path']) : (! empty($item['relative_path']) ? base_url($item['relative_path']) : null),
@@ -153,7 +153,7 @@ class KabarController extends SiteController
         }
 
         return view('frontend/kabar/event_detail', array_merge($context, [
-            'title' => $item['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => $item['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 JEMBER'),
             'seoTitle' => $item['title'],
             'metaDescription' => $item['summary'] ?: $item['title'],
             'ogImageUrl' => ! empty($item['relative_path']) ? base_url($item['relative_path']) : null,
@@ -189,7 +189,7 @@ class KabarController extends SiteController
             ->get()->getResultArray();
 
         return view('frontend/kabar/gallery_detail', array_merge($context, [
-            'title' => $gallery['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 Jember'),
+            'title' => $gallery['title'] . ' | ' . ($context['site']['site_name'] ?? 'MIN 6 JEMBER'),
             'seoTitle' => $gallery['title'],
             'metaDescription' => $gallery['description'] ?: $gallery['title'],
             'ogImageUrl' => ! empty($gallery['cover_path']) ? base_url($gallery['cover_path']) : null,

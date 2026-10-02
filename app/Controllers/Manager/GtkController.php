@@ -26,7 +26,7 @@ class GtkController extends BaseController
             ->get()->getResultArray();
 
         return view('manager/gtk/index', [
-            'title' => 'GTK | CMS MIN 6 Jember',
+            'title' => 'GTK | CMS MIN 6 JEMBER',
             'pageTitle' => 'GTK',
             'gtk' => $rows,
         ]);
@@ -172,7 +172,7 @@ class GtkController extends BaseController
         }
 
         return view('manager/gtk/form', [
-            'title' => ($gtk ? 'Edit' : 'Tambah') . ' GTK | CMS MIN 6 Jember',
+            'title' => ($gtk ? 'Edit' : 'Tambah') . ' GTK | CMS MIN 6 JEMBER',
             'pageTitle' => $gtk ? 'Edit GTK' : 'Tambah GTK',
             'gtk' => $gtk,
             'roleGroups' => $grouped,

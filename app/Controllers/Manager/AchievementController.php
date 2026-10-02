@@ -17,7 +17,7 @@ class AchievementController extends BaseController
         $model = new AchievementModel();
 
         return view('manager/achievements/index', [
-            'title' => 'Prestasi | CMS MIN 6 Jember',
+            'title' => 'Prestasi | CMS MIN 6 JEMBER',
             'pageTitle' => 'Prestasi',
             'achievements' => $model->orderBy('achievement_date', 'DESC')->orderBy('id', 'DESC')->paginate(20, 'achievements'),
             'pager' => $model->pager,
@@ -144,7 +144,7 @@ class AchievementController extends BaseController
     private function formView(?array $achievement): string
     {
         return view('manager/achievements/form', [
-            'title' => ($achievement ? 'Edit' : 'Tambah') . ' Prestasi | CMS MIN 6 Jember',
+            'title' => ($achievement ? 'Edit' : 'Tambah') . ' Prestasi | CMS MIN 6 JEMBER',
             'pageTitle' => $achievement ? 'Edit Prestasi' : 'Tambah Prestasi',
             'achievement' => $achievement,
             'images' => (new MediaModel())->where('media_type', 'IMAGE')->orderBy('id', 'DESC')->findAll(),

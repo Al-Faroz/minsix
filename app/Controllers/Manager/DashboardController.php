@@ -76,7 +76,7 @@ class DashboardController extends BaseController
         $recentContent = array_slice($recentContent, 0, 6);
 
         return view('manager/dashboard', [
-            'title' => 'Dashboard | CMS MIN 6 Jember',
+            'title' => 'Dashboard | CMS MIN 6 JEMBER',
             'pageTitle' => 'Dashboard',
             'stats' => [
                 'news' => $count('news'),

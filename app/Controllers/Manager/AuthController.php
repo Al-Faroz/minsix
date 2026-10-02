@@ -15,7 +15,7 @@ class AuthController extends BaseController
             return redirect()->to(site_url('manager'));
         }
 
-        return view('manager/auth/login', ['title' => 'Masuk CMS | MIN 6 Jember']);
+        return view('manager/auth/login', ['title' => 'Masuk CMS | MIN 6 JEMBER']);
     }
 
     public function attempt(): RedirectResponse

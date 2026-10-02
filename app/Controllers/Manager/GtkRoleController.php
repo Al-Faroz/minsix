@@ -15,7 +15,7 @@ class GtkRoleController extends BaseController
     public function index(): string
     {
         return view('manager/gtk/roles', [
-            'title' => 'Jabatan GTK | CMS MIN 6 Jember',
+            'title' => 'Jabatan GTK | CMS MIN 6 JEMBER',
             'pageTitle' => 'Jabatan GTK',
             'roles' => (new GtkRoleModel())->orderBy('category', 'ASC')->orderBy('display_order', 'ASC')->orderBy('role_name', 'ASC')->findAll(),
             'categories' => self::CATEGORIES,
