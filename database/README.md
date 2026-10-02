@@ -60,18 +60,20 @@ Untuk database existing, jalankan:
 
 Upgrade ini hanya mengganti teks exact `MIN 6 Jember` menjadi `MIN 6 JEMBER` pada setting dan konten. Tidak mengubah schema.
 
-## PHASE 10C — Integration Credentials
+## PHASE 10C — Instagram Login + Token Lifecycle + Carousel
 
-Untuk database existing, jalankan:
+Untuk database existing, jalankan berurutan:
 
 `database/upgrades/20261002_phase10c_integration_settings.sql`
 
-Menambahkan tabel generik `integration_settings`.
+`database/upgrades/20261002_phase10c2_instagram_login.sql`
 
-Instagram sekarang dapat dikonfigurasi dari CMS Admin. Access Token dienkripsi sebelum disimpan. Siapkan `encryption.key` terlebih dahulu dengan:
+Upgrade pertama menambahkan tabel generik `integration_settings`. Upgrade kedua menambahkan `instagram_posts.children_json` untuk cache child media `CAROUSEL_ALBUM`.
+
+Autentikasi sekarang **Instagram Login only**. User ID dan Access Token tidak diinput manual. App Secret dan token OAuth disimpan terenkripsi; siapkan `encryption.key` terlebih dahulu:
 
 ```bash
 php spark minsix:key:generate
 ```
 
-Nilai `.env` Instagram lama tetap dapat dipakai sebagai fallback.
+Setelah upgrade, buka CMS > Pengaturan Instagram, simpan Meta App ID/App Secret, daftarkan OAuth Redirect URI pada Meta Developer, lalu klik **Hubungkan Instagram**. Token manual/ENV lama tidak dianggap sebagai koneksi Login baru.
