@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS instagram_posts (
     media_type VARCHAR(50) NULL,
     media_url TEXT NULL,
     thumbnail_url TEXT NULL,
+    children_json LONGTEXT NULL,
     local_media_id BIGINT UNSIGNED NULL,
     published_at DATETIME NULL,
     is_fallback TINYINT(1) NOT NULL DEFAULT 0,
