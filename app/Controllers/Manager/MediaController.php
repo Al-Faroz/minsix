@@ -43,6 +43,11 @@ class MediaController extends BaseController
         }
 
         $originalName = $file->getClientName();
+
+        if (preg_match('/\.(?:php\d*|phtml|phar|cgi|pl|py|sh|exe|bat|cmd)(?:\.|$)/i', $originalName)) {
+            return redirect()->back()->with('error', 'Nama file mengandung ekstensi yang tidak diizinkan.');
+        }
+
         $mime = $file->getMimeType();
         $extension = strtolower($file->getExtension());
         $size = $file->getSize();
@@ -69,9 +74,25 @@ class MediaController extends BaseController
         if (str_starts_with($mime, 'image/')) {
             $mediaType = 'IMAGE';
             $dimensions = @getimagesize($fullPath);
-            if (is_array($dimensions)) {
-                $width = $dimensions[0] ?? null;
-                $height = $dimensions[1] ?? null;
+
+            if (! is_array($dimensions) || empty($dimensions[0]) || empty($dimensions[1])) {
+                @unlink($fullPath);
+                return redirect()->back()->with('error', 'File gambar tidak dapat diverifikasi.');
+            }
+
+            $width = (int) $dimensions[0];
+            $height = (int) $dimensions[1];
+
+            if (($width * $height) > 40000000) {
+                @unlink($fullPath);
+                return redirect()->back()->with('error', 'Resolusi gambar terlalu besar. Maksimal 40 megapixel.');
+            }
+
+            $optimized = $this->optimizeImage($fullPath, $mime, $width, $height);
+            if ($optimized !== null) {
+                $width = $optimized['width'];
+                $height = $optimized['height'];
+                $size = (int) (filesize($fullPath) ?: $size);
             }
         }
 
@@ -152,6 +173,117 @@ class MediaController extends BaseController
         $this->audit('MEDIA_DELETED', $id, 'Media dihapus: ' . $media['original_name']);
 
         return redirect()->to(site_url('manager/media'))->with('success', 'Media berhasil dihapus.');
+    }
+
+    private function optimizeImage(string $path, string $mime, int $width, int $height): ?array
+    {
+        if (! extension_loaded('gd')) {
+            return null;
+        }
+
+        $create = match ($mime) {
+            'image/jpeg' => function_exists('imagecreatefromjpeg') ? 'imagecreatefromjpeg' : null,
+            'image/png' => function_exists('imagecreatefrompng') ? 'imagecreatefrompng' : null,
+            'image/webp' => function_exists('imagecreatefromwebp') ? 'imagecreatefromwebp' : null,
+            default => null,
+        };
+
+        if ($create === null) {
+            return null;
+        }
+
+        $source = @$create($path);
+        if (! $source) {
+            return null;
+        }
+
+        if ($mime === 'image/jpeg' && function_exists('exif_read_data')) {
+            $exif = @exif_read_data($path);
+            $orientation = is_array($exif) ? (int) ($exif['Orientation'] ?? 1) : 1;
+
+            if ($orientation === 3) {
+                $rotated = imagerotate($source, 180, 0);
+                if ($rotated) {
+                    imagedestroy($source);
+                    $source = $rotated;
+                }
+            } elseif ($orientation === 6) {
+                $rotated = imagerotate($source, -90, 0);
+                if ($rotated) {
+                    imagedestroy($source);
+                    $source = $rotated;
+                }
+            } elseif ($orientation === 8) {
+                $rotated = imagerotate($source, 90, 0);
+                if ($rotated) {
+                    imagedestroy($source);
+                    $source = $rotated;
+                }
+            }
+        }
+
+        $sourceWidth = imagesx($source);
+        $sourceHeight = imagesy($source);
+        $maxSide = 2400;
+        $scale = min(1, $maxSide / max($sourceWidth, $sourceHeight));
+        $targetWidth = max(1, (int) round($sourceWidth * $scale));
+        $targetHeight = max(1, (int) round($sourceHeight * $scale));
+
+        $target = imagecreatetruecolor($targetWidth, $targetHeight);
+        if (! $target) {
+            imagedestroy($source);
+            return null;
+        }
+
+        if (in_array($mime, ['image/png', 'image/webp'], true)) {
+            imagealphablending($target, false);
+            imagesavealpha($target, true);
+            $transparent = imagecolorallocatealpha($target, 0, 0, 0, 127);
+            imagefilledrectangle($target, 0, 0, $targetWidth, $targetHeight, $transparent);
+        }
+
+        if (! imagecopyresampled(
+            $target,
+            $source,
+            0,
+            0,
+            0,
+            0,
+            $targetWidth,
+            $targetHeight,
+            $sourceWidth,
+            $sourceHeight
+        )) {
+            imagedestroy($source);
+            imagedestroy($target);
+            return null;
+        }
+
+        $tmp = $path . '.opt';
+        $saved = match ($mime) {
+            'image/jpeg' => @imagejpeg($target, $tmp, 84),
+            'image/png' => @imagepng($target, $tmp, 6),
+            'image/webp' => function_exists('imagewebp') ? @imagewebp($target, $tmp, 84) : false,
+            default => false,
+        };
+
+        imagedestroy($source);
+        imagedestroy($target);
+
+        if (! $saved || ! is_file($tmp) || filesize($tmp) === 0) {
+            @unlink($tmp);
+            return null;
+        }
+
+        if (! @rename($tmp, $path)) {
+            @unlink($tmp);
+            return null;
+        }
+
+        return [
+            'width' => $targetWidth,
+            'height' => $targetHeight,
+        ];
     }
 
     private function findReference(int $mediaId): ?string

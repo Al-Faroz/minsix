@@ -51,12 +51,13 @@ Tambahkan proteksi server pada `uploads/` agar script tidak dieksekusi. Pada str
 ## 4. Image Optimization
 
 Saat upload gambar:
-1. validasi;
-2. simpan;
-3. resize jika terlalu besar;
-4. buat WebP bila library mendukung;
-5. buat thumbnail bila dibutuhkan;
-6. simpan metadata ke tabel `media`.
+1. validasi extension + MIME + gambar nyata;
+2. tolak nama file dengan pola executable/double-extension berbahaya;
+3. batasi resolusi ekstrem untuk mencegah pixel bomb;
+4. simpan menggunakan random filename;
+5. jika GD tersedia, orientasi JPEG diperbaiki lalu gambar di-resize maksimal 2400 px dan di-reencode agar ukuran/metadata kamera berkurang;
+6. simpan metadata hasil akhir ke tabel `media`;
+7. WebP derivative terpisah dapat ditambahkan kemudian bila kebutuhan frontend memerlukan variant khusus.
 
 Gambar kamera berukuran multi-megabyte tidak boleh langsung dikirim apa adanya ke visitor.
 

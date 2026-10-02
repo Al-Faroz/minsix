@@ -1,6 +1,6 @@
 Options -Indexes
 
-<FilesMatch "\.(?:php|phtml|phar|cgi|pl|py|sh|exe|bat|cmd)$">
+<FilesMatch "\.(?:php|php3|php4|php5|php7|php8|phtml|phar|cgi|pl|py|sh|exe|bat|cmd)$">
     <IfModule authz_core_module>
         Require all denied
     </IfModule>
@@ -8,3 +8,12 @@ Options -Indexes
         Deny from all
     </IfModule>
 </FilesMatch>
+
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header unset X-Powered-By
+</IfModule>
+
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
