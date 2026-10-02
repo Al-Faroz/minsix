@@ -4,6 +4,15 @@ use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
 $routes->get('/', 'Home::index');
+$routes->get('profil', 'PageController::profile');
+$routes->get('program', 'PageController::program');
+$routes->get('gtk', 'PageController::gtk');
+$routes->get('kabar', 'KabarController::index');
+$routes->get('kabar/berita/(:segment)', 'KabarController::newsDetail/$1');
+$routes->get('kabar/prestasi/(:segment)', 'KabarController::achievementDetail/$1');
+$routes->get('kabar/agenda/(:segment)', 'KabarController::eventDetail/$1');
+$routes->get('kabar/galeri/(:segment)', 'KabarController::galleryDetail/$1');
+$routes->get('spmb', 'PageController::spmb');
 
 $routes->get('manager/login', 'Manager\AuthController::login');
 $routes->post('manager/login', 'Manager\AuthController::attempt');
