@@ -134,6 +134,9 @@ class InstagramConfigService
 
         $rows = $this->storedRows();
         $oldAppId = trim((string) ($rows['app_id']['setting_value'] ?? ''));
+        if ($oldAppId !== '' && $oldAppId !== $appId && $newAppSecret === '' && isset($rows['app_secret'])) {
+            throw new \InvalidArgumentException('Jika Meta App ID diganti, App Secret baru wajib diisi.');
+        }
         $model = new IntegrationSettingModel();
         $db->transBegin();
 
