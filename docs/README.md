@@ -58,3 +58,5 @@ Urutan baca:
 - PHASE 10C1: Integration Credential Core — storage generik + encryption service + generator key selesai
 - PHASE 10C2: Instagram API Manager — form credential, test connection, sync, clear token selesai
 - PHASE 10C3: Integration Hardening — fallback aman sebelum SQL upgrade + dokumentasi deployment selesai
+
+- PHASE 10C4: Route/Upgrade Fix — route credential API lengkap dan SQL upgrade idempotent

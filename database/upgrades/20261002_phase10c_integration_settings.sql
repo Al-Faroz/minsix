@@ -4,7 +4,7 @@
 
 SET NAMES utf8mb4;
 
-CREATE TABLE integration_settings (
+CREATE TABLE IF NOT EXISTS integration_settings (
     id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
     provider VARCHAR(50) NOT NULL,
     setting_key VARCHAR(100) NOT NULL,

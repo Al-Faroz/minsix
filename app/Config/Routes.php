@@ -116,6 +116,9 @@ $routes->post('manager/instagram/(:num)/delete', 'Manager\InstagramContentContro
 // Instagram integration configuration: ADMIN-only.
 $routes->get('manager/instagram-settings', 'Manager\InstagramSettingsController::index', ['filter' => 'admin']);
 $routes->post('manager/instagram-settings', 'Manager\InstagramSettingsController::update', ['filter' => 'admin']);
+$routes->post('manager/instagram-settings/api', 'Manager\InstagramSettingsController::updateApi', ['filter' => 'admin']);
+$routes->post('manager/instagram-settings/test', 'Manager\InstagramSettingsController::testConnection', ['filter' => 'admin']);
+$routes->post('manager/instagram-settings/token/clear', 'Manager\InstagramSettingsController::clearToken', ['filter' => 'admin']);
 $routes->post('manager/instagram-settings/sync', 'Manager\InstagramSettingsController::sync', ['filter' => 'admin']);
 
 // Media is content.
