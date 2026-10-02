@@ -580,3 +580,54 @@ h1,h2,h3,h4,h5,h6,
   .site-container{width:min(var(--rival-max),calc(100% - 28px))}
   .gtk-grid{grid-template-columns:1fr}
 }
+
+
+/* PHASE 9B — responsive structural fixes after Rival conformity audit */
+html,body{max-width:100%;overflow-x:clip}
+.hero-grid>*,
+.split-editorial>*,
+.habit-layout>*,
+.headmaster-grid>*,
+.contact-grid>*,
+.kabar-layout>*,
+.spmb-grid>*,
+.program-group>*,
+.profile-block>*{min-width:0}
+
+.profile-block.no-image{
+  grid-template-columns:minmax(0,820px);
+  justify-content:start
+}
+.profile-block.no-image .profile-copy{order:0}
+
+.program-public-item.no-image{grid-template-columns:1fr}
+.program-public-item.no-image>div{grid-column:1}
+
+.spmb-page-hero{
+  color:#fff;
+  background:
+    radial-gradient(circle at 85% 20%,rgba(184,242,15,.09),transparent 26%),
+    var(--rival-bg)
+}
+.spmb-page-hero .section-eyebrow{color:var(--rival-accent)}
+.spmb-page-hero p:last-child{color:#aeb3bf}
+.spmb-contact-card{
+  border-radius:var(--rival-radius);
+  background:var(--rival-bg)
+}
+.spmb-contact-card>span{color:var(--rival-accent)}
+.spmb-contact-card .arrow-link{color:var(--rival-accent)}
+.requirement-list li:before{color:var(--rival-green);font-family:var(--font-nav);font-weight:600}
+.faq-public summary{font-family:var(--font-heading);font-weight:650}
+
+.gallery-detail-page{padding-top:clamp(86px,9vw,124px)}
+.gallery-detail-page .article-header{padding-top:0}
+.gallery-lightbox-item{border-radius:var(--rival-radius)}
+
+@media(max-width:760px){
+  .gtk-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile-block.no-image{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .gtk-grid{grid-template-columns:1fr}
+}

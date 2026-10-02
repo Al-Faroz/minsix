@@ -19,7 +19,7 @@
     <div class="program-group-head"><span><?= str_pad((string) $groupNo, 2, '0', STR_PAD_LEFT) ?></span><h2><?= esc($category) ?></h2></div>
     <div class="program-public-list">
         <?php foreach ($programs as $program): ?>
-            <article class="program-public-item">
+            <article class="program-public-item<?= empty($program['relative_path']) ? ' no-image' : '' ?>">
                 <?php if ($program['relative_path']): ?><div class="program-public-image"><img loading="lazy" src="<?= base_url($program['relative_path']) ?>" alt="<?= esc($program['alt_text'] ?: $program['name']) ?>"></div><?php endif ?>
                 <div>
                     <h3><?= esc($program['name']) ?></h3>

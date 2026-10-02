@@ -39,4 +39,5 @@ Urutan baca:
 - PHASE 6: Homepage / Frontend — implementasi source selesai, menunggu cek lokal & responsive audit akhir
 - PHASE 7: Instagram Hybrid — audit source selesai, menunggu konfigurasi credential dan cek lokal
 - PHASE 8: SEO + Performance + Security — audit source selesai, menunggu cek lokal/production
-- PHASE 9A: Rival Visual Conformity — implementasi source selesai, menunggu screenshot/audit responsive lokal
+- PHASE 9A: Rival Visual Conformity — implementasi source selesai
+- PHASE 9B: Responsive Structural Audit — source fixes selesai, menunggu screenshot/browser audit lokal

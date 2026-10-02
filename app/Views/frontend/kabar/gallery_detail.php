@@ -1,5 +1,6 @@
 <?= $this->extend('frontend/layouts/main') ?>
 <?= $this->section('content') ?>
+<div class="gallery-detail-page article-page">
 <header class="article-header site-container">
     <p class="section-eyebrow">GALERI<?= $gallery['gallery_date'] ? ' · ' . esc(date('d.m.Y', strtotime($gallery['gallery_date']))) : '' ?></p>
     <h1><?= esc($gallery['title']) ?></h1>
@@ -18,5 +19,6 @@
 <div class="lightbox" id="siteLightbox" hidden>
     <button class="lightbox-close" type="button" aria-label="Tutup">×</button>
     <img src="" alt="">
+</div>
 </div>
 <?= $this->endSection() ?>

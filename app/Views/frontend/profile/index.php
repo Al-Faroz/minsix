@@ -11,7 +11,7 @@
 
 <div class="site-container page-stack">
 <?php foreach ($sections as $index => $item): ?>
-    <section class="profile-block<?= $index % 2 ? ' reverse' : '' ?>" id="<?= esc($item['section_key']) ?>">
+    <section class="profile-block<?= $index % 2 ? ' reverse' : '' ?><?= empty($item['relative_path']) ? ' no-image' : '' ?>" id="<?= esc($item['section_key']) ?>">
         <div class="profile-copy">
             <span class="page-index"><?= str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) ?></span>
             <h2><?= esc($item['title']) ?></h2>
