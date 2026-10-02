@@ -10,7 +10,7 @@ class InstagramSync extends BaseCommand
 {
     protected $group = 'MIN SIX';
     protected $name = 'instagram:sync';
-    protected $description = 'Sinkronkan cache Instagram untuk carousel homepage.';
+    protected $description = 'Periksa lifecycle token lalu sinkronkan cache Instagram dan carousel homepage.';
 
     public function run(array $params)
     {
