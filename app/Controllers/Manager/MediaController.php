@@ -161,6 +161,12 @@ class MediaController extends BaseController
             ['profile_sections', 'primary_media_id', 'Profil'],
             ['programs', 'primary_media_id', 'Program'],
             ['gtk', 'photo_media_id', 'GTK'],
+            ['news', 'primary_media_id', 'Berita'],
+            ['news', 'og_media_id', 'SEO Berita'],
+            ['events', 'primary_media_id', 'Agenda'],
+            ['achievements', 'primary_media_id', 'Prestasi'],
+            ['galleries', 'cover_media_id', 'Galeri'],
+            ['gallery_items', 'media_id', 'Item Galeri'],
         ];
 
         foreach ($checks as [$table, $field, $label]) {

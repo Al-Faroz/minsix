@@ -6,7 +6,7 @@ Canonical schema:
 
 `database/minsix.sql`
 
-## PHASE 3
+## PHASE 4
 
 Tabel aktif:
 - `app_users`
@@ -19,13 +19,18 @@ Tabel aktif:
 - `gtk`
 - `gtk_roles`
 - `gtk_role_assignments`
+- `news`
+- `events`
+- `achievements`
+- `galleries`
+- `gallery_items`
 
-Database lokal yang sudah lulus PHASE 2 **jangan di-reset**. Jalankan:
+Database lokal yang sudah lulus PHASE 3 **jangan di-reset**. Jalankan hanya:
 
-`database/upgrades/20261002_phase3_profile_program_gtk.sql`
+`database/upgrades/20261002_phase4_kabar.sql`
 
 Untuk instalasi baru dari database kosong, import `database/minsix.sql`.
 
-Setelah upgrade, menu Profil, Program, GTK, dan Jabatan GTK dapat digunakan.
+Kabar/Berita dapat dimatikan dari Pengaturan Fitur tanpa menghapus data CMS.
 
 Jangan commit credential, plaintext password, token, atau dump production yang berisi data sensitif.

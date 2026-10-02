@@ -59,6 +59,16 @@ $routes->get('manager/achievements/(:num)/edit', 'Manager\\AchievementController
 $routes->post('manager/achievements/(:num)', 'Manager\\AchievementController::update/$1', ['filter' => 'auth']);
 $routes->post('manager/achievements/(:num)/delete', 'Manager\\AchievementController::delete/$1', ['filter' => 'auth']);
 
+$routes->get('manager/galleries', 'Manager\\GalleryController::index', ['filter' => 'auth']);
+$routes->get('manager/galleries/new', 'Manager\\GalleryController::new', ['filter' => 'auth']);
+$routes->post('manager/galleries', 'Manager\\GalleryController::create', ['filter' => 'auth']);
+$routes->get('manager/galleries/(:num)/edit', 'Manager\\GalleryController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/galleries/(:num)', 'Manager\\GalleryController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/galleries/(:num)/delete', 'Manager\\GalleryController::delete/$1', ['filter' => 'auth']);
+$routes->post('manager/galleries/(:num)/items', 'Manager\\GalleryController::addItems/$1', ['filter' => 'auth']);
+$routes->post('manager/galleries/(:num)/items/(:num)', 'Manager\\GalleryController::updateItem/$1/$2', ['filter' => 'auth']);
+$routes->post('manager/galleries/(:num)/items/(:num)/delete', 'Manager\\GalleryController::deleteItem/$1/$2', ['filter' => 'auth']);
+
 // Media is content.
 $routes->get('manager/media', 'Manager\MediaController::index', ['filter' => 'auth']);
 $routes->post('manager/media/upload', 'Manager\MediaController::upload', ['filter' => 'auth']);
