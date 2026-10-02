@@ -12,7 +12,7 @@ class InstagramConfigService
 
     public function resolved(): array
     {
-        $rows = (new IntegrationSettingModel())->valuesForProvider(self::PROVIDER);
+        $rows = $this->storedRows();
 
         $baseUrl = $this->resolvedPlain($rows, 'api_base_url', 'instagram.apiBaseUrl', self::DEFAULT_BASE_URL);
         $baseUrl = $this->normalizeBaseUrl($baseUrl) ?? '';
@@ -90,8 +90,12 @@ class InstagramConfigService
             throw new \RuntimeException('Encryption key belum tersedia. Atur encryption.key di .env sebelum menyimpan Access Token.');
         }
 
-        $model = new IntegrationSettingModel();
         $db = db_connect();
+        if (! $db->tableExists('integration_settings')) {
+            throw new \RuntimeException('Tabel integration_settings belum tersedia. Jalankan SQL upgrade PHASE 10C terlebih dahulu.');
+        }
+
+        $model = new IntegrationSettingModel();
         $db->transBegin();
         try {
             $this->upsert($model, 'api_base_url', $normalizedBaseUrl, false, $updatedBy);
@@ -113,6 +117,11 @@ class InstagramConfigService
 
     public function clearDatabaseToken(): bool
     {
+        $db = db_connect();
+        if (! $db->tableExists('integration_settings')) {
+            return true;
+        }
+
         $model = new IntegrationSettingModel();
         $row = $model->where('provider', self::PROVIDER)->where('setting_key', 'access_token')->first();
         if ($row === null) {
@@ -151,6 +160,20 @@ class InstagramConfigService
         }
         $path = trim((string) ($parts['path'] ?? ''), '/');
         return 'https://' . $host . ($path !== '' ? '/' . $path : '');
+    }
+
+    private function storedRows(): array
+    {
+        try {
+            $db = db_connect();
+            if (! $db->tableExists('integration_settings')) {
+                return [];
+            }
+            return (new IntegrationSettingModel())->valuesForProvider(self::PROVIDER);
+        } catch (\Throwable $e) {
+            log_message('warning', 'Integration settings belum dapat dibaca: {class}', ['class' => $e::class]);
+            return [];
+        }
     }
 
     private function resolvedPlain(array $rows, string $key, string $envKey, string $default): string

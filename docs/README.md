@@ -54,3 +54,7 @@ Urutan baca:
 - PHASE 10B: Branding Uppercase — seluruh branding aplikasi + database dinormalisasi menjadi MIN 6 JEMBER
 - PHASE 10 Runtime: menunggu deploy pada domain/hosting final dan smoke test production
 - FINAL-E: Homepage Program Cards + CMS Access — kartu Program memakai gradient per item dan tombol Login CMS tersedia di footer publik
+
+- PHASE 10C1: Integration Credential Core — storage generik + encryption service + generator key selesai
+- PHASE 10C2: Instagram API Manager — form credential, test connection, sync, clear token selesai
+- PHASE 10C3: Integration Hardening — fallback aman sebelum SQL upgrade + dokumentasi deployment selesai

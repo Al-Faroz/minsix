@@ -99,11 +99,11 @@ class InstagramSettingsController extends BaseController
                 trim((string) $this->request->getPost('instagram_access_token')),
                 (int) session()->get('auth_user_id')
             );
-        } catch (\InvalidArgumentException $e) {
+        } catch (\InvalidArgumentException|\RuntimeException $e) {
             return redirect()->back()->withInput()->with('error', $e->getMessage());
         } catch (\Throwable $e) {
             log_message('error', 'Credential Instagram gagal disimpan: {class}', ['class' => $e::class]);
-            return redirect()->back()->withInput()->with('error', $e->getMessage());
+            return redirect()->back()->withInput()->with('error', 'Konfigurasi API gagal disimpan karena terjadi kesalahan internal.');
         }
 
         $this->auditAction('INSTAGRAM_API_CONFIG_UPDATED', 'Konfigurasi API Instagram diperbarui. Nilai token tidak dicatat.');

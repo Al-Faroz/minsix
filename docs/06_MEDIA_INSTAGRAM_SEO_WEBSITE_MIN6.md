@@ -173,11 +173,22 @@ MANUAL:
 
 Token/credential:
 - tidak boleh masuk repository;
-- tidak boleh tampil penuh kembali setelah disimpan;
-- jika disimpan database, gunakan encryption dan key dari `.env`;
-- endpoint pengaturan hanya Admin.
+- hanya Admin yang dapat membuka konfigurasi API;
+- Base URL, API Version, dan User ID dapat diisi dari CMS;
+- Access Token dapat diisi dari CMS tetapi disimpan sebagai ciphertext Base64 di `integration_settings`;
+- encryption/decryption menggunakan Encryption Service CodeIgniter dan `encryption.key` dari `.env`;
+- token tersimpan tidak pernah ditampilkan kembali ke browser;
+- token `.env` lama tetap didukung sebagai fallback;
+- Base URL dibatasi ke `graph.instagram.com` dan `graph.facebook.com` agar token tidak dikirim ke host sembarangan;
+- tersedia Tes Koneksi tanpa menulis cache dan Sinkronkan Sekarang untuk memperbarui cache.
 
-Implementasi final mengikuti metode API Instagram yang valid saat integrasi dilakukan.
+Generate encryption key dengan:
+
+```bash
+php spark minsix:key:generate
+```
+
+Salin hasilnya ke `.env`. Jangan commit key tersebut.
 
 ---
 

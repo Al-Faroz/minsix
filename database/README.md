@@ -59,3 +59,19 @@ Untuk database existing, jalankan:
 `database/upgrades/20261002_phase10_brand_uppercase.sql`
 
 Upgrade ini hanya mengganti teks exact `MIN 6 Jember` menjadi `MIN 6 JEMBER` pada setting dan konten. Tidak mengubah schema.
+
+## PHASE 10C — Integration Credentials
+
+Untuk database existing, jalankan:
+
+`database/upgrades/20261002_phase10c_integration_settings.sql`
+
+Menambahkan tabel generik `integration_settings`.
+
+Instagram sekarang dapat dikonfigurasi dari CMS Admin. Access Token dienkripsi sebelum disimpan. Siapkan `encryption.key` terlebih dahulu dengan:
+
+```bash
+php spark minsix:key:generate
+```
+
+Nilai `.env` Instagram lama tetap dapat dipakai sebagai fallback.

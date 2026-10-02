@@ -72,13 +72,18 @@
 #--------------------------------------------------------------------
 # INSTAGRAM HYBRID
 #--------------------------------------------------------------------
-# Use Instagram API with Instagram Login credentials for a Professional account.
-# Keep real credentials only in .env; never commit them.
+# API configuration can be entered from CMS > Pengaturan > Instagram.
+# Values below are supported as fallback for existing deployments.
+# A token saved from CMS is encrypted in the database using encryption.key.
 #
 # instagram.apiBaseUrl = 'https://graph.instagram.com'
-# instagram.apiVersion = 'vXX.X'   # optional; leave blank if your endpoint is unversioned
+# instagram.apiVersion = 'vXX.X'   # optional; leave blank if endpoint is unversioned
 # instagram.userId =
 # instagram.accessToken =
+#
+# Before saving a new Access Token from CMS, generate an encryption key once:
+# php spark minsix:key:generate
+# Then copy the generated line into your real .env file.
 
 
 #--------------------------------------------------------------------
