@@ -3,6 +3,7 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Libraries\SafeHtml;
 use App\Models\AuditLogModel;
 use App\Models\MediaModel;
 use App\Models\ProgramModel;
@@ -49,7 +50,7 @@ class ProgramController extends BaseController
             'name' => trim((string) $this->request->getPost('name')),
             'category' => (string) $this->request->getPost('category'),
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $mediaId,
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
             'status' => $status,
@@ -104,7 +105,7 @@ class ProgramController extends BaseController
             'name' => trim((string) $this->request->getPost('name')),
             'category' => (string) $this->request->getPost('category'),
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'display_order' => (int) ($this->request->getPost('display_order') ?: 0),
             'status' => $status,

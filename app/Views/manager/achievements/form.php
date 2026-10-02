@@ -15,7 +15,7 @@
 <div class="field"><label>Penyelenggara</label><input type="text" name="organizer" maxlength="255" value="<?= esc(old('organizer', $achievement['organizer'] ?? '')) ?>"></div>
 <div class="field"><label>Tanggal Prestasi</label><input type="date" name="achievement_date" value="<?= esc(old('achievement_date', $achievement['achievement_date'] ?? '')) ?>"></div>
 <div class="field span-2"><label>Ringkasan</label><textarea name="summary" rows="4" maxlength="3000"><?= esc(old('summary', $achievement['summary'] ?? '')) ?></textarea></div>
-<div class="field span-2"><label>Cerita / Keterangan</label><textarea name="content" rows="10" maxlength="30000"><?= esc(old('content', $achievement['content'] ?? '')) ?></textarea></div>
+<div class="field span-2"><label>Cerita / Keterangan</label><textarea name="content" rows="10" maxlength="30000" data-rich-editor><?= esc(old('content', $achievement['content'] ?? '')) ?></textarea></div>
 </div></section>
 <section class="content-card">
 <p class="eyebrow">SEO PER KONTEN</p>

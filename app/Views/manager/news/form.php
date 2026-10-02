@@ -11,7 +11,7 @@
 <div class="field span-2"><label>Judul *</label><input type="text" name="title" maxlength="255" required value="<?= esc(old('title', $newsItem['title'] ?? '')) ?>"></div>
 <div class="field span-2"><label>Slug</label><input type="text" name="slug" maxlength="200" value="<?= esc(old('slug', $newsItem['slug'] ?? '')) ?>"><small>Kosongkan untuk dibuat otomatis.</small></div>
 <div class="field span-2"><label>Ringkasan</label><textarea name="summary" rows="4" maxlength="3000"><?= esc(old('summary', $newsItem['summary'] ?? '')) ?></textarea></div>
-<div class="field span-2"><label>Isi Berita *</label><textarea name="content" rows="15" maxlength="60000" required><?= esc(old('content', $newsItem['content'] ?? '')) ?></textarea><small>Editor rich text akan dipasang saat pola editorial final dikunci.</small></div>
+<div class="field span-2"><label>Isi Berita *</label><textarea name="content" rows="15" maxlength="60000" required data-rich-editor><?= esc(old('content', $newsItem['content'] ?? '')) ?></textarea><small>Gunakan heading, bold/italic, daftar, kutipan, dan link seperlunya.</small></div>
 </div>
 </section>
 <section class="content-card">

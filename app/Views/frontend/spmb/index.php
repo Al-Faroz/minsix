@@ -19,7 +19,7 @@
 <section class="spmb-public-intro">
     <div>
         <?php if ($period['summary']): ?><p class="lead-copy"><?= esc($period['summary']) ?></p><?php endif ?>
-        <?php if ($period['content']): ?><div class="prose"><?= nl2br(esc($period['content'])) ?></div><?php endif ?>
+        <?php if ($period['content']): ?><div class="prose"><?= \App\Libraries\SafeHtml::renderStored($period['content']) ?></div><?php endif ?>
     </div>
     <aside class="spmb-contact-card">
         <span>Informasi Pendaftaran</span>

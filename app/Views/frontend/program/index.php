@@ -24,7 +24,7 @@
                 <div>
                     <h3><?= esc($program['name']) ?></h3>
                     <?php if ($program['summary']): ?><p><?= esc($program['summary']) ?></p><?php endif ?>
-                    <?php if ($program['content']): ?><div class="prose compact"><?= nl2br(esc($program['content'])) ?></div><?php endif ?>
+                    <?php if ($program['content']): ?><div class="prose compact"><?= \App\Libraries\SafeHtml::renderStored($program['content']) ?></div><?php endif ?>
                 </div>
             </article>
         <?php endforeach ?>

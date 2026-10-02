@@ -781,3 +781,14 @@ body{font-size:.94rem}
   .site-brand-logo{width:38px;height:38px}
   .footer-brand-logo{width:50px;height:50px}
 }
+
+
+/* FINAL-D1 — rich content + location map */
+.prose h2,.prose h3,.prose h4{margin:1.6em 0 .55em;font-family:var(--font-heading);line-height:1.15;letter-spacing:-.025em}
+.prose h2{font-size:1.55rem}.prose h3{font-size:1.28rem}.prose h4{font-size:1.08rem}
+.prose p{margin:.7em 0 1.15em}.prose ul,.prose ol{padding-left:1.4rem;margin:1em 0}
+.prose li{margin:.38em 0}.prose blockquote{margin:1.4rem 0;padding:.85rem 1.1rem;border-left:3px solid var(--rival-green);background:#f5f7f4;color:#596159}
+.prose a{color:var(--rival-green);text-decoration:underline;text-underline-offset:2px}.prose hr{border:0;border-top:1px solid var(--rival-line);margin:1.8rem 0}
+.profile-map{overflow:hidden;min-height:390px;margin-top:-46px;margin-bottom:76px;border-radius:var(--rival-radius);background:#e9ede8}
+.profile-map iframe{display:block;width:100%;height:460px;border:0}
+@media(max-width:760px){.profile-map{min-height:320px;margin-top:-36px;margin-bottom:56px}.profile-map iframe{height:360px}}

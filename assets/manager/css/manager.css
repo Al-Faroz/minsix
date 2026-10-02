@@ -180,3 +180,17 @@ body{font-size:.94rem}
   .manager-brand-logo{width:34px;height:34px}
   .login-brand-logo{width:68px;height:68px}
 }
+
+
+/* FINAL-D1 — lightweight rich text editor */
+.rich-editor-source{display:none!important}
+.rich-editor{overflow:hidden;border:1px solid var(--line);border-radius:12px;background:#fff}
+.rich-editor:focus-within{border-color:var(--green);box-shadow:0 0 0 3px rgba(23,107,69,.12)}
+.rich-editor-toolbar{display:flex;flex-wrap:wrap;gap:5px;padding:8px;border-bottom:1px solid var(--line);background:#f7f9f6}
+.rich-editor-btn{min-height:30px;padding:.35rem .55rem;border:1px solid #d8dfda;border-radius:7px;background:#fff;color:var(--text);font-size:.72rem;font-weight:750;cursor:pointer}
+.rich-editor-btn:hover{border-color:#9fbaaa;color:var(--green)}
+.rich-editor-area{min-height:260px;max-height:620px;overflow:auto;padding:16px;outline:0;color:var(--text);font-size:.84rem;line-height:1.7}
+.rich-editor-area h2{font-size:1.45rem}.rich-editor-area h3{font-size:1.18rem}
+.rich-editor-area p{margin:.35rem 0 .8rem}.rich-editor-area ul,.rich-editor-area ol{padding-left:1.5rem}
+.rich-editor-area blockquote{margin:1rem 0;padding:.7rem 1rem;border-left:3px solid var(--green);background:#f3f7f4;color:#526059}
+.rich-editor-area a{color:var(--green);text-decoration:underline}

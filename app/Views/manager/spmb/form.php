@@ -41,8 +41,8 @@
 
             <div class="field span-2">
                 <label>Isi SPMB</label>
-                <textarea name="content" rows="14" maxlength="60000"><?= esc(old('content', $period['content'] ?? '')) ?></textarea>
-                <small>Gunakan bagian ini untuk deskripsi, alur pendaftaran, program unggulan, atau keterangan lain yang tidak memiliki field khusus.</small>
+                <textarea name="content" rows="14" maxlength="60000" data-rich-editor><?= esc(old('content', $period['content'] ?? '')) ?></textarea>
+                <small>Gunakan untuk deskripsi umum SPMB. Alur dan Program Unggulan dikelola pada bagian terstruktur di bawah.</small>
             </div>
 
             <div class="field span-2">

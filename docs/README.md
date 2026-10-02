@@ -46,3 +46,4 @@ Urutan baca:
 - FINAL-A: Branding & Visual Cleanup — logo/favicons final, placeholder M6 dan label PHASE di UI dibersihkan
 - FINAL-B: CRUD Hardening — hasil write/delete diverifikasi; delete Media menghapus DB sebelum file fisik
 - FINAL-C: User Management — Admin-only CRUD akun tanpa delete; role/status/reset password + last-active-admin protection
+- FINAL-D1: Rich Text + Maps — editor ringan internal, sanitasi server-side, rendering aman, dan Google Maps Profil

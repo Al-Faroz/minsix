@@ -3,6 +3,7 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Libraries\SafeHtml;
 use App\Models\AuditLogModel;
 use App\Models\MediaModel;
 use App\Models\NewsModel;
@@ -42,7 +43,7 @@ class NewsController extends BaseController
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title')),
             'title' => trim((string) $this->request->getPost('title')),
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $status === 'PUBLISHED' ? $this->dateTimeOrNow($this->request->getPost('published_at')) : null,
@@ -94,7 +95,7 @@ class NewsController extends BaseController
             'slug' => $this->uniqueSlug((string) $this->request->getPost('slug'), (string) $this->request->getPost('title'), $id),
             'title' => trim((string) $this->request->getPost('title')),
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $publishedAt,

@@ -13,7 +13,7 @@
                 <div class="field"><label>Slug</label><input type="text" name="slug" maxlength="180" value="<?= esc(old('slug', $program['slug'] ?? '')) ?>"><small>Kosongkan untuk dibuat otomatis.</small></div>
                 <div class="field"><label>Kategori</label><select name="category" required><option value="">— Pilih —</option><?php foreach ($categories as $category): ?><option value="<?= esc($category) ?>" <?= old('category', $program['category'] ?? '') === $category ? 'selected' : '' ?>><?= esc($category) ?></option><?php endforeach ?></select></div>
                 <div class="field span-2"><label>Ringkasan</label><textarea name="summary" rows="4" maxlength="3000"><?= esc(old('summary', $program['summary'] ?? '')) ?></textarea></div>
-                <div class="field span-2"><label>Isi Program</label><textarea name="content" rows="12" maxlength="30000"><?= esc(old('content', $program['content'] ?? '')) ?></textarea><small>Rich-content editor akan dipasang ketika format editorial frontend dikunci. Saat ini data disimpan aman sebagai teks.</small></div>
+                <div class="field span-2"><label>Isi Program</label><textarea name="content" rows="12" maxlength="30000" data-rich-editor><?= esc(old('content', $program['content'] ?? '')) ?></textarea><small>Format sederhana: heading, penekanan, daftar, kutipan, dan link.</small></div>
             </div>
         </section>
     </div>

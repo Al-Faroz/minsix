@@ -12,6 +12,6 @@
         </div>
     </header>
     <?php if ($item['relative_path']): ?><figure class="article-cover site-container"><img src="<?= base_url($item['relative_path']) ?>" alt="<?= esc($item['alt_text'] ?: $item['title']) ?>"></figure><?php endif ?>
-    <?php if ($item['content'] || $item['summary']): ?><div class="article-body site-container prose"><?= nl2br(esc($item['content'] ?: $item['summary'])) ?></div><?php endif ?>
+    <?php if ($item['content'] || $item['summary']): ?><div class="article-body site-container prose"><?= $item['content'] ? \App\Libraries\SafeHtml::renderStored($item['content']) : nl2br(esc($item['summary'])) ?></div><?php endif ?>
 </article>
 <?= $this->endSection() ?>

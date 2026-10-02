@@ -3,6 +3,7 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Libraries\SafeHtml;
 use App\Models\AchievementModel;
 use App\Models\AuditLogModel;
 use App\Models\MediaModel;
@@ -48,7 +49,7 @@ class AchievementController extends BaseController
             'organizer' => trim((string) $this->request->getPost('organizer')),
             'achievement_date' => $this->request->getPost('achievement_date') ?: null,
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $status === 'PUBLISHED' ? date('Y-m-d H:i:s') : null,
@@ -105,7 +106,7 @@ class AchievementController extends BaseController
             'organizer' => trim((string) $this->request->getPost('organizer')),
             'achievement_date' => $this->request->getPost('achievement_date') ?: null,
             'summary' => trim((string) $this->request->getPost('summary')),
-            'content' => trim((string) $this->request->getPost('content')),
+            'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
             'primary_media_id' => $this->validImageId($this->request->getPost('primary_media_id')),
             'status' => $status,
             'published_at' => $publishedAt,

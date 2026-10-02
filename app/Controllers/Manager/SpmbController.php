@@ -3,6 +3,7 @@
 namespace App\Controllers\Manager;
 
 use App\Controllers\BaseController;
+use App\Libraries\SafeHtml;
 use App\Models\AuditLogModel;
 use App\Models\MediaModel;
 use App\Models\SiteFeatureModel;
@@ -74,7 +75,7 @@ class SpmbController extends BaseController
                 'academic_year' => trim((string) $this->request->getPost('academic_year')),
                 'title' => trim((string) $this->request->getPost('title')),
                 'summary' => trim((string) $this->request->getPost('summary')),
-                'content' => trim((string) $this->request->getPost('content')),
+                'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
                 'start_date' => $this->nullablePost('start_date'),
                 'end_date' => $this->nullablePost('end_date'),
                 'registration_url' => trim((string) $this->request->getPost('registration_url')),
@@ -163,7 +164,7 @@ class SpmbController extends BaseController
                 'academic_year' => trim((string) $this->request->getPost('academic_year')),
                 'title' => trim((string) $this->request->getPost('title')),
                 'summary' => trim((string) $this->request->getPost('summary')),
-                'content' => trim((string) $this->request->getPost('content')),
+                'content' => SafeHtml::sanitize((string) $this->request->getPost('content')),
                 'start_date' => $this->nullablePost('start_date'),
                 'end_date' => $this->nullablePost('end_date'),
                 'registration_url' => trim((string) $this->request->getPost('registration_url')),
