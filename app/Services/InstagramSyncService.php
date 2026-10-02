@@ -22,77 +22,17 @@ class InstagramSyncService
             ];
         }
 
-        $config = $this->config();
-        $required = [
-            'base_url' => $config['base_url'],
-            'user_id' => $config['user_id'],
-            'access_token' => $config['access_token'],
-        ];
-        $missing = array_keys(array_filter($required, static fn ($value): bool => trim((string) $value) === ''));
-
-        if ($missing !== []) {
+        $fetch = $this->fetchMedia(25);
+        if (! $fetch['ok']) {
             return [
                 'ok' => false,
                 'skipped' => false,
                 'count' => 0,
-                'message' => 'Credential/API environment belum lengkap.',
+                'message' => $fetch['message'],
             ];
         }
 
-        $endpoint = rtrim($config['base_url'], '/');
-
-        if ($config['api_version'] !== '') {
-            $endpoint .= '/' . rawurlencode($config['api_version']);
-        }
-
-        $endpoint .= '/' . rawurlencode($config['user_id']) . '/media';
-
-        try {
-            $client = Services::curlrequest();
-            $response = $client->get($endpoint, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' . $config['access_token'],
-                    'Accept' => 'application/json',
-                ],
-                'query' => [
-                    'fields' => 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp',
-                    'limit' => 25,
-                ],
-                'timeout' => 20,
-                'http_errors' => false,
-            ]);
-        } catch (\Throwable $e) {
-            log_message('error', 'Instagram API request gagal.');
-            return [
-                'ok' => false,
-                'skipped' => false,
-                'count' => 0,
-                'message' => 'Tidak dapat menghubungi Instagram API.',
-            ];
-        }
-
-        $status = $response->getStatusCode();
-        if ($status < 200 || $status >= 300) {
-            log_message('warning', 'Instagram API mengembalikan HTTP {status}.', ['status' => $status]);
-            return [
-                'ok' => false,
-                'skipped' => false,
-                'count' => 0,
-                'message' => 'Instagram API mengembalikan respons HTTP ' . $status . '. Cache lama dipertahankan.',
-            ];
-        }
-
-        $payload = json_decode((string) $response->getBody(), true);
-        if (! is_array($payload) || ! isset($payload['data']) || ! is_array($payload['data'])) {
-            return [
-                'ok' => false,
-                'skipped' => false,
-                'count' => 0,
-                'message' => 'Format respons Instagram API tidak dikenali. Cache lama dipertahankan.',
-            ];
-        }
-
-        $rows = $payload['data'];
+        $rows = $fetch['rows'];
         if ($rows === []) {
             return [
                 'ok' => true,
@@ -106,7 +46,6 @@ class InstagramSyncService
         $db = db_connect();
         $fetchedAt = date('Y-m-d H:i:s');
         $saved = 0;
-
         $db->transBegin();
 
         try {
@@ -160,7 +99,6 @@ class InstagramSyncService
         } catch (\Throwable $e) {
             $db->transRollback();
             log_message('error', 'Penyimpanan cache Instagram gagal: {class}', ['class' => $e::class]);
-
             return [
                 'ok' => false,
                 'skipped' => false,
@@ -178,34 +116,87 @@ class InstagramSyncService
         ];
     }
 
-    public function readiness(): array
+    public function testConnection(): array
     {
-        $config = $this->config();
+        $fetch = $this->fetchMedia(1);
+        if (! $fetch['ok']) {
+            return $fetch;
+        }
 
         return [
-            'base_url' => trim($config['base_url']) !== '',
-            'api_version' => trim($config['api_version']) !== '',
-            'user_id' => trim($config['user_id']) !== '',
-            'access_token' => trim($config['access_token']) !== '',
+            'ok' => true,
+            'count' => count($fetch['rows']),
+            'message' => 'Koneksi Instagram API berhasil. Credential diterima oleh endpoint.',
         ];
+    }
+
+    public function readiness(): array
+    {
+        return (new InstagramConfigService())->state();
     }
 
     public function isReady(): bool
     {
-        $state = $this->readiness();
-
-        return $state['base_url']
-            && $state['user_id']
-            && $state['access_token'];
+        return (new InstagramConfigService())->isReady();
     }
 
-    private function config(): array
+    private function fetchMedia(int $limit): array
     {
-        return [
-            'base_url' => trim((string) env('instagram.apiBaseUrl', '')),
-            'api_version' => trim((string) env('instagram.apiVersion', '')),
-            'user_id' => trim((string) env('instagram.userId', '')),
-            'access_token' => trim((string) env('instagram.accessToken', '')),
+        $config = (new InstagramConfigService())->resolved();
+        $required = [
+            'base_url' => $config['base_url'],
+            'user_id' => $config['user_id'],
+            'access_token' => $config['access_token'],
         ];
+        $missing = array_keys(array_filter($required, static fn ($value): bool => trim((string) $value) === ''));
+
+        if ($missing !== []) {
+            return [
+                'ok' => false,
+                'rows' => [],
+                'message' => 'Konfigurasi API belum lengkap. Isi Base URL, User ID, dan Access Token.',
+            ];
+        }
+
+        $endpoint = rtrim($config['base_url'], '/');
+        if ($config['api_version'] !== '') {
+            $endpoint .= '/' . rawurlencode($config['api_version']);
+        }
+        $endpoint .= '/' . rawurlencode($config['user_id']) . '/media';
+
+        try {
+            $response = Services::curlrequest()->get($endpoint, [
+                'headers' => [
+                    'Authorization' => 'Bearer ' . $config['access_token'],
+                    'Accept' => 'application/json',
+                ],
+                'query' => [
+                    'fields' => 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp',
+                    'limit' => max(1, min($limit, 25)),
+                ],
+                'timeout' => 20,
+                'http_errors' => false,
+            ]);
+        } catch (\Throwable $e) {
+            log_message('error', 'Instagram API request gagal: {class}', ['class' => $e::class]);
+            return ['ok' => false, 'rows' => [], 'message' => 'Tidak dapat menghubungi Instagram API.'];
+        }
+
+        $status = $response->getStatusCode();
+        if ($status < 200 || $status >= 300) {
+            log_message('warning', 'Instagram API mengembalikan HTTP {status}.', ['status' => $status]);
+            return [
+                'ok' => false,
+                'rows' => [],
+                'message' => 'Instagram API mengembalikan HTTP ' . $status . '. Periksa User ID, token, Base URL, dan API Version.',
+            ];
+        }
+
+        $payload = json_decode((string) $response->getBody(), true);
+        if (! is_array($payload) || ! isset($payload['data']) || ! is_array($payload['data'])) {
+            return ['ok' => false, 'rows' => [], 'message' => 'Format respons Instagram API tidak dikenali.'];
+        }
+
+        return ['ok' => true, 'rows' => $payload['data'], 'message' => 'OK'];
     }
 }

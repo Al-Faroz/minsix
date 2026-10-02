@@ -194,3 +194,9 @@ body{font-size:.94rem}
 .rich-editor-area p{margin:.35rem 0 .8rem}.rich-editor-area ul,.rich-editor-area ol{padding-left:1.5rem}
 .rich-editor-area blockquote{margin:1rem 0;padding:.7rem 1rem;border-left:3px solid var(--green);background:#f3f7f4;color:#526059}
 .rich-editor-area a{color:var(--green);text-decoration:underline}
+
+/* PHASE 10C — integration credential manager */
+.integration-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+.integration-actions form{margin:0}
+.integration-actions .btn:disabled{opacity:.45;cursor:not-allowed}
+@media(max-width:620px){.integration-actions{display:grid;grid-template-columns:1fr}.integration-actions .btn{width:100%}}
