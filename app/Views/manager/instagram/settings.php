@@ -3,7 +3,7 @@
 
 <?php
 $connected = (bool) ($apiState['connected'] ?? false);
-$appReady = (bool) (($apiState['app_id_ready'] ?? false) && ($apiState['app_secret_ready'] ?? false));
+$appReady = (bool) (($apiState['storage_ready'] ?? false) && ($apiState['app_id_ready'] ?? false) && ($apiState['app_secret_ready'] ?? false));
 $daysRemaining = $apiState['token_days_remaining'] ?? null;
 $accountLabel = trim((string) ($apiState['username'] ?? '')) !== ''
     ? '@' . trim((string) $apiState['username'])
@@ -104,6 +104,7 @@ $accountLabel = trim((string) ($apiState['username'] ?? '')) !== ''
 
     <div class="credential-list">
         <div><code>Encryption Key</code><span class="status-chip <?= ($apiState['encryption_ready'] ?? false) ? 'published' : 'draft' ?>"><?= ($apiState['encryption_ready'] ?? false) ? 'READY' : 'BELUM' ?></span></div>
+        <div><code>Integration Storage</code><span class="status-chip <?= ($apiState['storage_ready'] ?? false) ? 'published' : 'draft' ?>"><?= ($apiState['storage_ready'] ?? false) ? 'READY' : 'JALANKAN SQL' ?></span></div>
         <div><code>Meta App</code><span class="status-chip <?= $appReady ? 'published' : 'draft' ?>"><?= $appReady ? 'READY' : 'BELUM' ?></span></div>
         <div><code>Instagram Login</code><span class="status-chip <?= $connected ? 'published' : 'draft' ?>"><?= $connected ? esc($accountLabel) : (($apiState['token_expired'] ?? false) ? 'REAUTH' : 'BELUM') ?></span></div>
         <div><code>Token Expires</code><span><?= ! empty($apiState['token_expires_at']) ? esc(date('d-m-Y H:i', strtotime($apiState['token_expires_at']))) : '—' ?></span></div>
