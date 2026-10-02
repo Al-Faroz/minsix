@@ -15,6 +15,8 @@ $routes->get('manager/account/password', 'Manager\AccountController::password', 
 $routes->post('manager/account/password', 'Manager\AccountController::updatePassword', ['filter' => 'auth']);
 
 // Content modules: ADMIN and OPERATOR.
+$routes->get('manager/homepage', 'Manager\\HomepageController::index', ['filter' => 'auth']);
+$routes->post('manager/homepage/(:num)', 'Manager\\HomepageController::update/$1', ['filter' => 'auth']);
 $routes->get('manager/profile', 'Manager\ProfileController::index', ['filter' => 'auth']);
 $routes->post('manager/profile/(:num)', 'Manager\ProfileController::update/$1', ['filter' => 'auth']);
 

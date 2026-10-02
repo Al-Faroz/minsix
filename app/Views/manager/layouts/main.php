@@ -26,7 +26,7 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $currentPath === 'manager' ? ' active' : '' ?>" href="<?= site_url('manager') ?>">Dashboard</a>
 
             <p class="nav-label">KONTEN</p>
-            <button class="nav-item disabled" type="button" disabled><span>Beranda</span><small>Segera</small></button>
+            <a class="nav-item<?= $navActive('manager/homepage') ?>" href="<?= site_url('manager/homepage') ?>">Beranda</a>
             <a class="nav-item<?= $navActive('manager/profile') ?>" href="<?= site_url('manager/profile') ?>">Profil</a>
             <a class="nav-item<?= $navActive('manager/programs') ?>" href="<?= site_url('manager/programs') ?>">Program</a>
             <a class="nav-item<?= $navActive('manager/gtk') . $navActive('manager/gtk-roles') ?>" href="<?= site_url('manager/gtk') ?>">GTK</a>
@@ -48,7 +48,7 @@ $navActive = static fn (string $prefix): string =>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 5</span><strong>SPMB</strong></div>
+        <div class="sidebar-foot"><span>PHASE 6</span><strong>Homepage / Frontend</strong></div>
     </aside>
 
     <div class="content-wrap">
