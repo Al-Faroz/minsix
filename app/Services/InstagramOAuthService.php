@@ -253,7 +253,7 @@ class InstagramOAuthService
 
         try {
             $response = Services::curlrequest()->get($endpoint, [
-                'query' => ['fields' => 'id,user_id,username'],
+                'query' => ['fields' => 'id,username'],
                 'headers' => [
                     'Authorization' => 'Bearer ' . $accessToken,
                     'Accept' => 'application/json',
