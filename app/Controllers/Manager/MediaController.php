@@ -99,7 +99,6 @@ class MediaController extends BaseController
         }
 
         $this->audit('MEDIA_UPLOADED', (int) $id, 'Upload media: ' . $originalName);
-
         return redirect()->to(site_url('manager/media'))->with('success', 'Media berhasil di-upload.');
     }
 
@@ -112,12 +111,10 @@ class MediaController extends BaseController
             return redirect()->to(site_url('manager/media'))->with('error', 'Media tidak ditemukan.');
         }
 
-        $rules = [
+        if (! $this->validate([
             'alt_text' => 'permit_empty|max_length[255]',
             'caption' => 'permit_empty|max_length[1000]',
-        ];
-
-        if (! $this->validate($rules)) {
+        ])) {
             return redirect()->back()->with('errors', $this->validator->getErrors());
         }
 
@@ -127,7 +124,6 @@ class MediaController extends BaseController
         ]);
 
         $this->audit('MEDIA_UPDATED', $id, 'Metadata media diperbarui.');
-
         return redirect()->to(site_url('manager/media'))->with('success', 'Metadata media berhasil diperbarui.');
     }
 
@@ -138,6 +134,11 @@ class MediaController extends BaseController
 
         if (! $media) {
             return redirect()->to(site_url('manager/media'))->with('error', 'Media tidak ditemukan.');
+        }
+
+        $reference = $this->findReference($id);
+        if ($reference !== null) {
+            return redirect()->to(site_url('manager/media'))->with('error', 'Media tidak dapat dihapus karena masih digunakan pada ' . $reference . '.');
         }
 
         $uploadBase = realpath(FCPATH . 'uploads');
@@ -151,6 +152,24 @@ class MediaController extends BaseController
         $this->audit('MEDIA_DELETED', $id, 'Media dihapus: ' . $media['original_name']);
 
         return redirect()->to(site_url('manager/media'))->with('success', 'Media berhasil dihapus.');
+    }
+
+    private function findReference(int $mediaId): ?string
+    {
+        $db = db_connect();
+        $checks = [
+            ['profile_sections', 'primary_media_id', 'Profil'],
+            ['programs', 'primary_media_id', 'Program'],
+            ['gtk', 'photo_media_id', 'GTK'],
+        ];
+
+        foreach ($checks as [$table, $field, $label]) {
+            if ($db->tableExists($table) && $db->table($table)->where($field, $mediaId)->countAllResults() > 0) {
+                return $label;
+            }
+        }
+
+        return null;
     }
 
     private function audit(string $action, int $recordId, string $description): void

@@ -26,7 +26,11 @@ $navActive = static fn (string $prefix): string =>
             <a class="nav-item<?= $currentPath === 'manager' ? ' active' : '' ?>" href="<?= site_url('manager') ?>">Dashboard</a>
 
             <p class="nav-label">KONTEN</p>
-            <?php foreach (['Beranda','Profil','Program','GTK','Berita','Agenda','Prestasi','Galeri','SPMB'] as $item): ?>
+            <button class="nav-item disabled" type="button" disabled><span>Beranda</span><small>Segera</small></button>
+            <a class="nav-item<?= $navActive('manager/profile') ?>" href="<?= site_url('manager/profile') ?>">Profil</a>
+            <a class="nav-item<?= $navActive('manager/programs') ?>" href="<?= site_url('manager/programs') ?>">Program</a>
+            <a class="nav-item<?= $navActive('manager/gtk') . $navActive('manager/gtk-roles') ?>" href="<?= site_url('manager/gtk') ?>">GTK</a>
+            <?php foreach (['Berita','Agenda','Prestasi','Galeri','SPMB'] as $item): ?>
                 <button class="nav-item disabled" type="button" disabled><span><?= esc($item) ?></span><small>Segera</small></button>
             <?php endforeach ?>
             <a class="nav-item<?= $navActive('manager/media') ?>" href="<?= site_url('manager/media') ?>">Media</a>
@@ -42,7 +46,7 @@ $navActive = static fn (string $prefix): string =>
             <?php endif ?>
         </nav>
 
-        <div class="sidebar-foot"><span>PHASE 2</span><strong>Settings · Features · Media</strong></div>
+        <div class="sidebar-foot"><span>PHASE 3</span><strong>Profil · Program · GTK</strong></div>
     </aside>
 
     <div class="content-wrap">
@@ -63,7 +67,6 @@ $navActive = static fn (string $prefix): string =>
             <?php if (session()->getFlashdata('error')): ?><div class="alert danger"><?= esc(session()->getFlashdata('error')) ?></div><?php endif ?>
             <?php $errors = session()->getFlashdata('errors') ?? []; ?>
             <?php if ($errors !== []): ?><div class="alert danger"><?php foreach ($errors as $error): ?><div><?= esc($error) ?></div><?php endforeach ?></div><?php endif ?>
-
             <?= $this->renderSection('content') ?>
         </main>
 

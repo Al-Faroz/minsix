@@ -14,7 +14,30 @@ $routes->post('manager/logout', 'Manager\AuthController::logout', ['filter' => '
 $routes->get('manager/account/password', 'Manager\AccountController::password', ['filter' => 'auth']);
 $routes->post('manager/account/password', 'Manager\AccountController::updatePassword', ['filter' => 'auth']);
 
-// Media is content: ADMIN and OPERATOR may manage it.
+// Content modules: ADMIN and OPERATOR.
+$routes->get('manager/profile', 'Manager\ProfileController::index', ['filter' => 'auth']);
+$routes->post('manager/profile/(:num)', 'Manager\ProfileController::update/$1', ['filter' => 'auth']);
+
+$routes->get('manager/programs', 'Manager\ProgramController::index', ['filter' => 'auth']);
+$routes->get('manager/programs/new', 'Manager\ProgramController::new', ['filter' => 'auth']);
+$routes->post('manager/programs', 'Manager\ProgramController::create', ['filter' => 'auth']);
+$routes->get('manager/programs/(:num)/edit', 'Manager\ProgramController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/programs/(:num)', 'Manager\ProgramController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/programs/(:num)/delete', 'Manager\ProgramController::delete/$1', ['filter' => 'auth']);
+
+$routes->get('manager/gtk', 'Manager\GtkController::index', ['filter' => 'auth']);
+$routes->get('manager/gtk/new', 'Manager\GtkController::new', ['filter' => 'auth']);
+$routes->post('manager/gtk', 'Manager\GtkController::create', ['filter' => 'auth']);
+$routes->get('manager/gtk/(:num)/edit', 'Manager\GtkController::edit/$1', ['filter' => 'auth']);
+$routes->post('manager/gtk/(:num)', 'Manager\GtkController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/gtk/(:num)/delete', 'Manager\GtkController::delete/$1', ['filter' => 'auth']);
+
+$routes->get('manager/gtk-roles', 'Manager\GtkRoleController::index', ['filter' => 'auth']);
+$routes->post('manager/gtk-roles', 'Manager\GtkRoleController::create', ['filter' => 'auth']);
+$routes->post('manager/gtk-roles/(:num)', 'Manager\GtkRoleController::update/$1', ['filter' => 'auth']);
+$routes->post('manager/gtk-roles/(:num)/delete', 'Manager\GtkRoleController::delete/$1', ['filter' => 'auth']);
+
+// Media is content.
 $routes->get('manager/media', 'Manager\MediaController::index', ['filter' => 'auth']);
 $routes->post('manager/media/upload', 'Manager\MediaController::upload', ['filter' => 'auth']);
 $routes->post('manager/media/(:num)/update', 'Manager\MediaController::update/$1', ['filter' => 'auth']);
