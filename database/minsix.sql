@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS programs;
 DROP TABLE IF EXISTS profile_sections;
 DROP TABLE IF EXISTS media;
 DROP TABLE IF EXISTS site_features;
+DROP TABLE IF EXISTS integration_settings;
 DROP TABLE IF EXISTS site_settings;
 DROP TABLE IF EXISTS audit_logs;
 DROP TABLE IF EXISTS app_users;
@@ -74,6 +75,22 @@ CREATE TABLE site_settings (
     UNIQUE KEY uq_site_settings_key (setting_key),
     KEY idx_site_settings_public (is_public),
     CONSTRAINT fk_site_settings_user FOREIGN KEY (updated_by)
+        REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE TABLE integration_settings (
+    id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+    provider VARCHAR(50) NOT NULL,
+    setting_key VARCHAR(100) NOT NULL,
+    setting_value LONGTEXT NULL,
+    is_secret TINYINT(1) NOT NULL DEFAULT 0,
+    updated_by BIGINT UNSIGNED NULL,
+    updated_at DATETIME NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY uq_integration_setting (provider, setting_key),
+    KEY idx_integration_provider (provider),
+    KEY idx_integration_secret (is_secret),
+    CONSTRAINT fk_integration_settings_user FOREIGN KEY (updated_by)
         REFERENCES app_users(id) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
