@@ -70,6 +70,8 @@ gallery_items
 
 spmb_periods
 spmb_requirements
+spmb_steps
+spmb_highlights
 spmb_faq
 
 media
@@ -430,7 +432,16 @@ created_at          DATETIME NULL
 updated_at          DATETIME NULL
 ```
 
-Maksimal satu periode current pada level aplikasi.
+Aturan:
+- Tabel ini menyimpan banyak periode penerimaan; satu baris mewakili satu tahun/periode penerimaan.
+- Status yang valid: DRAFT, PUBLISHED, ARCHIVED.
+- Hanya baris berstatus PUBLISHED yang boleh memiliki is_current = 1.
+- Maksimal satu periode current pada level aplikasi.
+- Perubahan Current dilakukan dalam transaksi: lepaskan Current sebelumnya, lalu tetapkan periode baru.
+- Jika status periode Current diubah menjadi DRAFT atau ARCHIVED, Current harus dilepas dalam transaksi yang sama.
+- Periode lama tidak dihapus saat periode baru dibuat; periode lama dapat dipertahankan sebagai arsip.
+- registration_url adalah URL formulir eksternal (misalnya Google Forms), bukan endpoint/formulir internal website.
+- Website tidak menyimpan data calon pendaftar atau data pribadi yang diisi pada formulir eksternal.
 
 ---
 
@@ -443,7 +454,27 @@ requirement_text    TEXT NOT NULL
 display_order       INT DEFAULT 0
 ```
 
-## 20. `spmb_faq`
+## 20. `spmb_steps`
+
+```text
+id                  BIGINT UNSIGNED PK AI
+spmb_period_id      BIGINT UNSIGNED NOT NULL
+title               VARCHAR(255) NOT NULL
+description         TEXT NULL
+display_order       INT DEFAULT 0
+```
+
+## 21. `spmb_highlights`
+
+```text
+id                  BIGINT UNSIGNED PK AI
+spmb_period_id      BIGINT UNSIGNED NOT NULL
+title               VARCHAR(255) NOT NULL
+description         TEXT NULL
+display_order       INT DEFAULT 0
+```
+
+## 22. `spmb_faq`
 
 ```text
 id                  BIGINT UNSIGNED PK AI
@@ -455,7 +486,7 @@ display_order       INT DEFAULT 0
 
 ---
 
-## 21. `media`
+## 23. `media`
 
 ```text
 id                  BIGINT UNSIGNED PK AI
@@ -478,7 +509,7 @@ File fisik tidak disimpan di database.
 
 ---
 
-## 22. `instagram_posts`
+## 24. `instagram_posts`
 
 ```text
 id                  BIGINT UNSIGNED PK AI
@@ -501,7 +532,7 @@ updated_at          DATETIME NULL
 
 ---
 
-## 23. `audit_logs`
+## 25. `audit_logs`
 
 ```text
 id                  BIGINT UNSIGNED PK AI
@@ -518,7 +549,7 @@ Catat minimal login, perubahan user, perubahan settings/features, delete konten,
 
 ---
 
-## 24. Status Konten
+## 26. Status Konten
 
 Konten utama:
 ```text
@@ -533,9 +564,18 @@ SPMB tambahan:
 ARCHIVED
 ```
 
+Aturan khusus SPMB:
+- DRAFT dan ARCHIVED tidak boleh menjadi Current.
+- Hanya PUBLISHED yang boleh menjadi Current.
+- Maksimal satu periode Current pada satu waktu.
+- Tanggal tutup tidak mengubah status database secara otomatis.
+- Jika end_date telah terlewati, halaman publik tetap menampilkan informasi tetapi CTA pendaftaran dinonaktifkan.
+- Jika end_date NULL, tidak ada penutupan otomatis.
+- Tidak ada tabel pendaftaran/calon murid karena formulir dikelola layanan eksternal.
+
 ---
 
-## 25. Delete Policy
+## 27. Delete Policy
 
 - Feature OFF tidak menghapus data.
 - Media tidak boleh dihapus jika masih direferensikan.
@@ -543,7 +583,7 @@ ARCHIVED
 
 ---
 
-## 26. SQL Dump Policy
+## 28. SQL Dump Policy
 
 `database/minsix.sql` menjadi sumber schema canonical.
 
@@ -565,7 +605,7 @@ Tidak boleh berisi:
 
 ---
 
-## 27. Upgrade Schema
+## 29. Upgrade Schema
 
 Jika perlu upgrade production, gunakan:
 
@@ -577,7 +617,7 @@ Setelah upgrade, `database/minsix.sql` wajib diperbarui agar tetap menjadi canon
 
 ---
 
-## 28. Backup
+## 30. Backup
 
 Production:
 - backup database berkala;
