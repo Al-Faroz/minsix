@@ -77,7 +77,7 @@
 
             <label class="checkbox-row">
                 <input type="checkbox" name="is_current" value="1" <?= (int) old('is_current', $period['is_current'] ?? 0) === 1 ? 'checked' : '' ?>>
-                <span><strong>Current</strong><small>Jika dicentang, periode Current sebelumnya otomatis dilepas.</small></span>
+                <span><strong>Current</strong><small>Hanya periode PUBLISHED yang dapat menjadi Current. Current sebelumnya otomatis dilepas.</small></span>
             </label>
         </div>
     </section>
