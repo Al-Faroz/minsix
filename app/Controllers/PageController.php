@@ -138,7 +138,7 @@ class PageController extends SiteController
 
         $isRegistrationClosed = $period !== null
             && ! empty($period['end_date'])
-            && date('Y-m-d') > $period['end_date'];
+            && date('Y-m-d') >= $period['end_date'];
 
         $requirements = [];
         $faq = [];
