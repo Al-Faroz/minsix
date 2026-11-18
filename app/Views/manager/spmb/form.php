@@ -9,12 +9,11 @@
     <section class="content-card">
         <div class="section-head">
             <div>
-                <p class="eyebrow">PERIODE SPMB</p>
+                <p class="eyebrow">A. INFORMASI PERIODE</p>
                 <h2><?= $editing ? 'Edit Periode SPMB' : 'Tambah Periode SPMB' ?></h2>
-                <p class="muted">Informasi tahun ajaran, periode pendaftaran, isi, dan akses pendaftaran.</p>
+                <p class="muted">Data pokok tahun ajaran dan waktu pendaftaran.</p>
             </div>
         </div>
-
         <div class="settings-grid">
             <div class="field">
                 <label>Tahun Ajaran *</label>
@@ -24,7 +23,6 @@
                 <label>Judul *</label>
                 <input type="text" name="title" maxlength="255" required placeholder="Contoh: SPMB MIN 6 JEMBER 2026/2027" value="<?= esc(old('title', $period['title'] ?? '')) ?>">
             </div>
-
             <div class="field">
                 <label>Tanggal Buka</label>
                 <input type="date" name="start_date" value="<?= esc(old('start_date', $period['start_date'] ?? '')) ?>">
@@ -32,24 +30,30 @@
             <div class="field">
                 <label>Tanggal Tutup</label>
                 <input type="date" name="end_date" value="<?= esc(old('end_date', $period['end_date'] ?? '')) ?>">
+                <small>Setelah tanggal ini terlewati, tombol dan QR pendaftaran tidak ditampilkan sebagai akses pendaftaran.</small>
             </div>
-
             <div class="field span-2">
                 <label>Ringkasan</label>
-                <textarea name="summary" rows="4" maxlength="5000"><?= esc(old('summary', $period['summary'] ?? '')) ?></textarea>
+                <textarea name="summary" rows="3" maxlength="5000"><?= esc(old('summary', $period['summary'] ?? '')) ?></textarea>
+                <small>Ringkasan singkat yang tampil pada halaman informasi SPMB.</small>
             </div>
+        </div>
+    </section>
 
+    <section class="content-card">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">B. PENDAFTARAN ONLINE</p>
+                <h2>Akses Pendaftaran</h2>
+                <p class="muted">Gunakan tautan formulir eksternal, misalnya Google Forms. Website tidak menyimpan jawaban calon murid.</p>
+            </div>
+        </div>
+        <div class="settings-grid">
             <div class="field span-2">
-                <label>Isi SPMB</label>
-                <textarea name="content" rows="14" maxlength="60000" data-rich-editor><?= esc(old('content', $period['content'] ?? '')) ?></textarea>
-                <small>Gunakan untuk deskripsi umum SPMB. Alur dan Program Unggulan dikelola pada bagian terstruktur di bawah.</small>
+                <label>Link Formulir Pendaftaran</label>
+                <input type="url" name="registration_url" maxlength="500" placeholder="https://forms.google.com/..." value="<?= esc(old('registration_url', $period['registration_url'] ?? '')) ?>">
+                <small>Kosongkan jika pendaftaran belum menggunakan formulir online.</small>
             </div>
-
-            <div class="field span-2">
-                <label>Link Pendaftaran</label>
-                <input type="url" name="registration_url" maxlength="500" placeholder="https://..." value="<?= esc(old('registration_url', $period['registration_url'] ?? '')) ?>">
-            </div>
-
             <div class="field">
                 <label>Narahubung</label>
                 <input type="text" name="contact_name" maxlength="180" value="<?= esc(old('contact_name', $period['contact_name'] ?? '')) ?>">
@@ -58,6 +62,20 @@
                 <label>Nomor Kontak</label>
                 <input type="text" name="contact_phone" maxlength="50" value="<?= esc(old('contact_phone', $period['contact_phone'] ?? '')) ?>">
             </div>
+        </div>
+    </section>
+
+    <section class="content-card">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">C. INFORMASI TAMBAHAN</p>
+                <h2>Deskripsi SPMB</h2>
+                <p class="muted">Isi informasi umum yang perlu diketahui calon murid dan orang tua.</p>
+            </div>
+        </div>
+        <div class="field">
+            <label>Isi / Deskripsi</label>
+            <textarea name="content" rows="12" maxlength="60000" data-rich-editor><?= esc(old('content', $period['content'] ?? '')) ?></textarea>
         </div>
     </section>
 </div>
