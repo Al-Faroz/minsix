@@ -235,7 +235,20 @@ Jika OFF, section tidak dirender.
 
 ---
 
-## 15. Responsive Standard
+
+## 15. Halaman Publik SPMB
+
+URL halaman tetap `/spmb` dan menampilkan periode yang berstatus PUBLISHED serta Current.
+
+- Informasi periode tetap dapat dibaca setelah tanggal tutup.
+- Jika end_date terisi dan tanggal saat ini telah melewati tanggal tersebut, CTA eksternal diganti menjadi teks nonaktif “Pendaftaran Ditutup”.
+- CTA aktif hanya ditampilkan jika periode belum melewati tanggal tutup dan registration_url tersedia.
+- Jika registration_url kosong, jangan tampilkan tautan pendaftaran yang rusak.
+- QR pendaftaran dan brosur PDF hanya ditampilkan jika media terkait tersedia.
+- Bagian persyaratan, tahapan, program unggulan, FAQ, kontak, dan deskripsi hanya dirender jika memiliki konten.
+- Feature SPMB OFF menyembunyikan entry point publik sesuai aturan feature toggle; data CMS tetap tersimpan.
+
+## 16. Responsive Standard
 
 Breakpoint Bootstrap 5 sebagai baseline.
 
@@ -260,7 +273,7 @@ Mobile bukan desktop yang sekadar dikecilkan.
 
 ---
 
-## 16. Accessibility Baseline
+## 17. Accessibility Baseline
 
 - semantic heading;
 - alt text;
@@ -273,7 +286,7 @@ Mobile bukan desktop yang sekadar dikecilkan.
 
 ---
 
-## 17. Motion
+## 18. Motion
 
 Gunakan ringan:
 - fade;
@@ -285,7 +298,7 @@ Hindari parallax berat, autoplay video hero, dan animasi terus-menerus.
 
 ---
 
-## 18. Daftar Foto yang Diperlukan
+## 19. Daftar Foto yang Diperlukan
 
 | Kebutuhan | Jumlah ideal | Orientasi | Rasio |
 |---|---:|---|---|
@@ -322,7 +335,7 @@ Hindari parallax berat, autoplay video hero, dan animasi terus-menerus.
 
 ---
 
-## 19. Standar Foto GTK
+## 20. Standar Foto GTK
 
 Disarankan foto ulang seragam:
 - 4:5;
@@ -334,7 +347,7 @@ Disarankan foto ulang seragam:
 
 ---
 
-## 20. Foto Anak
+## 21. Foto Anak
 
 Untuk publikasi anak:
 - gunakan dokumentasi yang memang boleh dipublikasikan;
@@ -344,7 +357,7 @@ Untuk publikasi anak:
 
 ---
 
-## 21. Frontend Performance
+## 22. Frontend Performance
 
 - lazy load gambar di bawah fold;
 - responsive images bila tersedia;
@@ -357,7 +370,7 @@ Untuk publikasi anak:
 
 ---
 
-## 22. UI Konsistensi
+## 23. UI Konsistensi
 
 Gunakan token/variabel untuk:
 - spacing;
@@ -369,7 +382,7 @@ Gunakan token/variabel untuk:
 
 ---
 
-## 23. Footer
+## 24. Footer
 
 Isi:
 - logo;
