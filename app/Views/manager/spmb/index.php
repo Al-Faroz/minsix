@@ -41,11 +41,13 @@
     <td>
         <?php if ((int) $item['is_current'] === 1): ?>
             <span class="status-chip current">CURRENT</span>
-        <?php else: ?>
+        <?php elseif ($item['status'] === 'PUBLISHED'): ?>
             <form action="<?= site_url('manager/spmb/' . $item['id'] . '/current') ?>" method="post" onsubmit="return confirm('Jadikan periode ini sebagai Current SPMB? Current sebelumnya akan dilepas.');">
                 <?= csrf_field() ?>
                 <button class="text-link" type="submit">Jadikan Current</button>
             </form>
+        <?php else: ?>
+            <small>Perlu PUBLISHED</small>
         <?php endif ?>
     </td>
     <td><span class="status-chip <?= strtolower($item['status']) ?>"><?= esc($item['status']) ?></span></td>
