@@ -265,40 +265,73 @@ Operator dapat tetap membuat konten meskipun publik sedang OFF.
 
 ---
 
-## 12. SPMB
+## 12. SPMB / PMBM
 
-### Period
+Website menjadi pusat informasi penerimaan murid baru. Pengumpulan data pendaftar dilakukan melalui formulir eksternal, misalnya Google Forms. CMS hanya menyimpan URL formulir, bukan jawaban atau data pribadi calon murid.
 
-```text
-Tahun Ajaran
-Judul
-Ringkasan
-Tanggal buka
-Tanggal tutup
-Isi
-Link pendaftaran
-QR
-Brosur
-Narahubung
-Nomor kontak
-Status
-Current
-```
+### Daftar Periode
 
-### Persyaratan
-Repeatable ordered list.
+CMS menampilkan beberapa periode sekaligus, diurutkan dengan periode Current di posisi atas, lalu tahun ajaran terbaru.
 
-### FAQ
+Kolom utama:
+- Tahun ajaran dan judul;
+- tanggal pendaftaran;
+- status DRAFT/PUBLISHED/ARCHIVED;
+- penanda Current;
+- aksi Edit dan Hapus.
 
-```text
-Pertanyaan
-Jawaban
-Urutan
-```
+Periode lama tetap tersimpan. Membuat periode baru tidak menghapus atau menimpa periode sebelumnya.
 
-Hanya satu periode current pada satu waktu.
+### Form Periode — sederhana dan dikelompokkan
 
----
+**A. Informasi Periode**
+- Tahun ajaran (wajib);
+- judul (wajib);
+- ringkasan (opsional);
+- tanggal buka (opsional);
+- tanggal tutup (opsional);
+- status (DRAFT/PUBLISHED/ARCHIVED).
+
+**B. Pendaftaran Online**
+- URL formulir eksternal (opsional, misalnya Google Forms);
+- QR pendaftaran (opsional);
+- narahubung (opsional);
+- nomor kontak (opsional).
+
+**C. Informasi Pendaftaran**
+- isi/deskripsi (opsional);
+- persyaratan (daftar berulang);
+- tahapan pendaftaran (daftar berulang);
+- program unggulan (opsional, daftar berulang);
+- FAQ (opsional, daftar berulang).
+
+**D. Media**
+- brosur PDF (opsional);
+- foto/banner (opsional jika media periode didukung oleh implementasi).
+
+Field yang belum tersedia atau tidak diperlukan tidak boleh dipaksakan menjadi wajib. Field opsional yang kosong tidak ditampilkan di halaman publik. Gunakan helper text singkat dan validasi dekat field.
+
+### Aturan Current dan Status
+
+- Beberapa periode dapat disimpan bersamaan.
+- Hanya periode PUBLISHED yang boleh ditetapkan sebagai Current.
+- Maksimal satu periode Current.
+- Saat periode lain dijadikan Current, Current sebelumnya otomatis dilepas dalam satu transaksi.
+- Jika status periode Current diubah menjadi DRAFT atau ARCHIVED, Current harus dilepas.
+- Periode DRAFT/ARCHIVED tidak boleh menjadi Current.
+- Halaman publik mengambil periode PUBLISHED yang Current.
+
+### Perilaku Tanggal Tutup
+
+- Jika tanggal tutup terisi dan hari ini sudah melewati tanggal tersebut, halaman informasi tetap tampil.
+- CTA pendaftaran berubah menjadi teks nonaktif **“Pendaftaran Ditutup”**; jangan membuka URL formulir dari CTA tersebut.
+- URL formulir tidak dihapus dari CMS.
+- Jika tanggal tutup kosong, sistem tidak menutup pendaftaran otomatis.
+- Penutupan otomatis tidak mengubah status periode atau Current.
+
+### Persyaratan, Tahapan, Program, FAQ
+
+Masing-masing menggunakan daftar berulang yang sederhana: tambah, ubah, hapus, dan atur urutan. Jangan mewajibkan operator mengisi semua kelompok. Item kosong tidak disimpan dan bagian tanpa item tidak ditampilkan di publik.
 
 ## 13. Media Manager
 
