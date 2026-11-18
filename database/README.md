@@ -77,3 +77,14 @@ php spark minsix:key:generate
 ```
 
 Setelah upgrade, buka CMS > Pengaturan Instagram, simpan Meta App ID/App Secret, daftarkan OAuth Redirect URI pada Meta Developer, lalu klik **Hubungkan Instagram**. Token manual/ENV lama tidak dianggap sebagai koneksi Login baru.
+
+
+## DATA DEMO SPMB 2027/2028
+
+Untuk mengisi contoh konten SPMB pada database yang sudah berjalan, import file:
+
+`database/seeds/spmb_demo_2027_2028.sql`
+
+Bisa dijalankan melalui phpMyAdmin (tab Import) atau klien MySQL. Script hanya mengganti record dengan judul penanda `[DATA DEMO] SPMB MIN 6 JEMBER 2027/2028`, tidak menghapus periode lain.
+
+Periode dibuat dengan status `DRAFT` dan `is_current=0`, sehingga tidak muncul pada halaman publik. Seluruh tanggal, persyaratan, alur, highlight, dan FAQ merupakan konten simulasi; wajib diverifikasi sebelum dipublikasikan.
