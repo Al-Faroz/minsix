@@ -16,6 +16,14 @@ Tujuan:
 
 ## 2. Lokasi Upload
 
+Logo brand yang sudah disetujui disimpan sebagai aset statis di `assets/brand/`:
+- `min6-logo.png` — logo utama;
+- `min6-logo-white.png` — varian putih;
+- `favicon-32x32.png` dan `/favicon.ico` — favicon.
+
+Logo tersebut bukan foto dokumentasi dan tidak perlu diunggah ulang ke Media Library hanya untuk menampilkannya pada header/footer.
+
+
 Direkomendasikan:
 
 ```text
@@ -66,7 +74,7 @@ Gambar kamera berukuran multi-megabyte tidak boleh langsung dikirim apa adanya k
 ## 5. Rasio Media
 
 ```text
-Hero        16:9 / 3:2
+Hero        16:9 / 3:2 (foto dokumentasi asli MIN 6 JEMBER)
 Content     3:2
 Card        4:3
 Portrait    4:5
