@@ -288,7 +288,7 @@ Konten per periode:
 - narahubung dan nomor kontak (opsional);
 - FAQ (opsional);
 - brosur PDF (opsional);
-- media/foto (opsional).
+- media pendukung yang telah memiliki relasi pada schema, yaitu QR gambar dan brosur PDF.
 
 Aturan periode:
 - Beberapa periode dapat disimpan bersamaan, termasuk periode lama/arsip dan periode yang sedang disiapkan.
@@ -425,11 +425,11 @@ PHASE 10 — Production Deployment
 8. Data tetap tersimpan ketika modul OFF.
 9. GTK berada pada halaman terpisah.
 10. SPMB mendukung multi-periode; informasi publik memakai satu periode PUBLISHED yang Current.
-14. Pendaftaran calon murid menggunakan URL formulir eksternal, bukan formulir internal CMS.
-15. Data calon pendaftar tidak disimpan di database website.
-16. Setelah tanggal tutup terlewati, halaman informasi tetap tampil dan CTA pendaftaran dinonaktifkan.
-17. Hanya periode PUBLISHED yang dapat ditetapkan sebagai Current.
-11. Instagram memakai pola hybrid.
-12. Gaya bahasa modern-humanis.
-13. Layout tidak dikendalikan oleh page builder.
-14. Rival digunakan sebagai referensi desain, bukan clone.
+11. Pendaftaran calon murid menggunakan URL formulir eksternal, bukan formulir internal CMS.
+12. Data calon pendaftar tidak disimpan di database website.
+13. Setelah tanggal tutup terlewati, halaman informasi tetap tampil dan CTA pendaftaran dinonaktifkan.
+14. Hanya periode PUBLISHED yang dapat ditetapkan sebagai Current.
+15. Instagram memakai pola hybrid.
+16. Gaya bahasa modern-humanis.
+17. Layout tidak dikendalikan oleh page builder.
+18. Rival digunakan sebagai referensi desain, bukan clone.
