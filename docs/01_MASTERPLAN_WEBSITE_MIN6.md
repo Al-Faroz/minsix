@@ -267,21 +267,43 @@ Parent `Kabar Madrasah` dapat dinonaktifkan secara keseluruhan. Submodul juga da
 
 ## 13. SPMB
 
-SPMB memiliki halaman khusus yang diperbarui per tahun.
+SPMB memiliki halaman khusus yang diperbarui per tahun dan mendukung penyimpanan beberapa periode penerimaan sekaligus.
 
-Konten:
+Model pendaftaran:
+- Website menjadi pusat informasi SPMB/PMBM.
+- Pengumpulan formulir calon murid dilakukan melalui layanan eksternal, misalnya Google Forms atau layanan lain yang URL-nya dikelola Operator.
+- Website tidak menyediakan formulir pendaftaran internal, akun calon murid, penyimpanan data calon pendaftar, atau proses seleksi.
+- CMS tidak menyimpan data pribadi calon murid dari formulir eksternal.
+
+Konten per periode:
 - tahun ajaran;
-- periode pendaftaran;
+- judul dan ringkasan;
+- tanggal buka dan tutup;
 - deskripsi;
-- syarat pendaftaran;
-- alur;
-- program unggulan;
-- link pendaftaran;
-- QR;
-- narahubung;
-- FAQ;
-- brosur PDF;
-- media/foto.
+- persyaratan;
+- tahapan;
+- program unggulan (opsional);
+- URL formulir eksternal;
+- QR pendaftaran (opsional);
+- narahubung dan nomor kontak (opsional);
+- FAQ (opsional);
+- brosur PDF (opsional);
+- media/foto (opsional).
+
+Aturan periode:
+- Beberapa periode dapat disimpan bersamaan, termasuk periode lama/arsip dan periode yang sedang disiapkan.
+- Status periode: DRAFT, PUBLISHED, ARCHIVED.
+- Hanya periode berstatus PUBLISHED yang boleh ditetapkan sebagai Current.
+- Maksimal satu periode Current pada satu waktu.
+- Penggantian Current harus melepas Current sebelumnya secara atomik/transaksional.
+- Halaman publik hanya menggunakan periode PUBLISHED yang berstatus Current.
+- Periode lama tetap disimpan; pergantian tahun tidak menghapus data lama.
+
+Perilaku tanggal tutup:
+- Jika end_date terisi dan tanggal lokal aplikasi telah melewati end_date, halaman informasi tetap tampil.
+- Tombol pendaftaran berubah menjadi label nonaktif “Pendaftaran Ditutup”; URL formulir tetap tersimpan di CMS.
+- Jika end_date kosong, sistem tidak menutup pendaftaran secara otomatis.
+- Penutupan otomatis tidak mengubah status publikasi atau menghapus data periode.
 
 URL publik tetap `/spmb`.
 
@@ -402,7 +424,11 @@ PHASE 10 — Production Deployment
 7. Kabar/Berita memiliki ON/OFF.
 8. Data tetap tersimpan ketika modul OFF.
 9. GTK berada pada halaman terpisah.
-10. SPMB memiliki halaman khusus dan dapat diperbarui tahunan.
+10. SPMB mendukung multi-periode; informasi publik memakai satu periode PUBLISHED yang Current.
+14. Pendaftaran calon murid menggunakan URL formulir eksternal, bukan formulir internal CMS.
+15. Data calon pendaftar tidak disimpan di database website.
+16. Setelah tanggal tutup terlewati, halaman informasi tetap tampil dan CTA pendaftaran dinonaktifkan.
+17. Hanya periode PUBLISHED yang dapat ditetapkan sebagai Current.
 11. Instagram memakai pola hybrid.
 12. Gaya bahasa modern-humanis.
 13. Layout tidak dikendalikan oleh page builder.
