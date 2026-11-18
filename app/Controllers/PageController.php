@@ -136,6 +136,10 @@ class PageController extends SiteController
             ->get()
             ->getRowArray();
 
+        $isRegistrationClosed = $period !== null
+            && ! empty($period['end_date'])
+            && date('Y-m-d') > $period['end_date'];
+
         $requirements = [];
         $faq = [];
         $steps = [];
@@ -176,6 +180,7 @@ class PageController extends SiteController
             'seoTitle' => 'SPMB',
             'metaDescription' => $period['summary'] ?? 'Informasi SPMB MIN 6 JEMBER',
             'period' => $period,
+            'isRegistrationClosed' => $isRegistrationClosed,
             'requirements' => $requirements,
             'faq' => $faq,
             'steps' => $steps,
