@@ -59,7 +59,8 @@ class SpmbController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Brosur harus berupa dokumen PDF dari Media Library.');
         }
 
-        $isCurrent = $this->request->getPost('is_current') ? 1 : 0;
+        $status = (string) $this->request->getPost('status');
+        $isCurrent = $this->request->getPost('is_current') && $status === 'PUBLISHED' ? 1 : 0;
         $db = db_connect();
         $model = new SpmbPeriodModel();
 
@@ -85,7 +86,7 @@ class SpmbController extends BaseController
                 'brochure_media_id' => $brochureId,
                 'contact_name' => trim((string) $this->request->getPost('contact_name')),
                 'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
-                'status' => (string) $this->request->getPost('status'),
+                'status' => $status,
                 'is_current' => $isCurrent,
                 'created_by' => (int) session()->get('auth_user_id'),
                 'updated_by' => (int) session()->get('auth_user_id'),
@@ -150,7 +151,8 @@ class SpmbController extends BaseController
             return redirect()->back()->withInput()->with('error', 'Brosur harus berupa dokumen PDF dari Media Library.');
         }
 
-        $isCurrent = $this->request->getPost('is_current') ? 1 : 0;
+        $status = (string) $this->request->getPost('status');
+        $isCurrent = $this->request->getPost('is_current') && $status === 'PUBLISHED' ? 1 : 0;
         $db = db_connect();
         $db->transBegin();
 
@@ -174,7 +176,7 @@ class SpmbController extends BaseController
                 'brochure_media_id' => $brochureId,
                 'contact_name' => trim((string) $this->request->getPost('contact_name')),
                 'contact_phone' => trim((string) $this->request->getPost('contact_phone')),
-                'status' => (string) $this->request->getPost('status'),
+                'status' => $status,
                 'is_current' => $isCurrent,
                 'updated_by' => (int) session()->get('auth_user_id'),
             ]);
@@ -212,12 +214,17 @@ class SpmbController extends BaseController
             return redirect()->to(site_url('manager/spmb'))->with('error', 'Periode SPMB tidak ditemukan.');
         }
 
+        if ($period['status'] !== 'PUBLISHED') {
+            return redirect()->to(site_url('manager/spmb'))
+                ->with('error', 'Hanya periode berstatus PUBLISHED yang dapat dijadikan Current.');
+        }
+
         $db = db_connect();
         $db->transBegin();
 
         try {
             $unsetCurrent = $db->table('spmb_periods')->set('is_current', 0)->update();
-            $setCurrent = $model->update($id, [
+            $setCurrent = $model->where('status', 'PUBLISHED')->update($id, [
                 'is_current' => 1,
                 'updated_by' => (int) session()->get('auth_user_id'),
             ]);
