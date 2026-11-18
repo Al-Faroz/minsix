@@ -307,7 +307,7 @@ Periode lama tetap tersimpan. Membuat periode baru tidak menghapus atau menimpa 
 
 **D. Media**
 - brosur PDF (opsional);
-- foto/banner (opsional jika media periode didukung oleh implementasi).
+- Tidak ada field foto/banner khusus per periode pada schema saat ini; gunakan desain halaman dan media yang memang sudah didukung. QR dan brosur tetap opsional.
 
 Field yang belum tersedia atau tidak diperlukan tidak boleh dipaksakan menjadi wajib. Field opsional yang kosong tidak ditampilkan di halaman publik. Gunakan helper text singkat dan validasi dekat field.
 
