@@ -25,7 +25,11 @@
         <span>Informasi Pendaftaran</span>
         <?php if ($period['contact_name']): ?><strong><?= esc($period['contact_name']) ?></strong><?php endif ?>
         <?php if ($period['contact_phone']): ?><p><?= esc($period['contact_phone']) ?></p><?php endif ?>
-        <?php if ($period['registration_url']): ?><a class="button primary" href="<?= esc($period['registration_url']) ?>" target="_blank" rel="noopener">Buka Pendaftaran</a><?php endif ?>
+        <?php if ($isRegistrationClosed): ?>
+            <span class="button primary" aria-disabled="true">Pendaftaran Ditutup</span>
+        <?php elseif ($period['registration_url']): ?>
+            <a class="button primary" href="<?= esc($period['registration_url']) ?>" target="_blank" rel="noopener">Daftar Sekarang</a>
+        <?php endif ?>
         <?php if ($period['brochure_path']): ?><a class="arrow-link" href="<?= base_url($period['brochure_path']) ?>" target="_blank">Lihat Brosur PDF →</a><?php endif ?>
         <?php if ($period['qr_path']): ?><img class="spmb-qr" src="<?= base_url($period['qr_path']) ?>" alt="<?= esc($period['qr_alt'] ?: 'QR Pendaftaran SPMB') ?>"><?php endif ?>
     </aside>
