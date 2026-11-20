@@ -27,10 +27,12 @@ Jika periode 2027/2028 sudah pernah dibuat, script tidak menimpa isinya. Perubah
 
 ## Aset identitas visual
 
-Lokasi:
-- `public/assets/brand/min6-logo-concept.svg` — logo horizontal.
-- `public/assets/brand/min6-mark-concept.svg` — simbol mandiri, cocok untuk favicon/app icon setelah disetujui.
-- `public/assets/brand/min6-spmb-cover-concept.svg` — ilustrasi sampul informasi SPMB.
+Lokasi (root proyek, sesuai konfigurasi `base_url('assets/...')`):
+- `assets/brand/min6-logo-concept.svg` — logo horizontal.
+- `assets/brand/min6-mark-concept.svg` — simbol mandiri, cocok untuk favicon/app icon setelah disetujui.
+- `assets/brand/min6-spmb-cover-concept.svg` — ilustrasi sampul informasi SPMB.
+
+Halaman pratinjau: `/brand-preview.html` (untuk review internal; tidak ditautkan dari navigasi publik).
 
 Ketiganya adalah **konsep desain digital**, bukan klaim logo resmi yang telah disahkan. Simbol menggabungkan buku terbuka, cahaya, dan tunas; palet hijau dan emas menjaga kesan pendidikan, pertumbuhan, dan identitas madrasah.
 
