@@ -160,7 +160,7 @@ class InstallDemoAssets extends BaseCommand
         CLI::write('Periksa Media Library dan halaman GTK setelah proses ini.');
     }
 
-    private function runSqlSeed(\\CodeIgniter\\Database\\BaseConnection $db, string $path): bool
+    private function runSqlSeed(\CodeIgniter\Database\BaseConnection $db, string $path): bool
     {
         $sql = file_get_contents($path);
         if ($sql === false) {
