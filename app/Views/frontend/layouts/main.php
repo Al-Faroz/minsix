@@ -1,6 +1,6 @@
 <?php
 $siteName = $site['site_name'] ?? 'MIN 6 JEMBER';
-$tagline = $site['site_tagline'] ?? 'Berakhlaqul Karimah dan Berprestasi';
+$tagline = $site['site_tagline'] ?? 'Madrasah Maju, Bermutu, Mendunia';
 $kabarVisible = isset($features['kabar']) && (int) $features['kabar']['is_enabled'] === 1 && (int) $features['kabar']['show_in_nav'] === 1;
 $spmbVisible = isset($features['spmb']) && (int) $features['spmb']['is_enabled'] === 1 && (int) $features['spmb']['show_in_nav'] === 1;
 
@@ -33,7 +33,7 @@ $resolvedCanonical = $canonicalUrl ?? ($canonicalBase !== ''
     ? $canonicalBase . ($relativeUri !== '' ? '/' . $relativeUri : '/')
     : current_url());
 
-$resolvedOgImage = $ogImageUrl ?? ($seoDefaultOgUrl ?? null);
+$resolvedOgImage = $ogImageUrl ?? ($seoDefaultOgUrl ?? base_url('assets/site/media/min6-social-preview.svg'));
 $resolvedOgType = $ogType ?? 'website';
 
 $organizationData = [
@@ -74,7 +74,7 @@ if (! empty($structuredData) && is_array($structuredData)) {
     <meta property="og:title" content="<?= esc($documentTitle) ?>">
     <meta property="og:description" content="<?= esc($description) ?>">
     <meta property="og:url" content="<?= esc($resolvedCanonical) ?>">
-    <?php if ($resolvedOgImage): ?><meta property="og:image" content="<?= esc($resolvedOgImage) ?>"><?php endif ?>
+    <?php if ($resolvedOgImage): ?>\n    <meta property="og:image" content="<?= esc($resolvedOgImage) ?>">\n    <meta property="og:image:secure_url" content="<?= esc($resolvedOgImage) ?>">\n    <meta property="og:image:type" content="image/svg+xml">\n    <?php endif ?>
 
     <meta name="twitter:card" content="<?= $resolvedOgImage ? 'summary_large_image' : 'summary' ?>">
     <meta name="twitter:title" content="<?= esc($documentTitle) ?>">
