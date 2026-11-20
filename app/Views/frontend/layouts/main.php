@@ -108,6 +108,7 @@ if (! empty($structuredData) && is_array($structuredData)) {
             <a class="<?= ($currentNav ?? '') === 'gtk' ? 'active' : '' ?>" href="<?= site_url('gtk') ?>">GTK</a>
             <?php if ($kabarVisible): ?><a class="<?= ($currentNav ?? '') === 'kabar' ? 'active' : '' ?>" href="<?= site_url('kabar') ?>">Kabar Madrasah</a><?php endif ?>
             <?php if ($spmbVisible): ?><a class="nav-cta<?= ($currentNav ?? '') === 'spmb' ? ' active' : '' ?>" href="<?= site_url('spmb') ?>">SPMB</a><?php endif ?>
+            <a class="nav-cta nav-external" href="https://sesubuh.minsix.web.id/" target="_blank" rel="noopener noreferrer">Sesubuh</a>
         </nav>
     </div>
 </header>
