@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 220" role="img" aria-labelledby="title desc">
+  <title id="title">Konsep identitas visual MIN 6 Jember</title>
+  <desc id="desc">Simbol buku terbuka, cahaya matahari, dan tunas dengan tulisan MIN 6 Jember.</desc>
+  <defs>
+    <linearGradient id="green" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0c7557"/><stop offset="1" stop-color="#064b3d"/></linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5c95d"/><stop offset="1" stop-color="#d99a2b"/></linearGradient>
+  </defs>
+  <g transform="translate(18 12)">
+    <circle cx="96" cy="96" r="88" fill="#f4f7f2"/>
+    <path d="M96 25c-24 0-43 19-43 43 0 10 3 19 9 26h68c6-7 9-16 9-26 0-24-19-43-43-43z" fill="url(#gold)"/>
+    <path d="M96 13v-9M53 25l-7-8M139 25l7-8M34 65H22M158 65h12" fill="none" stroke="#d99a2b" stroke-width="5" stroke-linecap="round"/>
+    <path d="M29 103c23-9 46-7 67 8v61c-23-15-45-17-67-8z" fill="url(#green)"/>
+    <path d="M163 103c-23-9-46-7-67 8v61c23-15 45-17 67-8z" fill="#0d8762"/>
+    <path d="M96 111v62" stroke="#f4f7f2" stroke-width="4" stroke-linecap="round"/>
+    <path d="M96 108c-2-23 8-38 26-47-1 21-10 37-26 47z" fill="#17845f"/>
+    <path d="M95 111c-13-18-28-23-43-19 9 17 24 24 43 19z" fill="#36a16c"/>
+    <path d="M29 103c22-8 45-6 67 8M163 103c-22-8-45-6-67 8" fill="none" stroke="#d7eadf" stroke-width="3"/>
+  </g>
+  <g fill="#123f35" font-family="Arial, Helvetica, sans-serif">
+    <text x="220" y="105" font-size="57" font-weight="800" letter-spacing="1">MIN 6 JEMBER</text>
+    <text x="223" y="145" font-size="21" font-weight="600" letter-spacing="2.5" fill="#b17a22">MADRASAH MAJU, BERMUTU, MENDUNIA</text>
+    <path d="M223 164h420" stroke="#d9e5dc" stroke-width="2"/>
+    <text x="223" y="190" font-size="15" letter-spacing="1.2" fill="#58756a">BERAKHLAKUL KARIMAH DAN BERPRESTASI</text>
+  </g>
+</svg>
