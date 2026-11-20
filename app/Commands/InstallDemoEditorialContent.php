@@ -215,7 +215,7 @@ class InstallDemoEditorialContent extends BaseCommand
 <p>Transformasi digital di lingkungan madrasah tidak hanya berkaitan dengan penggunaan perangkat teknologi, tetapi juga penguatan kompetensi guru dan tenaga kependidikan dalam mengelola informasi, berkolaborasi, serta mengembangkan pembelajaran.</p>
 <p>Dalam publikasi tanggal 24 September 2026, Kementerian Agama membahas pemanfaatan Google Workspace (GWS) Madrasah sebagai bagian dari penguatan keterampilan digital GTK. Pemanfaatan akun dan perangkat kolaborasi digital diharapkan membantu komunikasi, pengelolaan dokumen, dan kegiatan belajar yang semakin terhubung.</p>
 <p>Bagi satuan pendidikan, pengembangan tersebut perlu disertai pendampingan, tata kelola akun yang baik, perlindungan data, serta pemilihan teknologi yang sesuai dengan kebutuhan pembelajaran.</p>
-<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/en/opini/transformasi-digital-gtk-madrasah-melalui-google-workspace-gws-madrasah-kementerian-agama-6WpvW" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Transformasi Digital GTK Madrasah melalui Google Workspace (24 September 2026)</a>.</p>
+<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/opini/transformasi-digital-gtk-madrasah-melalui-google-workspace-gws-madrasah-kementerian-agama-6WpvW" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Transformasi Digital GTK Madrasah melalui Google Workspace (24 September 2026)</a>.</p>
 <p><em>Foto hanya ilustrasi pembelajaran digital, bukan dokumentasi MIN 6 Jember.</em></p>',
             ],
             [
