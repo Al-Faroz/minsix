@@ -144,13 +144,41 @@ class InstallDemoAssets extends BaseCommand
         }
         $media->close();
 
+        $spmbSeed = ROOTPATH . 'database/seeds/spmb_demo_2027_2028.sql';
+        if (! is_file($spmbSeed) || ! $this->runSqlSeed($db, $spmbSeed)) {
+            CLI::error('Aset media terpasang, tetapi seed demo SPMB gagal dijalankan. Periksa database/seeds/spmb_demo_2027_2028.sql.');
+            return;
+        }
+
         CLI::newLine();
         CLI::write('Pemasangan aset selesai.', 'green');
         CLI::write('Media terdaftar/diperbarui : ' . $installed);
         CLI::write('Foto GTK tertaut otomatis : ' . $linked);
+        CLI::write('Data demo SPMB 2027/2028  : DRAFT (tidak tampil publik)');
         CLI::write('File dilewati             : ' . $skipped);
         CLI::write('Lokasi media               : public/uploads/demo/');
         CLI::write('Periksa Media Library dan halaman GTK setelah proses ini.');
+    }
+
+    private function runSqlSeed(\\CodeIgniter\\Database\\BaseConnection $db, string $path): bool
+    {
+        $sql = file_get_contents($path);
+        if ($sql === false) {
+            return false;
+        }
+
+        $statements = preg_split('/;\\s*(?:\\r?\\n|$)/', $sql) ?: [];
+        foreach ($statements as $statement) {
+            $statement = trim($statement);
+            if ($statement === '' || str_starts_with($statement, '--')) {
+                continue;
+            }
+            if ($db->query($statement) === false) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     private function slug(string $value): string
