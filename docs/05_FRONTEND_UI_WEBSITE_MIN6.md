@@ -69,17 +69,47 @@ Footer                DARK
 
 ## 4. Typography
 
-PHASE 9 mengunci hierarchy ala BootstrapMade/Rival dengan stack:
+Sistem font:
 - **Body:** Roboto;
 - **Heading:** Raleway;
-- **Navigation/label:** Poppins.
+- **Navigation/label:** Poppins;
+- fallback system sans-serif.
 
-Font di-load dari Google Fonts dengan fallback system sans-serif. Heading desktop menggunakan `clamp()`, tight line-height, dan negative letter-spacing secukupnya agar proporsi mendekati Rival.
+Prinsip hierarchy:
+- body copy menjadi prioritas keterbacaan;
+- heading membedakan tingkat halaman dan section, tidak saling berebut perhatian;
+- label kecil tetap terbaca dan tidak digunakan untuk isi informasi penting;
+- ukuran menggunakan `clamp()` secara terukur, bukan membesarkan semua teks;
+- line-height paragraf dijaga lega dan panjang baris dibatasi oleh container.
 
-Jika pada audit browser ditemukan Rival memakai family berbeda, font dapat dikoreksi tanpa mengubah struktur layout karena seluruh typography sudah memakai CSS variable.
+Skala implementasi baseline:
+
+| Elemen | Desktop | Mobile |
+|---|---:|---:|
+| Body umum | 16 px | 15.5 px |
+| Isi artikel/profil | sekitar 16 px | 16 px |
+| Lead/intro | 17–18 px | 16 px |
+| Hero heading | 45–76 px | 38–52 px |
+| Page heading | 42–72 px | 36–48 px |
+| Section heading | 34–54 px | 30–41 px |
+| Card heading | 17–27 px | 17–20 px |
+| Navigasi | sekitar 13.5 px | sekitar 15 px |
+| Eyebrow/label | 11.5–12 px | 11.5–12 px |
+
+Angka merupakan rentang acuan; ukuran akhir mengikuti lebar viewport dan panjang teks agar tidak menyebabkan heading patah secara buruk.
+
+Aturan keterbacaan:
+- paragraf normal minimal sekitar 15.5–16 px;
+- teks deskripsi kartu tidak boleh dikecilkan menjadi teks catatan;
+- metadata boleh lebih kecil, tetapi tetap terbaca;
+- heading panjang harus memiliki line-height yang cukup;
+- judul tidak boleh memenuhi layar sehingga mendorong informasi utama terlalu jauh ke bawah;
+- uji desktop, tablet, dan mobile sebelum menyatakan PASS.
+
+Font di-load dari Google Fonts dengan fallback system sans-serif. Perubahan skala tidak boleh mengubah struktur layout, warna, atau identitas visual Rival.
 
 ---
-
+ 
 ## 5. Navbar
 
 Desktop:
