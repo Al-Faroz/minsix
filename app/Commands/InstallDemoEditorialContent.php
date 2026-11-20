@@ -1,9 +1,9 @@
 <?php
 
-namespace App\\Commands;
+namespace App\Commands;
 
-use CodeIgniter\\CLI\\BaseCommand;
-use CodeIgniter\\CLI\\CLI;
+use CodeIgniter\CLI\BaseCommand;
+use CodeIgniter\CLI\CLI;
 
 class InstallDemoEditorialContent extends BaseCommand
 {
@@ -70,7 +70,7 @@ class InstallDemoEditorialContent extends BaseCommand
         CLI::write('Foto: sumber Pexels, dicatat sebagai ilustrasi beserta fotografer dan tautan sumber.');
     }
 
-    private function installSettings(\\CodeIgniter\\Database\\BaseConnection $db, int $userId): void
+    private function installSettings(\CodeIgniter\Database\BaseConnection $db, int $userId): void
     {
         $values = [
             'site_name' => ['MIN 6 Jember', 'string'],
@@ -115,7 +115,7 @@ class InstallDemoEditorialContent extends BaseCommand
         }
     }
 
-    private function installImage(\\CodeIgniter\\Database\\BaseConnection $db, array $image, int $userId): int
+    private function installImage(\CodeIgniter\Database\BaseConnection $db, array $image, int $userId): int
     {
         $relativePath = 'uploads/news-illustrations/' . $image['filename'];
         $existing = $db->table('media')->where('relative_path', $relativePath)->get()->getRowArray();
@@ -202,7 +202,7 @@ class InstallDemoEditorialContent extends BaseCommand
         return is_string($bytes) ? $bytes : null;
     }
 
-    private function installNews(\\CodeIgniter\\Database\\BaseConnection $db, int $userId, array $mediaIds): void
+    private function installNews(\CodeIgniter\Database\BaseConnection $db, int $userId, array $mediaIds): void
     {
         $articles = [
             [
