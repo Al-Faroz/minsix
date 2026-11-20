@@ -1055,3 +1055,154 @@ body{
   .hero-visual.placeholder:after{width:76%;right:4%;top:10%}
 }
 
+
+
+/* PAGE TYPOGRAPHY REFINEMENT — Profile, Program, GTK, Kabar */
+.page-hero .section-eyebrow,
+.page-stack .section-eyebrow{
+  font-size:.74rem;
+  line-height:1.4;
+}
+.page-hero h1{
+  max-width:900px;
+  font-size:clamp(2.7rem,4.8vw,4.35rem);
+  line-height:1.06;
+  letter-spacing:-.045em;
+}
+.page-hero> .site-container > p:last-child{
+  max-width:760px;
+  font-size:1.08rem;
+  line-height:1.8;
+}
+.page-stack{gap:clamp(58px,7vw,92px)}
+
+/* Profil */
+.page-stack .profile-copy h2{
+  max-width:620px;
+  margin:10px 0 20px;
+  font-size:clamp(2rem,3.4vw,3.1rem);
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+.page-stack .profile-copy .prose{
+  max-width:660px;
+  font-size:1.04rem;
+  line-height:1.9;
+  overflow-wrap:anywhere;
+}
+.page-stack .profile-copy .prose p{margin:.7em 0 1.15em}
+.page-stack .profile-copy .prose h2{font-size:1.65rem;line-height:1.25}
+.page-stack .profile-copy .prose h3{font-size:1.35rem;line-height:1.3}
+.page-stack .profile-copy .prose li{margin:.45em 0}
+.page-stack .profile-copy .empty-copy{font-size:1rem;line-height:1.7}
+
+/* Program */
+.page-stack .program-group-head span{font-size:.78rem}
+.page-stack .program-group-head h2{
+  margin:10px 0 0;
+  font-size:clamp(1.9rem,3vw,2.7rem);
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+.page-stack .program-public-item h3{
+  font-size:1.3rem;
+  line-height:1.3;
+  letter-spacing:-.02em;
+}
+.page-stack .program-public-item p{
+  font-size:1rem;
+  line-height:1.75;
+}
+.page-stack .program-public-item .prose{
+  font-size:.98rem;
+  line-height:1.8;
+}
+.page-stack .program-public-item .prose h2{font-size:1.45rem}
+.page-stack .program-public-item .prose h3{font-size:1.22rem}
+
+/* GTK */
+.page-stack .gtk-section .section-heading{margin-bottom:28px}
+.page-stack .gtk-section .section-heading h2{
+  margin:8px 0 0;
+  font-size:clamp(1.9rem,3vw,2.65rem);
+  line-height:1.12;
+}
+.page-stack .gtk-copy{padding:18px}
+.page-stack .gtk-copy h3{
+  font-size:1.02rem;
+  line-height:1.45;
+  overflow-wrap:anywhere;
+}
+.page-stack .gtk-copy .gtk-roles{
+  margin:9px 0!important;
+  font-size:.84rem!important;
+  line-height:1.5;
+}
+.page-stack .gtk-copy p:last-child{
+  font-size:.94rem;
+  line-height:1.7;
+}
+
+/* Kabar */
+.page-stack .section-heading{margin-bottom:30px}
+.page-stack .section-heading h2{
+  font-size:clamp(1.95rem,3.1vw,2.7rem);
+  line-height:1.12;
+  letter-spacing:-.035em;
+}
+.page-stack .public-card>small{
+  font-size:.78rem;
+  line-height:1.5;
+}
+.page-stack .public-card h3{
+  font-size:1.12rem;
+  line-height:1.4;
+  letter-spacing:-.015em;
+}
+.page-stack .public-card p{
+  font-size:.96rem;
+  line-height:1.7;
+}
+.page-stack .event-row time strong{font-size:2rem;line-height:1}
+.page-stack .event-row time span{font-size:.78rem;line-height:1.45}
+.page-stack .event-row h3{font-size:1.12rem;line-height:1.4}
+.page-stack .event-row p{font-size:.96rem;line-height:1.65}
+.page-stack .gallery-public-card h3{font-size:1.05rem;line-height:1.4}
+
+@media(max-width:900px){
+  .page-stack .gtk-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .page-stack .program-group{grid-template-columns:220px minmax(0,1fr);gap:34px}
+}
+@media(max-width:760px){
+  .page-hero{padding:76px 0 54px}
+  .page-hero h1{font-size:clamp(2.35rem,7.5vw,3.25rem);line-height:1.08}
+  .page-hero>.site-container>p:last-child{font-size:1rem;line-height:1.7}
+  .page-stack{gap:58px;padding-block:58px}
+  .page-stack .profile-block{gap:30px;padding-bottom:44px}
+  .page-stack .profile-copy h2{font-size:clamp(1.85rem,6vw,2.45rem)}
+  .page-stack .profile-copy .prose{font-size:1rem;line-height:1.82}
+  .page-stack .program-group{grid-template-columns:1fr;gap:20px}
+  .page-stack .program-group-head{position:static}
+  .page-stack .program-group-head h2{font-size:2rem}
+  .page-stack .program-public-item{grid-template-columns:140px minmax(0,1fr);gap:18px}
+  .page-stack .program-public-item h3{font-size:1.12rem}
+  .page-stack .program-public-item p,
+  .page-stack .program-public-item .prose{font-size:.96rem}
+  .page-stack .gtk-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .page-stack .gtk-copy{padding:14px}
+  .page-stack .gtk-copy h3{font-size:.98rem}
+  .page-stack .gtk-copy p:last-child{font-size:.9rem}
+  .page-stack .section-heading h2{font-size:2rem}
+  .page-stack .public-card h3{font-size:1.06rem}
+  .page-stack .public-card p{font-size:.94rem}
+}
+@media(max-width:480px){
+  .page-stack .program-public-item{grid-template-columns:1fr;gap:14px}
+  .page-stack .program-public-image{max-width:100%;aspect-ratio:16/9}
+  .page-stack .gtk-grid{grid-template-columns:1fr}
+  .page-stack .gtk-card{display:grid;grid-template-columns:112px minmax(0,1fr);align-items:stretch}
+  .page-stack .gtk-photo{height:100%;min-height:150px;aspect-ratio:auto}
+  .page-stack .gtk-copy{align-self:center}
+  .page-stack .event-row{grid-template-columns:66px minmax(0,1fr) auto;gap:14px}
+  .page-stack .event-row time strong{font-size:1.75rem}
+}
