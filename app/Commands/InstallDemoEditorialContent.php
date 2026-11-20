@@ -35,7 +35,7 @@ class InstallDemoEditorialContent extends BaseCommand
     {
         $db = db_connect();
 
-        foreach (['site_settings', 'media', 'news', 'app_users'] as $table) {
+        foreach (['site_settings', 'media', 'news', 'profile_sections', 'programs', 'app_users'] as $table) {
             if (! $db->tableExists($table)) {
                 CLI::error("Tabel {$table} belum tersedia. Jalankan seluruh migrasi CMS terlebih dahulu.");
                 return;
@@ -50,6 +50,7 @@ class InstallDemoEditorialContent extends BaseCommand
         }
 
         $this->installSettings($db, $createdBy);
+        $this->installProfileAndPrograms($db, $createdBy);
 
         $mediaIds = [];
         foreach (self::IMAGES as $key => $image) {
@@ -66,6 +67,8 @@ class InstallDemoEditorialContent extends BaseCommand
         CLI::newLine();
         CLI::write('Pengisian konten awal selesai.', 'green');
         CLI::write('Pengaturan: data resmi sekolah diisi; Instagram, WhatsApp, dan Maps dibiarkan kosong karena belum diverifikasi.');
+        CLI::write('Profil: section kosong dilengkapi; isi yang sudah diedit operator dipertahankan.');
+        CLI::write('Program: program pengenalan ditambahkan sebagai PUBLISHED; slug yang sudah ada tidak ditimpa.');
         CLI::write('Berita: 3 artikel dibuat sebagai DRAFT, tidak tampil di publik sebelum diperiksa dan diterbitkan.');
         CLI::write('Foto: sumber Pexels, dicatat sebagai ilustrasi beserta fotografer dan tautan sumber.');
     }
@@ -200,6 +203,123 @@ class InstallDemoEditorialContent extends BaseCommand
         ]);
         $bytes = @file_get_contents($url, false, $context);
         return is_string($bytes) ? $bytes : null;
+    }
+
+
+    private function installProfileAndPrograms(\CodeIgniter\Database\BaseConnection $db, int $userId): void
+    {
+        // Hanya mengisi body yang masih kosong. Konten yang pernah diedit operator tidak ditimpa.
+        $profileContent = [
+            'about' => 'MIN 6 Jember merupakan Madrasah Ibtidaiyah Negeri yang berada di wilayah Tanggul Wetan, Kecamatan Tanggul, Kabupaten Jember, Jawa Timur. Madrasah menjadi bagian dari layanan pendidikan dasar yang memadukan pembelajaran umum dengan penguatan nilai-nilai keislaman. Melalui lingkungan belajar yang aman, tertib, dan mendukung perkembangan anak, MIN 6 Jember berupaya mendampingi peserta didik agar tumbuh menjadi pribadi yang berilmu, berakhlak baik, mandiri, dan siap melanjutkan pendidikan ke jenjang berikutnya.',
+            'vision' => 'Berakhlaqul Karimah dan Berprestasi. Visi ini menjadi arah bersama dalam membangun budaya madrasah yang menumbuhkan akhlak mulia, semangat belajar, kedisiplinan, tanggung jawab, serta pengembangan potensi setiap peserta didik.',
+            'history' => 'MIN 6 Jember berada di Jl. Urip Sumoharjo Gg. Legog, Tanggul Wetan, Kecamatan Tanggul, Kabupaten Jember, Jawa Timur. Sebagai madrasah ibtidaiyah negeri, MIN 6 Jember menyelenggarakan pendidikan dasar dengan mengintegrasikan pengetahuan, keterampilan, dan pendidikan keagamaan. Riwayat tahun pendirian, perubahan status kelembagaan, serta tonggak sejarah madrasah akan dilengkapi berdasarkan dokumen resmi dan arsip madrasah agar setiap tanggal dan peristiwa yang dipublikasikan dapat dipertanggungjawabkan.',
+            'timeline' => 'Saat ini — MIN 6 Jember menyelenggarakan layanan pendidikan dasar pada jenjang Madrasah Ibtidaiyah Negeri di Tanggul Wetan, Kabupaten Jember.\nTahap berikutnya — Linimasa pendirian, perubahan status, pembangunan sarana, dan tonggak perkembangan akan ditambahkan setelah diverifikasi menggunakan arsip resmi madrasah.',
+            'headmaster_message' => 'Selamat datang di website resmi MIN 6 Jember. Website ini menjadi salah satu sarana informasi dan komunikasi madrasah dengan peserta didik, orang tua, alumni, serta masyarakat. Kami berkomitmen untuk terus menghadirkan layanan pendidikan yang mendorong peserta didik berkembang dalam pengetahuan, keterampilan, karakter, dan nilai-nilai keagamaan. Kami mengajak seluruh warga madrasah dan masyarakat untuk bersama-sama membangun lingkungan pendidikan yang positif, aman, inklusif, dan berorientasi pada kemajuan peserta didik.\n\nSalam hormat,\nEKO ISWANTO, S.Pd., M.Pd.\nKepala MIN 6 Jember\n\nCatatan: naskah sambutan ini merupakan draf redaksi website dan perlu persetujuan Kepala Madrasah sebelum dianggap sebagai sambutan resmi.',
+            'identity' => 'Nama satuan pendidikan: MIN 6 Jember\nBentuk pendidikan: Madrasah Ibtidaiyah (MI)\nStatus: Negeri\nNPSN: 60715787\nAkreditasi: A\nAlamat: Jl. Urip Sumoharjo Gg. Legog, Tanggul Wetan, Kecamatan Tanggul, Kabupaten Jember, Jawa Timur\nKepala Madrasah: EKO ISWANTO, S.Pd., M.Pd.\nEmail: mintanggulwetan@gmail.com\nTelepon: 082330634295\n\nData identitas ditampilkan sebagai informasi awal dan dapat diperbarui melalui dokumen resmi terbaru.',
+            'location' => 'MIN 6 Jember beralamat di Jl. Urip Sumoharjo Gg. Legog, Tanggul Wetan, Kecamatan Tanggul, Kabupaten Jember, Jawa Timur. Untuk keperluan kunjungan atau pengiriman surat, masyarakat dapat menggunakan alamat tersebut dan menghubungi madrasah melalui telepon 082330634295 atau email mintanggulwetan@gmail.com. Peta interaktif akan ditampilkan setelah tautan atau kode semat Google Maps resmi madrasah dikonfirmasi.',
+        ];
+
+        foreach ($profileContent as $sectionKey => $body) {
+            $section = $db->table('profile_sections')->where('section_key', $sectionKey)->get()->getRowArray();
+            if (! $section || trim((string) ($section['body'] ?? '')) !== '') {
+                continue;
+            }
+
+            $db->table('profile_sections')->where('id', $section['id'])->update([
+                'body' => $body,
+                'updated_by' => $userId,
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }
+
+        $programs = [
+            [
+                'slug' => 'pembelajaran-aktif-bermakna',
+                'name' => 'Pembelajaran Aktif dan Bermakna',
+                'category' => 'Pembelajaran',
+                'summary' => 'Pembelajaran yang mendorong peserta didik memahami konsep, berpartisipasi, bertanya, mencoba, dan menghubungkan materi dengan kehidupan sehari-hari.',
+                'content' => '<p>Pembelajaran diarahkan agar peserta didik tidak hanya menerima informasi, tetapi juga terlibat aktif dalam proses menemukan dan memahami pengetahuan. Guru dapat memadukan penjelasan, diskusi, praktik, pengamatan, pemecahan masalah, dan refleksi sesuai tujuan pembelajaran.</p><p>Pelaksanaan pembelajaran memperhatikan tahap perkembangan, kebutuhan, dan keragaman kemampuan peserta didik. Materi, metode, serta asesmen disesuaikan dengan kurikulum dan perencanaan pembelajaran yang berlaku di madrasah.</p><p><em>Deskripsi ini merupakan pengenalan program pembelajaran; rincian metode dan jadwal mengikuti perencanaan resmi madrasah.</em></p>',
+                'display_order' => 10,
+            ],
+            [
+                'slug' => 'penguatan-literasi-dan-numerasi',
+                'name' => 'Penguatan Literasi dan Numerasi',
+                'category' => 'Pembelajaran',
+                'summary' => 'Pengembangan kemampuan memahami bacaan, menyampaikan gagasan, bernalar, serta menggunakan konsep matematika dalam konteks sehari-hari.',
+                'content' => '<p>Literasi dan numerasi merupakan kemampuan dasar yang mendukung keberhasilan belajar pada berbagai mata pelajaran. Penguatan literasi mencakup kebiasaan membaca, memahami informasi, memperkaya kosakata, dan mengomunikasikan gagasan.</p><p>Penguatan numerasi membantu peserta didik menggunakan bilangan, pengukuran, data, dan penalaran untuk memahami situasi sehari-hari. Kegiatan dapat diintegrasikan ke dalam pembelajaran sesuai tingkat kelas dan kebutuhan peserta didik.</p>',
+                'display_order' => 20,
+            ],
+            [
+                'slug' => 'pembiasaan-disiplin-dan-karakter',
+                'name' => 'Pembiasaan Disiplin dan Karakter',
+                'category' => 'Pembiasaan & Karakter',
+                'summary' => 'Pembentukan kebiasaan positif melalui keteladanan, tanggung jawab, kedisiplinan, kepedulian, kebersihan, dan sikap saling menghormati.',
+                'content' => '<p>Pendidikan karakter tumbuh melalui pembiasaan yang konsisten dan keteladanan seluruh warga madrasah. Nilai yang dikembangkan meliputi kejujuran, disiplin, tanggung jawab, kemandirian, gotong royong, kepedulian, serta sikap menghargai perbedaan.</p><p>Penguatan karakter dilaksanakan melalui budaya keseharian di lingkungan belajar dan kolaborasi dengan keluarga. Bentuk kegiatan dan tata tertib mengikuti kebijakan madrasah yang berlaku.</p>',
+                'display_order' => 30,
+            ],
+            [
+                'slug' => 'pembiasaan-hidup-bersih-dan-sehat',
+                'name' => 'Pembiasaan Hidup Bersih dan Sehat',
+                'category' => 'Pembiasaan & Karakter',
+                'summary' => 'Menumbuhkan kepedulian terhadap kebersihan diri, ruang belajar, lingkungan, serta kebiasaan hidup sehat dan aman.',
+                'content' => '<p>Lingkungan belajar yang bersih dan sehat membantu peserta didik belajar dengan nyaman. Pembiasaan diarahkan pada kepedulian menjaga kebersihan diri, kelas, fasilitas bersama, dan lingkungan madrasah.</p><p>Peserta didik juga diajak memahami kebiasaan hidup sehat, keselamatan, serta tanggung jawab menggunakan fasilitas bersama secara tertib.</p>',
+                'display_order' => 40,
+            ],
+            [
+                'slug' => 'penguatan-ibadah-dan-akhlak',
+                'name' => 'Penguatan Ibadah dan Akhlak',
+                'category' => 'Keagamaan',
+                'summary' => 'Penguatan pemahaman dan pengamalan nilai-nilai Islam melalui pembelajaran, keteladanan, dan pembiasaan ibadah.',
+                'content' => '<p>Pendidikan keagamaan menjadi bagian penting dalam pembentukan karakter peserta didik. Penguatan dilakukan melalui pembelajaran agama, pengenalan adab, keteladanan, serta pembiasaan perilaku yang mencerminkan akhlak terpuji.</p><p>Materi dan bentuk pembiasaan disesuaikan dengan kurikulum, tahap perkembangan peserta didik, serta ketentuan kegiatan keagamaan madrasah.</p>',
+                'display_order' => 50,
+            ],
+            [
+                'slug' => 'pembelajaran-al-quran-metode-yanbua',
+                'name' => 'Pembelajaran Al-Qur’an Metode Yanbu’a',
+                'category' => "Yanbu'a",
+                'summary' => 'Pendampingan kemampuan membaca Al-Qur’an secara bertahap dengan memperhatikan ketepatan pelafalan dan kaidah bacaan.',
+                'content' => '<p>Pembelajaran Al-Qur’an melalui metode Yanbu’a diarahkan untuk mendampingi peserta didik mengenal huruf, membaca secara bertahap, dan memperbaiki ketepatan bacaan. Proses belajar perlu memperhatikan kemampuan awal setiap peserta didik agar pendampingan dapat berlangsung sesuai tahapnya.</p><p>Pengelompokan, target capaian, jadwal, dan evaluasi mengikuti pengaturan program Yanbu’a yang ditetapkan oleh madrasah.</p>',
+                'display_order' => 60,
+            ],
+            [
+                'slug' => 'pengembangan-minat-dan-bakat',
+                'name' => 'Pengembangan Minat dan Bakat',
+                'category' => 'Ekstrakurikuler',
+                'summary' => 'Ruang pengembangan potensi peserta didik melalui kegiatan pilihan yang mendukung kreativitas, kerja sama, kemandirian, dan kepercayaan diri.',
+                'content' => '<p>Kegiatan pengembangan minat dan bakat memberi kesempatan kepada peserta didik untuk mengenali potensi diri, berlatih secara terarah, bekerja sama, dan membangun rasa percaya diri.</p><p>Jenis kegiatan, pembina, persyaratan peserta, dan jadwal ekstrakurikuler mengikuti program kerja serta ketersediaan pembina di MIN 6 Jember. Informasi kegiatan spesifik akan diperbarui setelah jadwal resmi ditetapkan.</p>',
+                'display_order' => 70,
+            ],
+            [
+                'slug' => 'pembinaan-prestasi-peserta-didik',
+                'name' => 'Pembinaan Prestasi Peserta Didik',
+                'category' => 'Pengembangan Prestasi',
+                'summary' => 'Pendampingan potensi akademik dan nonakademik agar peserta didik berani berproses, berkompetisi secara sehat, dan mengembangkan kemampuan.',
+                'content' => '<p>Pembinaan prestasi berfokus pada pengenalan potensi, latihan terarah, penguatan motivasi, dan pembentukan sikap sportif. Pengembangan dapat mencakup bidang akademik maupun nonakademik sesuai minat peserta didik dan kesempatan yang tersedia.</p><p>Keikutsertaan dalam lomba, nama kompetisi, serta capaian prestasi hanya akan dipublikasikan pada bagian prestasi setelah didukung informasi dan dokumentasi yang terverifikasi.</p>',
+                'display_order' => 80,
+            ],
+        ];
+
+        foreach ($programs as $program) {
+            if ($db->table('programs')->where('slug', $program['slug'])->countAllResults() > 0) {
+                continue;
+            }
+
+            $db->table('programs')->insert([
+                'slug' => $program['slug'],
+                'name' => $program['name'],
+                'category' => $program['category'],
+                'summary' => $program['summary'],
+                'content' => $program['content'],
+                'primary_media_id' => null,
+                'display_order' => $program['display_order'],
+                'status' => 'PUBLISHED',
+                'published_at' => date('Y-m-d H:i:s'),
+                'created_by' => $userId,
+                'updated_by' => $userId,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ]);
+        }
     }
 
     private function installNews(\CodeIgniter\Database\BaseConnection $db, int $userId, array $mediaIds): void
