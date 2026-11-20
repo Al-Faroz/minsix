@@ -53,6 +53,12 @@ class InstallDemoAssets extends BaseCommand
             return;
         }
 
+        $createdBy = 0;
+        if ($db->tableExists('users')) {
+            $userRow = $db->table('users')->select('id')->orderBy('id', 'ASC')->get()->getRowArray();
+            $createdBy = (int) ($userRow['id'] ?? 0);
+        }
+
         $installed = 0;
         $linked = 0;
         $skipped = 0;
@@ -116,7 +122,7 @@ class InstallDemoAssets extends BaseCommand
                 'alt_text' => $isImage ? $this->altText($originalName) : '',
                 'caption' => 'Aset demo MIN 6 Jember. Silakan verifikasi dan ganti dengan dokumentasi resmi bila diperlukan.',
                 'media_type' => $isImage ? 'IMAGE' : 'DOCUMENT',
-                'created_by' => null,
+                'created_by' => $createdBy > 0 ? $createdBy : null,
                 'created_at' => date('Y-m-d H:i:s'),
             ];
 
