@@ -9,7 +9,7 @@ class InstallDemoEditorialContent extends BaseCommand
 {
     protected $group = 'MIN SIX';
     protected $name = 'minsix:content:demo:install';
-    protected $description = 'Isi pengaturan website terverifikasi dan berita edukasi draft beserta foto ilustrasi berlisensi Pexels.';
+    protected $description = 'Isi awal pengaturan, Profil, Program, dan berita edukasi draft beserta foto ilustrasi berlisensi Pexels.';
     protected $usage = 'minsix:content:demo:install';
 
     private const IMAGES = [
