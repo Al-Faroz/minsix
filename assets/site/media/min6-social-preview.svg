@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">MIN 6 JEMBER — Madrasah Maju, Bermutu, Mendunia</title>
+  <desc id="desc">Kartu berbagi resmi website MIN 6 Jember.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#073b2b"/><stop offset="0.58" stop-color="#0b6547"/><stop offset="1" stop-color="#102e28"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#b9df8a" stop-opacity=".24"/><stop offset="1" stop-color="#b9df8a" stop-opacity="0"/></radialGradient>
+    <pattern id="dots" width="34" height="34" patternUnits="userSpaceOnUse"><circle cx="2" cy="2" r="1.5" fill="#fff" opacity=".12"/></pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1040" cy="70" r="420" fill="url(#glow)"/>
+  <circle cx="1120" cy="580" r="280" fill="none" stroke="#d8edc1" stroke-opacity=".12" stroke-width="2"/>
+  <circle cx="1120" cy="580" r="220" fill="none" stroke="#d8edc1" stroke-opacity=".10" stroke-width="2"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <path d="M0 520 Q260 430 520 520 T1200 500 V630 H0Z" fill="#041f19" opacity=".22"/>
+  <rect x="86" y="88" width="116" height="116" rx="24" fill="#fff" opacity=".98"/>
+  <image x="98" y="100" width="92" height="92" xlink:href="https://minsix.web.id/assets/brand/min6-logo.png" preserveAspectRatio="xMidYMid meet"/>
+  <text x="86" y="300" fill="#d8edc1" font-family="Arial,Helvetica,sans-serif" font-size="23" font-weight="700" letter-spacing="5">WEBSITE RESMI</text>
+  <text x="82" y="390" fill="#fff" font-family="Arial,Helvetica,sans-serif" font-size="76" font-weight="800" letter-spacing="1">MIN 6 JEMBER</text>
+  <rect x="88" y="424" width="92" height="6" rx="3" fill="#d8edc1"/>
+  <text x="88" y="482" fill="#f4f8ef" font-family="Arial,Helvetica,sans-serif" font-size="31" font-weight="600">Madrasah Maju, Bermutu, Mendunia</text>
+  <text x="88" y="556" fill="#d8edc1" font-family="Arial,Helvetica,sans-serif" font-size="20" letter-spacing="1">Informasi • Profil • Program • Kabar Madrasah</text>
+  <text x="1112" y="578" text-anchor="end" fill="#fff" opacity=".82" font-family="Arial,Helvetica,sans-serif" font-size="18">minsix.web.id</text>
+</svg>
