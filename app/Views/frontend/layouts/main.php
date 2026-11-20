@@ -74,7 +74,11 @@ if (! empty($structuredData) && is_array($structuredData)) {
     <meta property="og:title" content="<?= esc($documentTitle) ?>">
     <meta property="og:description" content="<?= esc($description) ?>">
     <meta property="og:url" content="<?= esc($resolvedCanonical) ?>">
-    <?php if ($resolvedOgImage): ?>\n    <meta property="og:image" content="<?= esc($resolvedOgImage) ?>">\n    <meta property="og:image:secure_url" content="<?= esc($resolvedOgImage) ?>">\n    <meta property="og:image:type" content="image/svg+xml">\n    <?php endif ?>
+    <?php if ($resolvedOgImage): ?>
+    <meta property="og:image" content="<?= esc($resolvedOgImage) ?>">
+    <meta property="og:image:secure_url" content="<?= esc($resolvedOgImage) ?>">
+    <meta property="og:image:type" content="<?= esc(strtolower(pathinfo((string) parse_url($resolvedOgImage, PHP_URL_PATH), PATHINFO_EXTENSION)) === 'png' ? 'image/png' : (strtolower(pathinfo((string) parse_url($resolvedOgImage, PHP_URL_PATH), PATHINFO_EXTENSION)) === 'jpg' || strtolower(pathinfo((string) parse_url($resolvedOgImage, PHP_URL_PATH), PATHINFO_EXTENSION)) === 'jpeg' ? 'image/jpeg' : 'image/svg+xml')) ?>">
+    <?php endif ?>
 
     <meta name="twitter:card" content="<?= $resolvedOgImage ? 'summary_large_image' : 'summary' ?>">
     <meta name="twitter:title" content="<?= esc($documentTitle) ?>">
