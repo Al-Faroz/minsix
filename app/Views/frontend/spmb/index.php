@@ -11,6 +11,10 @@
             <h1>Informasi SPMB</h1>
             <p>Belum ada periode SPMB yang dipublikasikan sebagai Current.</p>
         <?php endif ?>
+        <figure class="spmb-hero-illustration" aria-label="Ilustrasi konseptual SPMB MIN 6 Jember">
+            <img src="<?= base_url('assets/brand/min6-spmb-cover-concept.svg') ?>" alt="" width="800" height="450" fetchpriority="high">
+            <figcaption>Ilustrasi konseptual, bukan foto dokumentasi madrasah</figcaption>
+        </figure>
     </div>
 </header>
 
