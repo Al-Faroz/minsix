@@ -150,6 +150,29 @@ class InstallDemoAssets extends BaseCommand
         }
         $media->close();
 
+        // Hubungkan aset demo ke section publik beranda PHASE 10C.
+        // Hanya mengisi relasi yang masih kosong agar media pilihan operator tidak tertimpa.
+        $homepageMedia = [
+            'hero' => 'uploads/demo/activities/hero_welcome.jpg',
+            'about' => 'uploads/demo/activities/ceremony.jpg',
+            'habits' => 'uploads/demo/activities/religious.jpg',
+            'program_intro' => 'uploads/demo/activities/classroom.jpg',
+            'achievement_intro' => 'uploads/demo/activities/achievement.jpg',
+            'story_intro' => 'uploads/demo/activities/extracurricular.jpg',
+            'headmaster' => 'uploads/demo/activities/hero_welcome.jpg',
+        ];
+        if ($db->tableExists('homepage_sections')) {
+            foreach ($homepageMedia as $sectionKey => $path) {
+                $asset = $db->table('media')->select('id')->where('relative_path', $path)->get()->getRowArray();
+                if ($asset) {
+                    $db->table('homepage_sections')
+                        ->where('section_key', $sectionKey)
+                        ->where('primary_media_id', null)
+                        ->update(['primary_media_id' => (int) $asset['id']]);
+                }
+            }
+        }
+
         $spmbSeed = ROOTPATH . 'database/seeds/spmb_demo_2027_2028.sql';
         if (! is_file($spmbSeed) || ! $this->runSqlSeed($db, $spmbSeed)) {
             CLI::error('Aset media terpasang, tetapi seed demo SPMB gagal dijalankan. Periksa database/seeds/spmb_demo_2027_2028.sql.');
@@ -172,7 +195,7 @@ class InstallDemoAssets extends BaseCommand
         CLI::write('Foto GTK tertaut otomatis : ' . $linked);
         CLI::write('Data demo SPMB 2027/2028  : DRAFT (tidak tampil publik)');
         CLI::write('File dilewati             : ' . $skipped);
-        CLI::write('Lokasi media               : public/uploads/demo/');
+        CLI::write('Lokasi media               : uploads/demo/');
         CLI::write('Periksa Media Library dan halaman GTK setelah proses ini.');
     }
 
