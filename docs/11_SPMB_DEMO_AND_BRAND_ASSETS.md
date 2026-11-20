@@ -54,5 +54,5 @@ Ilustrasi SPMB bukan foto kegiatan atau fasilitas MIN 6 Jember. Gunakan sebagai 
 - [ ] Periode 2027/2028 tampil di Manager → SPMB dengan status DRAFT.
 - [ ] Tidak ada periode yang berubah menjadi Current.
 - [ ] Persyaratan, tahapan, program, dan FAQ tampil pada halaman edit.
-- [ ] SVG logo, simbol, dan ilustrasi dapat dibuka dari browser.
+- [ ] Logo utama, varian putih, dan favicon resmi tampil di `/brand-preview.html`.
 - [ ] Tidak ada aset konsep yang disalahartikan sebagai foto dokumentasi.
