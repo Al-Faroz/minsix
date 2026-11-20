@@ -140,3 +140,44 @@ Rollback source memakai commit sebelumnya. Rollback database hanya dari backup y
 ## 13. Go-live gate
 
 Website baru dianggap production PASS bila HTTPS final aktif, baseURL/canonical benar, internal path terlindungi, RBAC benar, CRUD smoke test lolos, mobile/desktop visual lolos, tidak ada konten DEMO yang tidak dimaksudkan, tidak ada SPMB kedaluwarsa sebagai current, dan error 400/404/500 tidak membocorkan debug detail.
+
+## 14. Hosting preflight dan paket deployment
+
+Informasi provider/paket hosting, domain final, PHP hosting, document root, serta akses terminal belum ditetapkan pada dokumen proyek. Jangan mengunci nilai .env atau menganggap hosting menyediakan SSH sebelum data tersebut dikonfirmasi.
+
+Persyaratan minimum server:
+- PHP 8.2 atau lebih baru.
+- Ekstensi PHP intl dan mbstring (wajib framework), mysqli (MySQL/MariaDB), serta fileinfo dan curl untuk fitur upload/integrasi API. Periksa GD bila image processing menggunakannya.
+- MySQL/MariaDB dengan InnoDB, foreign key, dan utf8mb4.
+- Apache dengan mod_rewrite, mod_headers, dan AllowOverride yang mengizinkan .htaccess pada root serta uploads.
+- HTTPS aktif dan PHP dapat menulis ke writable/ serta uploads/.
+
+PENTING: aplikasi saat ini memakai root proyek sebagai web root; isi bawaan folder public CI4 telah ditempatkan di root. Proteksi direktori internal bergantung pada .htaccess. Jika hosting memakai Nginx tanpa aturan proteksi ekuivalen atau tidak mengizinkan .htaccess, jangan go-live sebelum document root dan aturan keamanan disesuaikan serta diuji.
+
+Folder vendor/ tidak disimpan di Git. Sebelum membuat ZIP deployment pada komputer pengembang, jalankan dari root repository:
+
+```bash
+composer install --no-dev --optimize-autoloader --no-interaction
+```
+
+Pastikan vendor/autoload.php tersedia. ZIP harus memuat app/, assets/, uploads/ yang diperlukan, vendor/, writable/ beserta placeholder, index.php, .htaccess, composer.json, dan composer.lock. Jangan sertakan .git/, .env, tests/, docs/, cache/log/session lokal, credential, atau dump database production.
+
+Jika hanya tersedia File Manager dan pengelola database: backup folder tujuan; upload dan ekstrak ZIP; pastikan index.php, .htaccess, app/, dan vendor/ berada pada level yang benar; buat .env production langsung di server; atur permission writable/ dan uploads/; import SQL hanya untuk database baru atau upgrade yang belum diterapkan; lalu hapus ZIP dan SQL sementara setelah verifikasi. Jangan pernah mengunggah .env lokal.
+
+Untuk PHP production, pastikan konfigurasi Database memakai DBDebug nonaktif saat CI_ENVIRONMENT=production. Build paket memakai dependency production saja, bukan vendor hasil instalasi development.
+
+## 15. Informasi yang harus dikonfirmasi sebelum deployment nyata
+
+- Provider dan nama paket hosting.
+- Domain final dan pilihan www/non-www.
+- Versi PHP dan ekstensi yang aktif.
+- Apache/Nginx, dukungan .htaccess/mod_rewrite, dan document root.
+- Akses SSH/terminal atau hanya File Manager.
+- Host database, nama database, dan user database (jangan kirim password).
+- Status SSL/HTTPS.
+
+Jangan mengirim password database, encryption key, Meta App Secret, atau token melalui chat.
+
+## 16. Batas status
+
+PHASE 10 source preparation tidak sama dengan production PASS. Status production hanya boleh dinyatakan PASS setelah paket terpasang pada hosting sebenarnya, HTTPS dan proteksi direktori teruji, konfigurasi database/permission benar, dan seluruh functional serta security smoke test lulus.
