@@ -903,3 +903,29 @@ body{font-size:.94rem}
   .program-row .program-no{margin-bottom:46px}
   .footer-manager-link{align-self:flex-start}
 }
+
+
+/* SPMB hero — supporting concept artwork, explicitly not school documentation */
+.spmb-page-hero{position:relative;isolation:isolate;overflow:hidden}
+.spmb-page-hero .site-container{position:relative;z-index:1}
+.spmb-page-hero .site-container>p,
+.spmb-page-hero .site-container>h1{max-width:min(68%,780px)}
+.spmb-hero-illustration{
+  position:absolute;
+  z-index:0;
+  top:50%;
+  right:max(4vw,calc((100vw - var(--rival-max))/2));
+  width:min(39%,540px);
+  margin:0;
+  transform:translateY(-50%);
+  pointer-events:none;
+}
+.spmb-hero-illustration img{display:block;width:100%;height:auto;border-radius:20px;opacity:.88;box-shadow:0 28px 70px rgba(0,0,0,.22)}
+.spmb-hero-illustration figcaption{margin-top:8px;color:rgba(255,255,255,.62);font-size:.64rem;text-align:right}
+@media(max-width:760px){
+  .spmb-page-hero .site-container>p,
+  .spmb-page-hero .site-container>h1{max-width:100%}
+  .spmb-hero-illustration{position:relative;top:auto;right:auto;width:min(100%,520px);margin:30px 0 0;transform:none}
+  .spmb-hero-illustration img{border-radius:14px}
+  .spmb-hero-illustration figcaption{text-align:left}
+}
