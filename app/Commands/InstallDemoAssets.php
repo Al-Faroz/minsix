@@ -156,6 +156,16 @@ class InstallDemoAssets extends BaseCommand
             return;
         }
 
+        $qr = $db->table('media')->select('id')->where('relative_path', 'uploads/demo/activities/spmb_qr.jpg')->get()->getRowArray();
+        $brochure = $db->table('media')->select('id')->where('relative_path', 'uploads/demo/activities/spmb_2026_2027_poster.pdf')->get()->getRowArray();
+        $spmbDemo = $db->table('spmb_periods')->where('title', '[DATA DEMO] SPMB MIN 6 JEMBER 2027/2028')->get()->getRowArray();
+        if ($spmbDemo) {
+            $db->table('spmb_periods')->where('id', $spmbDemo['id'])->update([
+                'qr_media_id' => $qr['id'] ?? null,
+                'brochure_media_id' => $brochure['id'] ?? null,
+            ]);
+        }
+
         CLI::newLine();
         CLI::write('Pemasangan aset selesai.', 'green');
         CLI::write('Media terdaftar/diperbarui : ' . $installed);
