@@ -13,7 +13,7 @@ Urutan baca:
 
 ## Keputusan Utama
 - Framework: CodeIgniter 4
-- Folder lokal: `G:\xampp\htdocs\minsix`
+- Folder lokal: `E:\xampp\htdocs\minsix`
 - Repository: `Al-Faroz/minsix`
 - Database: SQL dump
 - Migration: tidak digunakan
@@ -60,3 +60,9 @@ Urutan baca:
 - PHASE 10C3: Integration Hardening — fallback aman sebelum SQL upgrade + dokumentasi deployment selesai
 
 - PHASE 10C4: Route/Upgrade Fix — route credential API lengkap dan SQL upgrade idempotent
+- PHASE 10C5: Demo Media Homepage — installer memasang 36 media demo; relasi foto section homepage diperbaiki tanpa menimpa pilihan media Operator — PASS
+- PHASE 10C6: Demo GTK Media — foto GTK berhasil dipasang dan ditautkan otomatis ke data GTK — PASS
+
+## Tahap Aktif
+- **PHASE 9 Runtime & Visual Audit** — tahap berikutnya. Source audit selesai, tetapi PASS runtime belum boleh diklaim sebelum pengujian lokal pada browser/viewport sesuai `09_PHASE9_RUNTIME_VISUAL_AUDIT.md`.
+- Setelah PHASE 9 PASS: finalisasi credential Instagram, verifikasi konten resmi/non-demo, lalu PHASE 10 deployment production.
