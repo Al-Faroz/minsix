@@ -54,8 +54,8 @@ class InstallDemoAssets extends BaseCommand
         }
 
         $createdBy = 0;
-        if ($db->tableExists('users')) {
-            $userRow = $db->table('users')->select('id')->orderBy('id', 'ASC')->get()->getRowArray();
+        if ($db->tableExists('app_users')) {
+            $userRow = $db->table('app_users')->select('id')->orderBy('id', 'ASC')->get()->getRowArray();
             $createdBy = (int) ($userRow['id'] ?? 0);
         }
 
@@ -139,7 +139,7 @@ class InstallDemoAssets extends BaseCommand
                 if (str_starts_with($relativePath, 'uploads/demo/gtk/') && $db->tableExists('gtk')) {
                     $stem = pathinfo($originalName, PATHINFO_FILENAME);
                     foreach ($db->table('gtk')->get()->getResultArray() as $gtk) {
-                        if ($this->slug((string) $gtk['name']) === $stem && empty($gtk['photo_media_id'])) {
+                        if ($this->normalizeName((string) $gtk['name']) === $this->normalizeName($stem) && empty($gtk['photo_media_id'])) {
                             $db->table('gtk')->where('id', $gtk['id'])->update(['photo_media_id' => $mediaId]);
                             $linked++;
                             break;
@@ -148,7 +148,15 @@ class InstallDemoAssets extends BaseCommand
                 }
             }
         }
+        $gtkSeedSql = $media->getFromName('20261002_initial_content_seed.sql');
         $media->close();
+
+        // Impor hanya data GTK dan penugasan peran dari seed media demo PHASE 8.
+        // Pernyataan lain (SPMB, berita, homepage, dan modul lain) sengaja tidak dijalankan.
+        $gtkInserted = 0;
+        if (is_string($gtkSeedSql) && $db->tableExists('gtk')) {
+            $gtkInserted = $this->installGtkDemoData($db, $gtkSeedSql, $createdBy);
+        }
 
         // Hubungkan aset demo ke section publik beranda PHASE 10C.
         // Hanya mengisi relasi yang masih kosong agar media pilihan operator tidak tertimpa.
@@ -192,7 +200,15 @@ class InstallDemoAssets extends BaseCommand
         CLI::newLine();
         CLI::write('Pemasangan aset selesai.', 'green');
         CLI::write('Media terdaftar/diperbarui : ' . $installed);
-        CLI::write('Foto GTK tertaut otomatis : ' . $linked);
+        $gtkPhotoCount = 0;
+        if ($db->tableExists('gtk')) {
+            $gtkPhotoCount = $db->table('gtk g')
+                ->join('media m', 'm.id = g.photo_media_id', 'inner')
+                ->like('m.relative_path', 'uploads/demo/gtk/', 'after')
+                ->countAllResults();
+        }
+        CLI::write('Data GTK demo ditambahkan : ' . $gtkInserted);
+        CLI::write('Foto GTK demo terhubung   : ' . $gtkPhotoCount);
         CLI::write('Data demo SPMB 2027/2028  : DRAFT (tidak tampil publik)');
         CLI::write('File dilewati             : ' . $skipped);
         CLI::write('Lokasi media               : uploads/demo/');
@@ -220,11 +236,44 @@ class InstallDemoAssets extends BaseCommand
         return true;
     }
 
-    private function slug(string $value): string
+    private function normalizeName(string $value): string
     {
         $value = strtolower(trim($value));
-        $value = preg_replace('/[^a-z0-9]+/', '-', $value) ?? '';
-        return trim($value, '-');
+        return preg_replace('/[^a-z0-9]/', '', $value) ?? '';
+    }
+
+    private function installGtkDemoData(\CodeIgniter\Database\BaseConnection $db, string $sql, int $createdBy): int
+    {
+        $inserted = 0;
+        $actor = $createdBy > 0 ? (string) $createdBy : 'NULL';
+        $statements = preg_split('/;\\s*(?:\\r?\\n|$)/', $sql) ?: [];
+
+        foreach ($statements as $statement) {
+            $statement = trim($statement);
+            if (preg_match('/^INSERT\\s+INTO\\s+gtk\\s*\\(/i', $statement)) {
+                $statement = preg_replace(
+                    '/,\\s*1\\s*,\\s*1\\s*,\\s*NOW\\(\\)\\s*,\\s*NOW\\(\\)/i',
+                    ',' . $actor . ',' . $actor . ',NOW(),NOW()',
+                    $statement,
+                    1
+                ) ?? $statement;
+            } elseif (preg_match('/^INSERT\\s+INTO\\s+gtk_role_assignments\\s*\\(/i', $statement)) {
+                if (! $db->tableExists('gtk_role_assignments') || ! $db->tableExists('gtk_roles')) {
+                    continue;
+                }
+            } else {
+                continue;
+            }
+
+            if ($db->query($statement) === false) {
+                log_message('error', 'Gagal memasang data demo GTK: ' . $db->error()['message']);
+                continue;
+            }
+
+            $inserted += $db->affectedRows();
+        }
+
+        return $inserted;
     }
 
     private function altText(string $filename): string
