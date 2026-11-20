@@ -250,6 +250,7 @@ class InstallDemoAssets extends BaseCommand
 
         foreach ($statements as $statement) {
             $statement = trim($statement);
+            $statement = preg_replace('/^(?:\\s*--[^\\r\\n]*(?:\\r?\\n|$))+/', '', $statement) ?? $statement;
             if (preg_match('/^INSERT\\s+INTO\\s+gtk\\s*\\(/i', $statement)) {
                 $statement = preg_replace(
                     '/,\\s*1\\s*,\\s*1\\s*,\\s*NOW\\(\\)\\s*,\\s*NOW\\(\\)/i',
@@ -265,12 +266,15 @@ class InstallDemoAssets extends BaseCommand
                 continue;
             }
 
+            $isGtkRecord = (bool) preg_match('/^INSERT\\s+INTO\\s+gtk\\s*\\(/i', $statement);
             if ($db->query($statement) === false) {
                 log_message('error', 'Gagal memasang data demo GTK: ' . $db->error()['message']);
                 continue;
             }
 
-            $inserted += $db->affectedRows();
+            if ($isGtkRecord) {
+                $inserted += $db->affectedRows();
+            }
         }
 
         return $inserted;
