@@ -929,3 +929,110 @@ body{font-size:.94rem}
   .spmb-hero-illustration img{border-radius:14px}
   .spmb-hero-illustration figcaption{text-align:left}
 }
+
+/* MEDIA FALLBACKS — intentionally graphic placeholders, never simulated school photos */
+.hero-visual.placeholder{
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 72% 28%,rgba(184,242,15,.22),transparent 24%),
+    radial-gradient(circle at 24% 76%,rgba(23,107,69,.62),transparent 34%),
+    linear-gradient(145deg,#111522 0%,#1b3025 58%,#263b2c 100%);
+}
+.hero-visual.placeholder:after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  width:min(68%,430px);
+  aspect-ratio:1;
+  right:8%;
+  top:12%;
+  border:1px solid rgba(184,242,15,.34);
+  border-radius:44% 56% 62% 38% / 42% 44% 56% 58%;
+  box-shadow:0 0 0 26px rgba(184,242,15,.035),0 0 0 58px rgba(255,255,255,.025);
+  transform:rotate(-18deg);
+}
+.hero-visual.placeholder .visual-placeholder{z-index:2;padding:28px}
+.hero-visual.placeholder .visual-placeholder span{font-size:clamp(4rem,9vw,7rem);text-shadow:0 12px 40px rgba(0,0,0,.22)}
+.habit-photo.placeholder,
+.headmaster-photo.placeholder{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 72% 22%,rgba(184,242,15,.18),transparent 25%),
+    linear-gradient(145deg,#17251e,#243b2d 58%,#111522);
+}
+.habit-photo.placeholder:before,
+.headmaster-photo.placeholder:before{
+  content:"";
+  position:absolute;
+  width:72%;
+  aspect-ratio:1;
+  right:-8%;
+  top:12%;
+  border:1px solid rgba(184,242,15,.28);
+  border-radius:48% 52% 38% 62%;
+  box-shadow:0 0 0 24px rgba(255,255,255,.025),0 0 0 52px rgba(184,242,15,.035);
+  transform:rotate(24deg);
+}
+.habit-photo.placeholder .visual-placeholder,
+.headmaster-photo.placeholder .visual-placeholder{padding:28px}
+.habit-photo.placeholder .visual-placeholder small,
+.headmaster-photo.placeholder .visual-placeholder small{color:#c2d0c6}
+.gtk-photo:has(span),
+.public-card-media:has(span),
+.gallery-public-card>div:has(span),
+.card-media:has(span),
+.story-image:has(span),
+.news-image:has(span){
+  position:relative;
+  isolation:isolate;
+  background:
+    radial-gradient(circle at 78% 22%,rgba(184,242,15,.22),transparent 28%),
+    linear-gradient(145deg,#e8eee8,#d9e5dc 55%,#c8d9cd);
+}
+.gtk-photo:has(span):before,
+.public-card-media:has(span):before,
+.gallery-public-card>div:has(span):before,
+.card-media:has(span):before,
+.story-image:has(span):before,
+.news-image:has(span):before{
+  content:"";
+  position:absolute;
+  width:58%;
+  aspect-ratio:1;
+  border:1px solid rgba(23,107,69,.2);
+  border-radius:46% 54% 58% 42%;
+  box-shadow:0 0 0 18px rgba(23,107,69,.035),0 0 0 38px rgba(23,107,69,.025);
+  transform:rotate(-22deg);
+}
+.gtk-photo:has(span) span,
+.public-card-media:has(span) span,
+.gallery-public-card>div:has(span) span,
+.card-media:has(span) span,
+.story-image:has(span) span,
+.news-image:has(span) span{
+  position:relative;
+  z-index:1;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:112px;
+  min-height:42px;
+  padding:10px 16px;
+  border:1px solid rgba(23,107,69,.16);
+  border-radius:999px;
+  color:#176b45;
+  background:rgba(255,255,255,.72);
+  font-family:var(--font-nav);
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+.program-public-image{background:linear-gradient(145deg,#e8eee8,#d9e5dc 55%,#c8d9cd)}
+.profile-image{background:linear-gradient(145deg,#e8eee8,#d9e5dc 55%,#c8d9cd)}
+@media(max-width:760px){
+  .hero-visual.placeholder:after{width:76%;right:4%;top:10%}
+}
+
