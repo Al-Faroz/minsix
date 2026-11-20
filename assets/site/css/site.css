@@ -1206,3 +1206,136 @@ body{
   .page-stack .event-row{grid-template-columns:66px minmax(0,1fr) auto;gap:14px}
   .page-stack .event-row time strong{font-size:1.75rem}
 }
+
+
+/* PHASE 10 UI refinement — desktop Profile/Program and mobile homepage intro */
+
+/* Profile: use the available desktop width; image-less sections must not leave an empty half-column. */
+@media (min-width: 1001px){
+  .page-stack:has(>.profile-block){
+    gap:clamp(64px,6vw,88px);
+    padding-block:clamp(76px,7vw,104px);
+  }
+  .page-stack>.profile-block{
+    grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);
+    gap:clamp(52px,5.5vw,84px);
+    align-items:center;
+    padding-bottom:clamp(58px,5vw,76px);
+  }
+  .page-stack>.profile-block.no-image{
+    grid-template-columns:minmax(0,1fr);
+  }
+  .page-stack>.profile-block.no-image .profile-copy{
+    max-width:1040px;
+  }
+  .page-stack>.profile-block.no-image .profile-copy .prose{
+    max-width:920px;
+  }
+  .page-stack>.profile-block:not(.no-image) .profile-image{
+    width:100%;
+    aspect-ratio:5/4;
+    border-radius:28px;
+  }
+}
+
+/* Program: give category and content a clearer editorial balance on desktop. */
+@media (min-width: 1001px){
+  .page-stack:has(>.program-group){
+    gap:clamp(68px,7vw,104px);
+    padding-block:clamp(76px,7vw,104px);
+  }
+  .page-stack>.program-group{
+    grid-template-columns:minmax(260px, .34fr) minmax(0, .96fr);
+    gap:clamp(48px,5.5vw,82px);
+    align-items:start;
+  }
+  .page-stack>.program-group .program-group-head{
+    top:116px;
+    padding:26px 28px 30px;
+    border:1px solid var(--site-line);
+    border-radius:22px;
+    background:linear-gradient(145deg,#f8faf6,#edf2eb);
+  }
+  .page-stack>.program-group .program-group-head h2{
+    font-size:clamp(2rem,3vw,2.8rem);
+    line-height:1.08;
+  }
+  .page-stack>.program-group .program-public-item{
+    grid-template-columns:minmax(180px, .38fr) minmax(0, .82fr);
+    gap:clamp(24px,3vw,38px);
+    padding:30px 0;
+    align-items:center;
+  }
+  .page-stack>.program-group .program-public-item.no-image{
+    grid-template-columns:minmax(0,1fr);
+    padding:34px 0;
+  }
+  .page-stack>.program-group .program-public-image{
+    aspect-ratio:5/4;
+    border-radius:20px;
+  }
+  .page-stack>.program-group .program-public-item h3{
+    margin-bottom:12px;
+    font-size:clamp(1.35rem,1.8vw,1.65rem);
+  }
+  .page-stack>.program-group .program-public-item p{
+    margin:0 0 12px;
+    color:#59665e;
+  }
+  .page-stack>.program-group .program-public-item .prose{
+    color:#3f4b44;
+    font-size:1rem;
+    line-height:1.85;
+  }
+}
+
+/* Mobile homepage — make the Mengenal section feel deliberate and readable. */
+@media (max-width:760px){
+  #mengenal.section{
+    padding:58px 0 62px;
+  }
+  #mengenal .split-editorial{
+    grid-template-columns:minmax(0,1fr);
+    gap:18px;
+  }
+  #mengenal .section-copy{
+    max-width:560px;
+  }
+  #mengenal .section-copy .section-eyebrow{
+    margin-bottom:12px;
+    font-size:.68rem;
+    letter-spacing:.13em;
+    line-height:1.45;
+  }
+  #mengenal .section-copy h2{
+    max-width:540px;
+    font-size:clamp(1.85rem,7.2vw,2.45rem);
+    line-height:1.12;
+    letter-spacing:-.04em;
+    text-wrap:balance;
+  }
+  #mengenal .section-body{
+    max-width:620px;
+    padding-top:0;
+  }
+  #mengenal .section-body p{
+    margin:0;
+    font-size:.96rem;
+    line-height:1.75;
+  }
+  #mengenal .section-body .arrow-link{
+    margin-top:16px;
+    font-size:.82rem;
+  }
+  #mengenal .wide-photo{
+    margin-top:8px;
+    border-radius:18px;
+    aspect-ratio:16/10;
+  }
+}
+
+@media (max-width:380px){
+  #mengenal.section{padding:50px 0 54px}
+  #mengenal .section-copy h2{font-size:1.82rem}
+  #mengenal .section-body p{font-size:.93rem}
+}
