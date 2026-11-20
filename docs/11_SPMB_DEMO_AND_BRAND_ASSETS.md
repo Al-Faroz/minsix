@@ -30,7 +30,7 @@ Jika periode 2027/2028 sudah pernah dibuat, script tidak menimpa isinya. Perubah
 Lokasi (root proyek, sesuai konfigurasi `base_url('assets/...')`):
 - `assets/brand/min6-logo-concept.svg` — logo horizontal.
 - `assets/brand/min6-mark-concept.svg` — simbol mandiri, cocok untuk favicon/app icon setelah disetujui.
-- `assets/brand/min6-spmb-cover-concept.svg` — ilustrasi sampul informasi SPMB.
+- `assets/brand/min6-spmb-cover-concept.svg` — ilustrasi sampul informasi SPMB, juga dipakai sebagai visual pendukung hero halaman publik SPMB dengan keterangan ilustrasi.
 
 Halaman pratinjau: `/brand-preview.html` (untuk review internal; tidak ditautkan dari navigasi publik).
 
@@ -40,6 +40,8 @@ Ilustrasi SPMB bukan foto kegiatan atau fasilitas MIN 6 Jember. Gunakan sebagai 
 
 ### Penerapan
 
+- Pratinjau semua konsep melalui `/brand-preview.html`.
+- Ilustrasi SPMB sudah diintegrasikan ke hero halaman publik `/spmb`; pada layar kecil ilustrasi berpindah ke bawah teks. Caption menyatakan bahwa visual adalah ilustrasi konseptual, bukan foto dokumentasi.
 - Pratinjau SVG langsung melalui browser.
 - Logo horizontal dapat digunakan di header/footer setelah persetujuan.
 - Simbol dapat dijadikan favicon setelah persetujuan.
