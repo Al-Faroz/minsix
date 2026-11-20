@@ -27,26 +27,25 @@ Jika periode 2027/2028 sudah pernah dibuat, script tidak menimpa isinya. Perubah
 
 ## Aset identitas visual
 
-Lokasi (root proyek, sesuai konfigurasi `base_url('assets/...')`):
-- `assets/brand/min6-logo-concept.svg` — logo horizontal.
-- `assets/brand/min6-mark-concept.svg` — simbol mandiri, cocok untuk favicon/app icon setelah disetujui.
-- `assets/brand/min6-spmb-cover-concept.svg` — ilustrasi sampul informasi SPMB, juga dipakai sebagai visual pendukung hero halaman publik SPMB dengan keterangan ilustrasi.
+Logo resmi MIN 6 Jember adalah satu-satunya identitas logo yang digunakan aplikasi. Jangan membuat, mengganti, atau memakai logo konsep/alternatif tanpa persetujuan resmi madrasah.
 
-Halaman pratinjau: `/brand-preview.html` (untuk review internal; tidak ditautkan dari navigasi publik).
+File logo resmi yang digunakan:
+- `assets/brand/min6-logo.png` — logo utama.
+- `assets/brand/min6-logo-white.png` — varian putih untuk latar gelap.
+- `assets/brand/favicon-32x32.png` — favicon.
+- `favicon.ico` — favicon ICO di root.
 
-Ketiganya adalah **konsep desain digital**, bukan klaim logo resmi yang telah disahkan. Simbol menggabungkan buku terbuka, cahaya, dan tunas; palet hijau dan emas menjaga kesan pendidikan, pertumbuhan, dan identitas madrasah.
+`brand-preview.html` hanya menjadi halaman pratinjau internal untuk memeriksa file logo resmi. Path asset menggunakan path relatif agar dapat dibuka pada instalasi subfolder seperti `/minsix`.
 
-Ilustrasi SPMB bukan foto kegiatan atau fasilitas MIN 6 Jember. Gunakan sebagai elemen grafis sementara, bukan bukti dokumentasi.
+Ilustrasi SPMB `assets/brand/min6-spmb-cover-concept.svg` adalah elemen grafis pendukung, bukan logo dan bukan foto dokumentasi madrasah. Hero halaman publik SPMB boleh menggunakannya dengan keterangan yang jelas bahwa visual tersebut merupakan ilustrasi konseptual.
 
 ### Penerapan
 
-- Pratinjau semua konsep melalui `/brand-preview.html`.
-- Ilustrasi SPMB sudah diintegrasikan ke hero halaman publik `/spmb`; pada layar kecil ilustrasi berpindah ke bawah teks. Caption menyatakan bahwa visual adalah ilustrasi konseptual, bukan foto dokumentasi.
-- Pratinjau SVG langsung melalui browser.
-- Logo horizontal dapat digunakan di header/footer setelah persetujuan.
-- Simbol dapat dijadikan favicon setelah persetujuan.
-- Sampul SPMB dapat dipakai sebagai visual sementara pada materi informasi; halaman SPMB publik tetap mengikuti data periode Current yang PUBLISHED.
-- Jangan mengganti identitas/logo resmi yang telah ditetapkan madrasah tanpa persetujuan Kepala Madrasah.
+- Header publik menggunakan `min6-logo.png`.
+- Footer publik menggunakan `min6-logo-white.png`.
+- Favicon menggunakan `favicon-32x32.png` dan `favicon.ico`.
+- Jangan mengganti aset logo resmi dengan konsep desain, hasil generatif, atau logo alternatif.
+- Jangan menyatakan ilustrasi SPMB sebagai dokumentasi kegiatan/fasilitas MIN 6 Jember.
 
 ## Validasi setelah pull
 
