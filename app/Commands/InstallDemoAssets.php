@@ -1,9 +1,9 @@
 <?php
 
-namespace App\\Commands;
+namespace App\Commands;
 
-use CodeIgniter\\CLI\\BaseCommand;
-use CodeIgniter\\CLI\\CLI;
+use CodeIgniter\CLI\BaseCommand;
+use CodeIgniter\CLI\CLI;
 
 class InstallDemoAssets extends BaseCommand
 {
@@ -14,7 +14,7 @@ class InstallDemoAssets extends BaseCommand
 
     public function run(array $params)
     {
-        if (! class_exists(\\ZipArchive::class)) {
+        if (! class_exists(\ZipArchive::class)) {
             CLI::error('Ekstensi PHP ZipArchive belum aktif. Aktifkan extension=zip lalu ulangi.');
             return;
         }
@@ -27,7 +27,7 @@ class InstallDemoAssets extends BaseCommand
             return;
         }
 
-        $logo = new \\ZipArchive();
+        $logo = new \ZipArchive();
         if ($logo->open($logoZip) !== true) {
             CLI::error('Paket logo tidak dapat dibuka.');
             return;
@@ -40,7 +40,7 @@ class InstallDemoAssets extends BaseCommand
         }
         CLI::write('Aset logo dan favicon berhasil dipasang.', 'green');
 
-        $media = new \\ZipArchive();
+        $media = new \ZipArchive();
         if ($media->open($mediaZip) !== true) {
             CLI::error('Paket media tidak dapat dibuka.');
             return;
@@ -57,25 +57,20 @@ class InstallDemoAssets extends BaseCommand
         $linked = 0;
         $skipped = 0;
         $targetRoot = FCPATH;
-        $allowed = ['jpg', 'jpeg', 'png', 'webp', 'pdf'];
 
-        foreach (range(0, $media->numFiles - 1) as $index) {
+        for ($index = 0; $index < $media->numFiles; $index++) {
             $entry = $media->getNameIndex($index);
             if (! is_string($entry) || str_ends_with($entry, '/')) {
                 continue;
             }
 
-            $normalized = str_replace('\\\\', '/', $entry);
-            if (! preg_match('#^uploads/demo/(gtk|activities)/[a-z0-9._-]+\\.(jpg|jpeg|png|webp|pdf)$#i', $normalized)) {
+            $relativePath = str_replace('\\', '/', $entry);
+            if (! preg_match('#^uploads/demo/(gtk|activities)/[a-z0-9._-]+\.(jpg|jpeg|png|webp|pdf)$#i', $relativePath)) {
                 continue;
             }
 
-            $extension = strtolower(pathinfo($normalized, PATHINFO_EXTENSION));
-            if (! in_array($extension, $allowed, true)) {
-                continue;
-            }
-
-            $destination = $targetRoot . str_replace('/', DIRECTORY_SEPARATOR, $normalized);
+            $extension = strtolower(pathinfo($relativePath, PATHINFO_EXTENSION));
+            $destination = $targetRoot . str_replace('/', DIRECTORY_SEPARATOR, $relativePath);
             $directory = dirname($destination);
             if (! is_dir($directory) && ! mkdir($directory, 0755, true) && ! is_dir($directory)) {
                 $skipped++;
@@ -98,7 +93,7 @@ class InstallDemoAssets extends BaseCommand
             fclose($output);
 
             $size = (int) (filesize($destination) ?: 0);
-            $mime = (new \\finfo(FILEINFO_MIME_TYPE))->file($destination) ?: 'application/octet-stream';
+            $mime = (new \finfo(FILEINFO_MIME_TYPE))->file($destination) ?: 'application/octet-stream';
             $isImage = str_starts_with($mime, 'image/');
             $dimensions = $isImage ? @getimagesize($destination) : false;
             if ($isImage && ! is_array($dimensions)) {
@@ -107,8 +102,7 @@ class InstallDemoAssets extends BaseCommand
                 continue;
             }
 
-            $originalName = basename($normalized);
-            $relativePath = $normalized;
+            $originalName = basename($relativePath);
             $existing = $db->table('media')->where('relative_path', $relativePath)->get()->getRowArray();
             $metadata = [
                 'original_name' => $originalName,
@@ -136,10 +130,9 @@ class InstallDemoAssets extends BaseCommand
 
             if ($mediaId > 0) {
                 $installed++;
-                if (str_starts_with($normalized, 'uploads/demo/gtk/') && $db->tableExists('gtk')) {
+                if (str_starts_with($relativePath, 'uploads/demo/gtk/') && $db->tableExists('gtk')) {
                     $stem = pathinfo($originalName, PATHINFO_FILENAME);
-                    $gtkRows = $db->table('gtk')->get()->getResultArray();
-                    foreach ($gtkRows as $gtk) {
+                    foreach ($db->table('gtk')->get()->getResultArray() as $gtk) {
                         if ($this->slug((string) $gtk['name']) === $stem && empty($gtk['photo_media_id'])) {
                             $db->table('gtk')->where('id', $gtk['id'])->update(['photo_media_id' => $mediaId]);
                             $linked++;
@@ -153,7 +146,7 @@ class InstallDemoAssets extends BaseCommand
 
         CLI::newLine();
         CLI::write('Pemasangan aset selesai.', 'green');
-        CLI::write('Media terdaftar/ diperbarui : ' . $installed);
+        CLI::write('Media terdaftar/diperbarui : ' . $installed);
         CLI::write('Foto GTK tertaut otomatis : ' . $linked);
         CLI::write('File dilewati             : ' . $skipped);
         CLI::write('Lokasi media               : public/uploads/demo/');
