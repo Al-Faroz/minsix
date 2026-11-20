@@ -215,7 +215,7 @@ class InstallDemoEditorialContent extends BaseCommand
 <p>Transformasi digital di lingkungan madrasah tidak hanya berkaitan dengan penggunaan perangkat teknologi, tetapi juga penguatan kompetensi guru dan tenaga kependidikan dalam mengelola informasi, berkolaborasi, serta mengembangkan pembelajaran.</p>
 <p>Dalam publikasi tanggal 24 September 2026, Kementerian Agama membahas pemanfaatan Google Workspace (GWS) Madrasah sebagai bagian dari penguatan keterampilan digital GTK. Pemanfaatan akun dan perangkat kolaborasi digital diharapkan membantu komunikasi, pengelolaan dokumen, dan kegiatan belajar yang semakin terhubung.</p>
 <p>Bagi satuan pendidikan, pengembangan tersebut perlu disertai pendampingan, tata kelola akun yang baik, perlindungan data, serta pemilihan teknologi yang sesuai dengan kebutuhan pembelajaran.</p>
-<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/nasional/transformasi-digital-gtk-madrasah-melalui-google-workspace-gws-madrasah-kementerian-agama" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Transformasi Digital GTK Madrasah melalui Google Workspace (24 September 2026)</a>.</p>
+<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/en/opini/transformasi-digital-gtk-madrasah-melalui-google-workspace-gws-madrasah-kementerian-agama-6WpvW" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Transformasi Digital GTK Madrasah melalui Google Workspace (24 September 2026)</a>.</p>
 <p><em>Foto hanya ilustrasi pembelajaran digital, bukan dokumentasi MIN 6 Jember.</em></p>',
             ],
             [
@@ -228,7 +228,7 @@ class InstallDemoEditorialContent extends BaseCommand
 <p>Pemanfaatan teknologi dalam pembelajaran perlu diarahkan pada aktivitas belajar yang bermakna, bukan sekadar memindahkan materi ke layar. Keterlibatan siswa, pendampingan guru, dan kesesuaian materi tetap menjadi unsur penting.</p>
 <p>Publikasi Kementerian Agama pada 12 November 2026 mengulas studi Alef Education yang melibatkan 2.221 siswa dari 60 madrasah di 20 provinsi selama tahun ajaran 2025–2026. Studi tersebut melaporkan bahwa siswa dengan keterlibatan aktif dalam pembelajaran digital memperoleh rata-rata nilai asesmen akhir tahun hampir 7 persen lebih tinggi.</p>
 <p>Temuan tersebut merupakan hasil studi pada kelompok peserta yang diteliti. Angka itu tidak boleh langsung dianggap sebagai jaminan peningkatan nilai di setiap madrasah, karena hasil belajar juga dipengaruhi banyak faktor seperti proses pembelajaran, dukungan keluarga, kesiapan perangkat, dan kondisi siswa.</p>
-<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/nasional/studi-alef-education-siswa-di-60-madrasah-raih-nilai-hampir-7-persen-lebih-tinggi-lewat-pembelajaran-digital" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Studi Alef Education: Siswa di 60 Madrasah Raih Nilai Hampir 7 Persen Lebih Tinggi lewat Pembelajaran Digital (12 November 2026)</a>.</p>
+<p><strong>Sumber:</strong> <a href="https://kemenag.go.id/en/daerah/studi-alef-education-siswa-di-60-madrasah-raih-nilai-hampir-7-persen-lebih-tinggi-lewat-pembelajaran-digital-sVHaq" target="_blank" rel="noopener noreferrer">Kementerian Agama RI — Studi Alef Education: Siswa di 60 Madrasah Raih Nilai Hampir 7 Persen Lebih Tinggi lewat Pembelajaran Digital (12 November 2026)</a>.</p>
 <p><em>Foto hanya ilustrasi pembelajaran digital, bukan dokumentasi MIN 6 Jember.</em></p>',
             ],
             [
@@ -242,7 +242,7 @@ class InstallDemoEditorialContent extends BaseCommand
 <p>Dalam siaran pers tanggal 20 Maret 2025, Kementerian Pendidikan Dasar dan Menengah menekankan penguatan karakter, literasi, dan numerasi sebagai bagian dari upaya mewujudkan Generasi Emas 2045. Salah satu contoh pembiasaan yang disoroti adalah meningkatkan budaya membaca, termasuk mendorong peserta didik membaca buku secara rutin.</p>
 <p>Penguatan literasi tidak berhenti pada kemampuan mengeja. Peserta didik perlu dibimbing untuk memahami bacaan, menemukan gagasan utama, menghubungkan informasi, dan menyampaikan kembali pemahamannya. Sementara itu, numerasi perlu hadir dalam konteks kehidupan sehari-hari agar siswa terbiasa menggunakan penalaran.</p>
 <p>Kolaborasi guru, keluarga, dan lingkungan sekolah menjadi kunci agar pembiasaan positif tersebut tumbuh secara berkelanjutan.</p>
-<p><strong>Sumber:</strong> <a href="https://www.kemendikdasmen.go.id/siaran-pers/12345-kemendikdasmen-tekankan-penguatan-karakter-literasi-dan-numerasi-wujudkan-generasi-emas-2045" target="_blank" rel="noopener noreferrer">Kementerian Pendidikan Dasar dan Menengah — Penguatan Karakter, Literasi, dan Numerasi (20 Maret 2025)</a>.</p>
+<p><strong>Sumber:</strong> <a href="https://www.kemendikdasmen.go.id/siaran-pers/12505-kemendikdasmen-tekankan-penguatan-karakter-literasi-dan-numerasi-wujudkan-generasi-emas-2045" target="_blank" rel="noopener noreferrer">Kementerian Pendidikan Dasar dan Menengah — Penguatan Karakter, Literasi, dan Numerasi (20 Maret 2025)</a>.</p>
 <p><em>Foto hanya ilustrasi kegiatan membaca, bukan dokumentasi MIN 6 Jember.</em></p>',
             ],
         ];
