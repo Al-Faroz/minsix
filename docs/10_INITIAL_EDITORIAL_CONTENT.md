@@ -81,4 +81,4 @@ Setelah berhasil:
 
 ## Catatan sumber data sekolah
 
-Nama, tagline, kontak, dan alamat merujuk pada situs resmi MIN 6 Jember. NPSN 60715787 dan identitas satuan pendidikan dapat diverifikasi pada Referensi Data Kemendikdasmen. NPSN dan nama kepala madrasah tidak dimasukkan karena halaman Pengaturan Website saat ini tidak menyediakan field khusus untuk data tersebut.
+Nama, tagline, kontak, dan alamat merujuk pada informasi resmi MIN 6 Jember. NPSN 60715787, status MI Negeri, dan akreditasi A digunakan pada section Identitas Profil. Nama Kepala Madrasah EKO ISWANTO, S.Pd., M.Pd. dicantumkan pada identitas serta draf sambutan; mohon cocokkan kembali dengan data dan persetujuan terbaru sebelum publikasi final.
